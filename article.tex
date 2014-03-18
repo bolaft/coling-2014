@@ -21,10 +21,11 @@
 \usepackage{times}
 \usepackage{url}
 \usepackage{hyperref}
-\usepackage{breakurl}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc} 
 \usepackage{latexsym}
+\usepackage{upgreek}
+\usepackage{bm}
 \usepackage{todonotes}
 \usepackage{csquotes}
 
@@ -43,6 +44,8 @@
 \title{Act of speech boundary detection in email corpora}
 
 \date{}
+
+\author{}
 
 \begin{document}
 
@@ -107,11 +110,13 @@ The classifier uses features that capture graphic, orthographic, lexical and syn
 
 \subsubsection{Lexical and syntactic features}
 
-\textbf{Ngrams:} we focus on the first and last three significant tokens in the sentence. Significance is determined by the number of occurrences of the token in the training corpus: terms with a frequency lower than 1/X \todo{fix me} are considered insignificant. If a sentence contains less than six tokens, the same token can be found in both triplets. For example, in the sentence \textit{``Have a good day !''}, the first three tokens would be \textit{``Have''}, \textit{``a''}, \textit{``good''} and the last three would be \textit{``good''}, \textit{``day''} and \textit{``!''}. If the sentence contains less than three tokens, missing values are replaced by a placeholder \textit{``null''} token.
+\textbf{Ngrams:} we focus on the first and last three significant tokens in the sentence. Significance is determined by the number of occurrences of the token in the training corpus: terms with a frequency lower than \todo{fix me} 1/X are considered insignificant. 
 
-We define three individual features for the three unigrams, the two bigrams and the single trigram found in each of these sets. The features are the following: the unaltered form of the token (case-sensitive), the lemmatized form of the token (case-insensitive) and the corresponding part-of-speech.
+If a sentence contains less than six significant tokens, the same token can be found in both triplets. For example, in the sentence \textit{``Have a good day !''}, the first three tokens would be \textit{``Have''}, \textit{``a''}, \textit{``good''} and the last three would be \textit{``good''}, \textit{``day''} and \textit{``!''}. If the sentence contains less than three significant tokens, missing values are replaced by a placeholder.
 
-We use the Stanford Log-linear Part-Of-Speech Tagger for morpho-syntactic tagging \cite{toutanova2003feature}, and the WordNet lexical databse to perform lemmatization \cite{miller1995wordnet}.
+We define three individual features for the three unigrams, the two bigrams and the single trigram found in each of these sets. The features are the following: the unaltered form of the token (case-sensitive), the lemmatized form of the token (case-insensitive ; numbers present in the token are replaced by a special character) and the corresponding part-of-speech.
+
+We use the Stanford Log-linear Part-Of-Speech Tagger for morpho-syntactic tagging \cite{toutanova2003feature}, and the WordNet lexical database to perform lemmatization \cite{miller1995wordnet}.
 
 \textbf{Question words and interrogative ngrams:} one feature checks if a sentence begins with a ``wh*'' question word  (\textit{``who''}, \textit{``when''}, \textit{``where''}, \textit{``what''}, \textit{``which''}, \textit{``what''}, \textit{``how''}) or an ngram suggesting an incoming interrogation (e.g. \textit{``is it''} or \textit{``are there''}), and another one checks if the sentence merely contains such a word or ngram.
 
@@ -127,7 +132,7 @@ We use the Stanford Log-linear Part-Of-Speech Tagger for morpho-syntactic taggin
 
 \subsubsection{Graphic features}
 
-The following features' values are relative to other sentences. Four classes are defined for each feature: ``highest'' (top 25\%), ``high'' (top 50\%), ``low'' (bottom 50\%) and ``lowest'' (bottom 25\%).
+The following features' values are relative to other sentences. Four classes are defined for each feature: ``highest'' (top 25\%), ``high'' (top 50\%), ``low'' (bottom 50\%) and ``lowest'' (bottom 25\%).\newline
 
 \textbf{Number of tokens:} the total number of tokens in the sentence, including insignificant ones.
 
@@ -161,24 +166,41 @@ The following features' values are relative to other sentences. Four classes are
 
 \subsubsection{Ubuntu technical support email archive}
 
-We use the ubuntu-users email archive\footnote{\url{https://lists.ubuntu.com/archives/ubuntu-users/}} as our primary corpus. It offers a number of advantages:
-
-\begin{itemize}
-    \item It is free, and distributed under an unrestrictive licence
-    \item It is up-to-date, with messages as recent as late 2013, and therefore is representative of modern emailing
-    \item A number of alternatives archives are available\footnote{\url{https://lists.ubuntu.com/archives/}}
-    \item Archives are available in a number of languages, including some very resource-poor languages
-\end{itemize}
+We use the \textit{ubuntu-users} email archive\footnote{\textit{ubuntu-users} mailing list archive: \url{https://lists.ubuntu.com/archives/ubuntu-users/}} as our primary corpus. It offers a number of advantages. It is free, and distributed under an unrestrictive license. It is up-to-date, with messages as recent as December 2013, and therefore is representative of modern emailing in both content and formatting conventions. Additionally, many alternatives archives are available\footnote{Ubuntu mailing lists archives: \url{https://lists.ubuntu.com/archives/}}, in a number of different languages, including some very resource-poor languages.
 
 \subsubsection{BC3 email corpus}
 
+\todo{fill me}
+
 \subsection{Evaluation protocols}
+
+We designed two evaluation protocols. The first one attempts to assess the segmenter's performance through 10-fold cross-validation on the Ubuntu corpus. The second uses a segmenter trained on the Ubuntu corpus to label the BC3 email corpus, and compares the resulting segmentation to a gold standard built \todo{finish me} from
 
 \subsubsection{Metrics}
 
+Traditional metrics of precision and recall are provided for all results. Precision is the percentage of boundaries identified by the classifier that are indeed true boundaries, recall is the percentage of true boundaries that are identified by the classifier. We also provide the $F_1$ score which represents the harmonic mean of precision and recall:
+
+\[
+    F_1 = 2 \cdot \frac{\mathrm{precision} \cdot \mathrm{recall}}{\mathrm{precision} + \mathrm{recall}}
+\]
+
+However, automatic evaluation of speech segmentation through these metrics is problematic as predicted segment boundaries rarely align precisely. Moreover, while a segmenter that places boundaries near actual boundary positions is in almost all cases more suited to the task than one that misses by a much larger margin, precision and recall metrics would penalize both to the same extent. Therefore, in order to evaluate varying degrees of success or failure in a more subtle manner, we also provide an array of metrics relevant to the field of text segmentation : $\bm{P_{k}}$, WindowDiff and the Generalized Hamming Distance (GHD).
+
+The $\bm{P_{k}}$ metric is a probabilistically motivated error metric for the assessment of segmentation algorithms \cite{beeferman1999statistical}.
+
+\textbf{WindowDiff} compares the number of segment boundaries found within a fixed-sized window to the number of boundaries found in the same window of text for the reference segmentation \cite{pevzner2002critique}.
+
+The \textbf{Generalized Hamming Distance (GHD)} is an extension of the Hamming distance\footnote{Wikipedia article on the Hamming distance: \url{http://en.wikipedia.org/wiki/Hamming_distance}} to give partial credit for near misses \cite{bookstein2002generalized}.
+
 \subsubsection{Baselines}
 
+Performance is compared to two simple heuristic baselines. The first one, the ``regular'' baseline, is computed by segmenting the test set into regular segments of the same length as the average training set segment length, rounded up. The second one, the ``irregular'' baseline, is computed by randomly inserting an appropriate number of segment boundaries in the test set (i.e. the boundary frequency stays similar to that of the training set). Results provided for the irregular baseline are calculated by computing the average scores of the first 1000 random segmentations.
+
 \section{Experiments}
+
+\subsection{Preprocessing}
+
+
 
 \subsection{Email segmentation}
 
