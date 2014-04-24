@@ -1,0 +1,74 @@
+
+%------------------------------------------------------------------------------
+\section{Introduction}
+\label{sec:intro}
+
+Automatic processing of online conversations (forum, emails) carrying information or assistance needs 
+is a highly important issue for the industrial and the scientific communities which care to improve the present question/answering systems, identify the emotion or the intention in customer requests or reviews, detect messages containing requests for action, unsolved severe problems\ldots
+
+%L'analyse automatique des conversations écrites en ligne asynchrones (e.g. forum, courriel) portant des demandes d'information (e.g. dépannage et assistance) constituent un fort enjeu scientifique et industriel : amélioration des systèmes de question/réponse actuels, détection de revues négatives de produits par des clients, identification de problèmes sévères non-résolus... 
+
+
+
+%2010_gupta_W10-0202_email-Emotion-Detection-in-Email-Customer-Care
+%2012_vinodkumar_email_Annotations-for-Power-Relations-on-Email-Threads
+%2010_kim-W10-0507_modeling-social-and-content-dynamics-in-discussion-forum
+%2012_qu_E12-1037_recommendation-prediction-of-user-interest-in-forum
+%2013_chen_N13-1124_Identifying-Intention-Posts-in-Discussion-Forums
+%2011_marin_W11-0706_detecting-forum-authority-claims
+%2010_wang_P10-1027_recommendation-in-forum-blog
+%2009_Stavrianou_asonam_Definition and Measures of an Opinion Model for Mining Forums
+%2009_arora_N09-2010_Identifying Types of Claims in Online Customer Reviews.pdf
+
+
+%2013_ott_Negative Deceptive Opinion Spam
+
+%2011_qu_I11-1164_finding-problem-solving-threads-in-forum
+%2010_lampert_naacl_Detecting Emails Containing Requests for Action
+
+
+%Les travaux existants se fondent généralement sur une pré-annotation des messages en actes du dialogue (\textit{DA}). Les \textit{DA} décrivent les fonctions communicatives portées dans chaque message (e.g. question, réponse, remerciement...) Austin FIXME. Kim FIXME proposent une liste d'actes spécifiques à la description des messages au sein de forums.
+%Jusqu'à présent la majorité des travaux ont modélisé les discussions au niveau de leurs messages en les décrivant su
+
+In most of the works, conversation interactions between the participants are modelled in terms of the dialogue act (DA) \cite{austin:1970}. The DA describe the communicative function conveyed by each text utterance  (e.g.~question, answer, greeting,\ldots).
+%La majorité des travaux modélisent les interactions entre intervenants en termes d'\textit{actes de dialogue} (DA) \cite{austin:1970}. Les DAs correspondent aux fonctions communicatives portées par chaque énoncé d'un texte (e.g. question, réponse, remerciement...). 
+% La théorie des actes du dialogue \cite{austin:1970} propose de décrire les énoncés en termes des fonctions communicatives portées par chacun d'eux (e.g. question, réponse, remerciement...). 
+%
+The main trend in automatic DA recognition consists in using supervised learning algorithms to predict the DA conveyed by a sentence or a message \cite{joty:2013:sigdial}.
+% L'approche dominante en reconnaissance automatique de DA consiste en l'usage d'algorithmes de classification supervisée \cite{joty:2013:sigdial} pour déterminer l'acte porté par une phrase ou un message. 
+%
+The segmentation of the messages results from the analysis of these individual predictions.
+%Le découpage des messages découle alors des résultats d'analyse.
+%
+A first critic of this paradigm is that it is not realistic to use it in the context of multi-domain and multimodal processing because it requires the building of training data which is a very substantial and time-consuming task.
+%Une première critique de ce paradigme est que sa mise en oeuvre est laborieuse et coûteuse en temps d'annotation pour construire des données d'entraînement, ce qui n'est pas réaliste en contexte de traitement multi-domaine voire multi-modal.
+
+A second critic is that the model does not have a fine-grained representation of the message structure or the relations between the messages. Considering such characteristics could drastically improve the systems for example to focus on specific text parts or to filter out the less relevant ones. 
+% Une seconde critique est que dans ce contexte, la connaissance de la structure des messages permettrait aux applications susvisées de se focaliser sur des parties spécifiques et filtrer les passages moins pertinents. 
+Indeed, apart from the closing formula, a message may be made of several distinct information requests, the description of unsuccessful procedure, the quote of third-party messages\ldots
+% En effet, outre des formules de politesse, un message peut compter par exemple plusieurs expressions de besoin, décrire une procédure infructueuse et citer des portions de messages tiers. 
+% faire référence à plusieurs contenus exprimés par différentes contributions tierces
+So far, a few of works address the problem of email segmentation.
+\cite{lampert:2009:emnlp} propose to segment emails in prototypical zones such as the author's contribution, the quotes of original messages, the signature, the opening and the closing formulas. 
+\cite{joty:2013:jair} identifies topical segments. 
+%De par sa robustesse, cette dernière approche peut servir de base de comparaison.
+%Or, peu de travaux se sont penchés sur la tâche de segmentation des courriels en tant que telle. Les rares travaux ne concernent pas le découpage en DA. \cite{lampert:2009:emnlp} s'intéressent à découper les courriels en des zones prototypiques telles que la contribution de l'auteur, les reprises de messages tiers, la signature et les formules d'appel et de clôture... \cite{joty:2013:jair} identifient des segments thématiques. De par sa robustesse, cette dernière approche peut servir de base de comparaison.
+
+This paper addresses the problem of message segmentation in online discussions. The process aims at supporting the analysis of messages in terms of dialogues acts.
+%Ce sujet propose de travailler sur la tâche de segmentation des courriels en français dans des discussions portant sur des demandes d'information. Ce travail vise à soutenir une analyse automatique des messages en DA.
+
+The originality of the proposed approach is not to manually annotate the training data but to exploit the human computational efforts dedicated for a similar task in a different context of production~\cite{ahn:2006:computer}. 
+The idea is to use the effort of the writer who responds to a message by inserting its response or comment just after the quoted text appropriate to his intervention. 
+%
+This posting style is called \textit{interleaved} or \textit{inline replying}.
+%L'originalité de l'approche sera de ne pas construire manuellement le corpus d'entraînement mais d'exploiter le temps cognitif investi par d'autres pour une tâche supposée similaire \cite{ahn:2006:computer}. Cela lui vaut le qualificatif de \textit{paresseuse}.
+%L'idée est d'exploiter le travail de découpage réalisé par un intervenant lorsqu'il répond à l'intérieur d'un message (\textit{inline replying}).
+%
+We assume that the quoted part will consist in an homogeneous information unit with respect to the context from which it is extracted. 
+Consequently, we will make assumptions about the role played by the sentences in the organisation of the information in the source message.
+For instance, we could assume that the first sentence of a quoted part carries instructions for opening a new discourse segment while the last sentence carries instructions for ending a segment.
+
+
+
+We use then a supervised approach to build models of the segmentation. The classifiers are based on common features for discourse analysis \cite{joty:2013:acl}.
+

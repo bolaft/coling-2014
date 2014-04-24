@@ -1,0 +1,41 @@
+
+
+\section{Experimental framework}
+
+\subsection{Corpora}
+
+\subsubsection{Ubuntu technical support email archive}
+
+We use the \textit{ubuntu-users} email archive\footnote{\textit{ubuntu-users} mailing list archive: \url{https://lists.ubuntu.com/archives/ubuntu-users/}} as our primary corpus. It offers a number of advantages. It is free, and distributed under an unrestrictive license. It is up-to-date, with messages as recent as December 2013, and therefore is representative of modern emailing in both content and formatting conventions. Additionally, many alternatives archives are available\footnote{Ubuntu mailing lists archives: \url{https://lists.ubuntu.com/archives/}}, in a number of different languages, including some very resource-poor languages.
+
+\subsubsection{BC3 email corpus}
+
+\todo{fill me}
+
+\subsection{Evaluation protocols}
+
+We designed two evaluation protocols. The first one attempts to assess the segmenter's performance through 10-fold cross-validation on the Ubuntu corpus. The second uses a segmenter trained on the Ubuntu corpus to label the BC3 email corpus, and compares the resulting segmentation to a gold standard built \todo{finish me} from
+
+\subsubsection{Metrics}
+
+Traditional metrics of precision and recall are provided for all results. Precision is the percentage of boundaries identified by the classifier that are indeed true boundaries, recall is the percentage of true boundaries that are identified by the classifier. We also provide the $F_1$ score which represents the harmonic mean of precision and recall:
+
+\[
+    F_1 = 2 \cdot \frac{\mathrm{precision} \cdot \mathrm{recall}}{\mathrm{precision} + \mathrm{recall}}
+\]
+
+However, automatic evaluation of speech segmentation through these metrics is problematic as predicted segment boundaries rarely align precisely. Moreover, while a segmenter that places boundaries near actual boundary positions is in almost all cases more suited to the task than one that misses by a much larger margin, precision and recall metrics would penalize both to the same extent. Therefore, in order to evaluate varying degrees of success or failure in a more subtle manner, we also provide an array of metrics relevant to the field of text segmentation : $\bm{P_{k}}$, WindowDiff and the Generalized Hamming Distance (GHD).
+
+The $\bm{P_{k}}$ metric is a probabilistically motivated error metric for the assessment of segmentation algorithms \cite{beeferman1999statistical}.
+
+\textbf{WindowDiff} compares the number of segment boundaries found within a fixed-sized window to the number of boundaries found in the same window of text for the reference segmentation \cite{pevzner2002critique}.
+
+The \textbf{Generalized Hamming Distance (GHD)} is an extension of the Hamming distance\footnote{Wikipedia article on the Hamming distance: \url{http://en.wikipedia.org/wiki/Hamming_distance}} to give partial credit for near misses \cite{bookstein2002generalized}.
+
+\subsubsection{Baselines}
+
+Performance is compared to two simple heuristic baselines. The first one, the ``regular'' baseline, is computed by segmenting the test set into regular segments of the same length as the average training set segment length, rounded up. The second one, the ``irregular'' baseline, is computed by randomly inserting an appropriate number of segment boundaries in the test set (i.e. the boundary frequency stays similar to that of the training set). Results provided for the irregular baseline are calculated by computing the average scores of the first 1000 random segmentations.
+
+
+\subsection{Preprocessing}
+
