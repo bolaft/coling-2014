@@ -7,40 +7,157 @@
 \subsection{Generate the annotations}
 \label{}
 
+The basic idea is to take benefit from the act of inserting new content at some specific position in a message initially uttered by a distinct person.
+Assumptions in terms of relevance or role in the discourse organisation can be expressed on the new content, on the quoted text or even on the text which is not reused in the reply message.
+
+In this paper, we choose to assume that the sentences of the quoted text in a reply message can inform
+
+The original message consists in an homogeneous discourse flow of utterances. 
+
+By replying to a message and by extracting deliberately some parts\footnote{Summarization operations are also possible.}, the participant performs some cognitive operations leading to identify sufficient information to describe a context.
+
+So the quoted text in a reply message is assumed to be sufficient. 
+
+FIXME develop the idea
+
+The objective is so to determine which parts of the reply messages are reused from the source message.
+
+As declared in the RFC~3676\footnote{\url{http://www.ietf.org/rfc/rfc3676.txt}}, we consider the lines of a message to be quoted if the first character is the quote mark "\texttt{>}".
+
+Unfortunately the process of replying a message lead to some transformations to the original messages. Among them some error of character encoding decoding problem, lines splitting... 
+
+While the form could be acceptable for some basic experiment, we decide to deploy an alignment procedure for various reasons: get the original form of the text which is quoted. Accessing the original message layout for new features. To go further, the original context of the extracted text in the source message also conveys some information.
+
+In the present paper, we have just used the correct form of the 
+
+This is importance since the segmenter is intended to work on non noisy data (new content in message).
+
+The underling idea is to use intrinsic characteristics of the quoted sentences as features for building the future segmentation models. As a consequence noisy data may lead to produce less sure features.
+
+
+The meaning we give to the term of sentence is more linguistically-based. FIXME
+
+
+
+We will assume the greater-than sign to be universal. 
+
+
+
+
+We assume there is no deletion of original text between two consecutive quoted part.
+
+TODO 
 \begin{enumerate}
 \item 
 \item FIXME provide an example of generation and resulting annotation and 
 \end{enumerate}
+
+FIXME When a message is replied to in e-mail, Internet forums, or Usenet, the original can often be included, or "quoted", in a variety of different posting styles.
+%
+The main options are {\em interleaved posting} (also called {\em inline replying}, in which the different parts of the reply follow the relevant parts of the original post), \textit{bottom-posting} (in which the reply follows the quote) or \textit{top-posting} (in which the reply precedes the quoted original message). 
+
+
+%------------------------------------------------------------------------------
+\subsubsection{Annotation scheme}
+\label{}
 
 
 We assume that a message can be split into %subsequent and
  consecutive discourse segments, each of them conveying its own dialogue act.
 We assume the sentence as the elementary unit.
 Consequently, each sentence in a segment can play one of the following roles: 
-\textit{starting and ending} (\textit{SE}) a segment when there is only one sentence in the segment, 
-\textit{starting} (\textit{S}) a segment if there are at least two sentences in the segment and the sentence is the first one, 
-\textit{ending} (\textit{E}) a segment if there are at least two sentences in the segment and the sentence is the last one, and \textit{inside} (\textit{I}) a segment in any other cases.
+\begin{description}
+\item [starting and ending] (\textit{SE}) a segment when there is only one sentence in the segment, 
+\item [starting] (\textit{S}) a segment if there are at least two sentences in the segment and the sentence is the first one, 
+\item [ending] (\textit{E}) a segment if there are at least two sentences in the segment and the sentence is the last one, 
+\item [inside] (\textit{I}) a segment in any other cases.
+\end{description}
 %
 As a matter of fact, this scheme is similar to the \textit{BIO} annotation scheme except it is at the sentence level and not at the token level.
-
-
-
-When a message is replied to in e-mail, Internet forums, or Usenet, the original can often be included, or "quoted", in a variety of different posting styles.
-%
-The main options are {\em interleaved posting} (also called {\em inline replying}, in which the different parts of the reply follow the relevant parts of the original post), \textit{bottom-posting} (in which the reply follows the quote) or \textit{top-posting} (in which the reply precedes the quoted original message). 
-
-
-FIXME
-
-
-We define the following sentence labels: 
-\begin{description}
-\item [STARTEND] if the sentence of the source message is surrounded by insertions which are part of the reply message;
-\item [START] else if the sentence of the source message is surrounded by insertions which are part of the reply message;
-\item [END]
-\item [INSIDE]
-\end{description}
+% [STARTEND] if the sentence of the source message is surrounded by insertions which are part of the reply message;
+%[START] else if the sentence of the source message is surrounded by insertions which are part of the reply message;
 %Par exemple, on pourra étiqueter de \texttt{TERMINE} la phrase précédent un segment repris et de \texttt{DEBUTE} la première phrase du segment repris. Ces phrases ainsi annotées dans leur contexte constitueront notre corpus d'entraînement.
+
+
+We choose to work on the sentences p
+
+
+
+%------------------------------------------------------------------------------
+\subsubsection{Generation procedure}
+\label{}
+
+In the following procedure, the tokens are used to index the quoted lines and the sentences. 
+
+
+
+
+\begin{enumerate}
+\item List the source and the reply messages
+\item For each pair of source and reply messages
+\begin{enumerate}
+\item Tokenize both messages in words and sentences
+\item Identify % the tokens which are part of 
+the quoted lines in the reply message
+\item Identify the sentences which are part of the quoted text in the reply message
+\item Align the sentences from the source message with the ones from the quoted text in the reply message 
+\item For each identified quoted sentences 
+\begin{enumerate}
+\item Assign a role in terms of segmentation instructions
+\end{enumerate}
+\end{enumerate}
+\end{enumerate}
+
+The identification of a reply message is based on the \texttt{in-reply-to} meta data present in the email headers.
+
+
+
+%------------------------------------------------------------------------------
+\subsubsection{Alignment module}
+\label{}
+
+
+
+For finding alignments between two given text messages, we use 
+%an implementation of the % Implements a portion of the
+% NIST align/scoring 
+%algorithm to compare a reference string to a hypothesis string. 
+a \textit{dynamic programming (DP) string alignment algorithm} \cite{sankoff:1983}. 
+In the context of speech recognition, the algorithm is also known as the \textit{NIST align/scoring algorithm}. Indeed, it is widely used to evaluate the output of speech recognition systems by comparing the hypothesized text (HYP) output by the speech recognizer to the correct, or reference (REF) text. 
+In particular, it is used to compute the word error rate (WER) and the sentence error rate (SER).
+
+The ``DP string alignment algorithm performs a global minimization of a Levenshtein distance function which weights the cost of correct words, insertions, deletions and substitutions as 0, 75, 75 and 100 respectively.
+%
+The computational complexity of DP is $0(NN)$.''
+%    final static int MAX_PENALTY = 1000000;
+%    final static int SUBSTITUTION_PENALTY = 100;
+%    final static int INSERTION_PENALTY = 75;
+%    final static int DELETION_PENALTY = 75;
+%The alignment and metrics are intended to be, by default, identical to those of the \url{http://www.icsi.berkeley.edu/Speech/docs/sctk-1.2/sclite.htm} NIST SCLITE tool.  
+%The program sclite is a tool for scoring and evaluating the output of speech recognition systems. Sclite is part of the NIST SCTK Scoring Tookit. The program compares the hypothesized text (HYP) output by the speech recognizer to the correct, or reference (REF) text. After comparing REF to HYP, (a process called alignment), statistics are gathered during the scoring process and a variety of reports can be produced to summarize the performance of the recognition system.
+%\url{http://www1.icsi.berkeley.edu/Speech/docs/sctk-1.2/sclite.htm}
+
+
+
+%CMU Sphinx
+%Open Source Toolkit For Speech Recognition
+%Project by Carnegie Mellon University
+% of the performance of a speech recognition or machine translation system.
+
+
+
+The Carnegie Mellon University provides an implementation of the algorithm in its speech recognition toolkit\footnote{Sphinx 4 \texttt{edu.cmu.sphinx.util.NISTAlign} %source code.
+\url{http://cmusphinx.sourceforge.net}}.
+%Implements a portion of the NIST align/scoring algorithm to compare a reference string to a hypothesis string.  It only keeps track of substitutions, insertions, and deletions.
+We use an adaptation of it which allows to work on lists of strings\footnote{\url{https://github.com/romanows/WordSequenceAligner}} and not directly on strings (as sequences of characters).
+
+
+%and other statistics available from an alignment of a hypothesis string and a reference string.
+
+In comparison to the speech recognition and translation use cases, despite some noise, the compared text should include identical parts of the source one.
+
+
+
 
 
 % -----------------------------------------------------------------------------
