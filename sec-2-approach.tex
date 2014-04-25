@@ -3,6 +3,167 @@
 \section{Building annotated corpora of segmented online discussions at no cost}
 \label{}
 
+\begin{figure}
+%\begin{quote}
+%
+%\singlespacing%
+\small
+[Hi ubuntu-ers,]$^{S1}$\vspace{0.1cm}
+
+[I'm in need of some directions.]$^{S2}$ [I want to run ubuntu for my desktop,\\
+but the installer doesn't support root or boot on raid.]$^{S3}$  \vspace{0.1cm}
+
+[It seems that there must be a way to convert to raid after the fact, as\\
+I've seen for some other distros.]$^{S4}$\vspace{0.1cm}
+
+[I've tried a couple of the other distro specific directions, and just\\
+wind up with a kernel panic.]$^{S5}$  \vspace{0.1cm}
+
+[Are there some ubuntu specific instructions or advice?]$^{S6}$  [Thanks.]$^{S7}$\vspace{0.1cm}
+
+-- \\ \ 
+[Regards,]$^{S8}$ \\ \ 
+[John]$^{S9}$
+%Rich
+%\end{quote}
+\caption{}
+\label{}
+\end{figure}
+
+\begin{figure}
+%\begin{quote}
+%
+%\singlespacing
+\small
+[On Sun, 04 Dec 2005 15:45:13 -0600, John Doe\\
+%On Sun, 05 Dec 2004 16:48:14 -0600, Rich Duzenbury
+%<rduz-ubuntu@theduz.com> wrote:
+<john@doe.com> wrote:]$^{R1}$\vspace{0.1cm}
+
+> [I'm in need of some directions.]$^{R2}$  [I want to run ubuntu for my desktop,\\
+> but the installer doesn't support root or boot on raid.]$^{R3}$\vspace{0.1cm}
+
+[It claims not to. It actually does work.]$^{R4}$\vspace{0.1cm}
+
+[Create a separate /boot partition for the kernel and initrd to live in\\
+and then install to a / filesystem living on a RAID1 or RAID0 device\\
+that you create during the install.]$^{R5}$ [My ubuntu server in the office\\
+currently has 4 active disks doing RAID0+1 and running LVM on top with\\
+another disk about to go in in case 2 happen to fail in quick\\
+succession :-)]$^{R6}$\vspace{0.1cm}
+
+> [It seems that there must be a way to convert to raid after the fact, as\\
+> I've seen for some other distros.]$^{R7}$\vspace{0.1cm}
+
+[It's also possible to convert after the fact using generic\\
+instructions and rebuilding the initrd to cope with the fact that it\\
+will need to run mdadm for you.]$^{R8}$\vspace{0.1cm}
+
+[Cheers,]$^{R9}$\vspace{0.1cm}
+
+[Bob.]$^{R10}$\vspace{0.1cm}
+%Jon.
+
+[P.S.]$^{R11}$ [This is a major sticking point for ubuntu and Debian acceptance\\
+on mission critical kit which should be addressed.]$^{R12}$ [It's not too tricky\\
+to boot and initrd off a separate boot partition.]$^{R13}$\vspace{0.1cm}
+%\end{quote}
+\caption{}
+\label{}
+\end{figure}
+
+
+\begin{lstlisting}
+Hi ubuntu-ers,
+
+I'm in need of some directions.  I want to run ubuntu for my desktop,
+but the installer doesn't support root or boot on raid.  
+
+It seems that there must be a way to convert to raid after the fact, as
+I've seen for some other distros.
+
+I've tried a couple of the other distro specific directions, and just
+wind up with a kernel panic.  
+
+Are there some ubuntu specific instructions or advice?  Thanks.
+
+--
+Regards,
+Rich
+
+\end{lstlisting}
+
+
+
+
+\begin{figure}
+\begin{multicols}{2}
+%\begin{twocolumn}
+%\begin{figure}
+
+\begin{rhetoricaltext} \footnotesize
+\unit[1]{Hi ubuntu-ers,} 
+%\\
+
+\unit[2]{I'm in need of some directions.} 
+\unit[3]{I want to run ubuntu for my desktop, \\
+but the installer doesn't support root or boot on raid.  } \\ %voté de façon dispersée. }
+\unit[5]{En rétorsion à ce résultat, les États-Unis, [\ldots]}  \\ %qui ont voté contre, ont annoncé...} 
+%\unit[6]{Le Canada [\ldots] } %pourrait lui aussi  }
+\unit[7]{De son côté, Israël [\ldots] } \\ %a fait part de...} 
+\unit[8]{Cette adhésion intervient alors que l'État de Palestine tente d'être reconnu membre à part entière de l'ONU, 
+et que le Conseil de sécurité des Nations unies étudie cette demande. } \\
+\unit[9]{Devenir membre de l'UNESCO est %généralement 
+perçu comme un signe positif dans une campagne d'adhésion aux Nations unies. } 
+\source{fr.wikinews.org}%\footnote{\url{http://fr.wikinews.org/wiki/L\%27UNESCO_vote_l\%27adh\%C3\%A9sion_de_la_Palestine}}
+\end{rhetoricaltext}
+%\end{figure}
+\\ Figure 1.1 : texte écrit en français
+\newpage
+%\begin{figure}
+\begin{rhetoricaltext} \footnotesize
+\unit[10]{UNESCO decided in a meeting of its General Council in Paris on Monday to admit Palestine as a full member.}\\
+\unit[11]{107 votes approved entry, 14 opposed, and 52 abstained.}\\
+\unit[12]{The move coincides with the Palestinians' bid for full membership in the United Nations. }\\
+\unit[13]{The United Nations Security Council is currently reviewing the application. }\\
+\unit[14]{Becoming a member of UNESCO is generally perceived as having a positive impact on all of its future bids.}
+\source{en.wikinews.org}%\footnote{\url{http://en.wikinews.org/wiki/UNESCO_votes_in_favor_of_Palestine_membership}}
+\end{rhetoricaltext}
+%\end{figure}
+\\Figure 1.2 :  texte écrit en anglais
+\end{multicols}
+\begin{center}
+%\begin{figure}
+%\begin{figure}
+%{\hspace{30pt}\setlength{\compressionWidth}{160pt}
+\multirel{Joint}{
+	{\dirrel{}{{\rstsegment{\refr{1}}}}
+		{Elaboration}{\rstsegment{\refr{2}}}
+		{\hspace{3cm} Elaboration}{
+			\multirel{Contrast}{
+				{\rstsegment{\refr{3}\hspace{0,5cm}}   }
+				%{\rstsegment{\refr{4}\hspace{0,5cm}}}
+				{\rstsegment{\refr{5}\hspace{0,5cm}}}
+				{\rstsegment{\refr{7}} }
+			}
+		}
+	}
+	{\rstsegment{\refr{8}\hspace{0,5cm}}}
+	{\rstsegment{\refr{9}}}
+}
+\\Figure 1.3 :  structure rhétorique du texte de la figure 1.1
+%}
+%\raisebox{-2em}{}  \hspace{4cm}
+%\caption{default}
+%\label{fig:figure2}
+%\end{figure}
+%\end{figure}
+\end{center}
+%\end{twocolumn}
+%\onecolumn
+\caption{Extraits d'un article écrit en français mis en correspondance avec un article écrit en anglais et structure rhétorique du texte français}
+\label{ExtraitsMisEnCorrespondance}
+\end{figure}
 %------------------------------------------------------------------------------
 \subsection{Generate the annotations}
 \label{}
@@ -26,7 +187,10 @@ As declared in the RFC~3676\footnote{\url{http://www.ietf.org/rfc/rfc3676.txt}},
 
 Unfortunately the process of replying a message lead to some transformations to the original messages. Among them some error of character encoding decoding problem, lines splitting... 
 
-While the form could be acceptable for some basic experiment, we decide to deploy an alignment procedure for various reasons: get the original form of the text which is quoted. Accessing the original message layout for new features. To go further, the original context of the extracted text in the source message also conveys some information.
+While the form could be acceptable for some basic experiment, we decide to deploy an alignment procedure for various reasons: get the original form of the text which is quoted. 
+Accessing the original message layout for new features. 
+To go further, the original context of the extracted text in the source message also conveys some information.
+For instance, a sentence from the source message, not present in the reply message but following an aligned sentence can be considered as starting a segment.
 
 In the present paper, we have just used the correct form of the 
 
