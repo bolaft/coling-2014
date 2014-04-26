@@ -1,175 +1,186 @@
 
 %------------------------------------------------------------------------------
-\section{Building annotated corpora of segmented online discussions at no cost}
+\section{Approach}
 \label{}
 
+\textbf{TODO}
+\begin{enumerate}
+\item 
+\item 
+\end{enumerate}
+
+
+Figure~\ref{fig:exampleSourCeReplyMessage} shows an example of a source message\footnote{In the original message, $S3$ and $S4$ consist in one single sentence with a comma as a separator. We split it into distinct sentences in order to illustrate the \textit{Inside} label.} (Figure~\ref{fig:exampleSource}) and one of its reply (Figure~\ref{fig:exampleReply}).
+Pseudo-sentences have been marked to make easier the explanations. 
+They also correspond to what an automatic process can produce.
+In this example, we can see that the reply message only re-uses four selected sentences from the source message; Namely $S2$, $S3$, $S4$ and $S5$ which respectively correspond to the sentences  $R2$, $R3$, $R4$ and $R9$ in the reply messages.
+The author of the reply message deliberately discarded the remaining of the source message.
+
 \begin{figure}
-%\begin{quote}
-%
-%\singlespacing%
+%\begin{multicols}{2}[]
+
+%\begin{multicols}{1}[]
+    %    \centering
+\fbox {
+    \parbox{\linewidth}{
+        \begin{subfigure}[b]{0.9\textwidth}
 \small
+%\footnotesize
 [Hi ubuntu-ers,]$^{S1}$\vspace{0.1cm}
 
-[I'm in need of some directions.]$^{S2}$ [I want to run ubuntu for my desktop,\\
-but the installer doesn't support root or boot on raid.]$^{S3}$  \vspace{0.1cm}
+[I'm in need of some directions.]$^{S2}$ [I want to run ubuntu for my desktop.]$^{S3}$\\ \ 
+[But the installer doesn't support root or boot on raid.]$^{S4}$  \vspace{0.1cm}
+%[I'm in need of some directions.]$^{S2}$ [I want to run ubuntu for my desktop,\\
+%but the installer doesn't support root or boot on raid.]$^{S3}$  \vspace{0.1cm}
 
-[It seems that there must be a way to convert to raid after the fact, as\\
-I've seen for some other distros.]$^{S4}$\vspace{0.1cm}
+[It seems that there must be a way to convert to raid after the fact, as \\
+I've seen for some other distros.]$^{S5}$\vspace{0.1cm}
 
-[I've tried a couple of the other distro specific directions, and just\\
-wind up with a kernel panic.]$^{S5}$  \vspace{0.1cm}
+[I've tried a couple of the other distro specific directions, and just %\
+wind up with a kernel panic.]$^{S6}$  \vspace{0.1cm}
 
-[Are there some ubuntu specific instructions or advice?]$^{S6}$  [Thanks.]$^{S7}$\vspace{0.1cm}
+[Are there some ubuntu specific instructions or advice?]$^{S7}$  [Thanks.]$^{S8}$\vspace{0.1cm}
 
--- \\ \ 
-[Regards,]$^{S8}$ \\ \ 
+%-- \\ \ 
+%[Regards,]$^{S8}$ \\ \ 
 [John]$^{S9}$
 %Rich
-%\end{quote}
-\caption{}
-\label{}
-\end{figure}
+              %  \includegraphics[width=\textwidth]{gull}
 
-\begin{figure}
-%\begin{quote}
-%
-%\singlespacing
+                \caption{Source message.}
+                \label{fig:exampleSource}
+        \end{subfigure}%
+}}
+\vspace{0.2cm}
+\\
+       % ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+\fbox {
+    \parbox{\linewidth}{
+        \begin{subfigure}[b]{0.9\textwidth}
 \small
-[On Sun, 04 Dec 2005 15:45:13 -0600, John Doe\\
+%\footnotesize
+%[On Sun, 04 Dec 2005 15:45:13 -0600, John Doe\\
+[On Sun, 04 Dec 2005 15:45:13 -0600, John Doe 
 %On Sun, 05 Dec 2004 16:48:14 -0600, Rich Duzenbury
 %<rduz-ubuntu@theduz.com> wrote:
 <john@doe.com> wrote:]$^{R1}$\vspace{0.1cm}
 
-> [I'm in need of some directions.]$^{R2}$  [I want to run ubuntu for my desktop,\\
-> but the installer doesn't support root or boot on raid.]$^{R3}$\vspace{0.1cm}
+%> [I'm in need of some directions.]$^{R2}$  [I want to run ubuntu for my desktop,\\
+%> but the installer doesn't support root or boot on raid.]$^{R3}$\vspace{0.1cm}
+> [I'm in need of some directions.]$^{R2}$  [I want to run ubuntu for my desktop.]$^{R3}$\\
+> [But the installer doesn't support root or boot on raid.]$^{R4}$\vspace{0.1cm}
 
-[It claims not to. It actually does work.]$^{R4}$\vspace{0.1cm}
+[It claims not to.]$^{R5}$ [It actually does work.]$^{R6}$\vspace{0.1cm}
 
-[Create a separate /boot partition for the kernel and initrd to live in\\
-and then install to a / filesystem living on a RAID1 or RAID0 device\\
-that you create during the install.]$^{R5}$ [My ubuntu server in the office\\
-currently has 4 active disks doing RAID0+1 and running LVM on top with\\
-another disk about to go in in case 2 happen to fail in quick\\
-succession :-)]$^{R6}$\vspace{0.1cm}
+[Create a separate /boot partition for the kernel and initrd to live in %\\
+and then install to a / filesystem living on a RAID1 or RAID0 device %\\
+that you create during the install.]$^{R7}$ [My ubuntu server in the office %\\
+currently has 4 active disks doing RAID0+1 and running LVM on top with % \\
+another disk about to go in in case 2 happen to fail in quick % \\
+succession :-)]$^{R8}$\vspace{0.1cm}
 
 > [It seems that there must be a way to convert to raid after the fact, as\\
-> I've seen for some other distros.]$^{R7}$\vspace{0.1cm}
+> I've seen for some other distros.]$^{R9}$\vspace{0.1cm}
 
-[It's also possible to convert after the fact using generic\\
-instructions and rebuilding the initrd to cope with the fact that it\\
-will need to run mdadm for you.]$^{R8}$\vspace{0.1cm}
+[It's also possible to convert after the fact using generic %\\
+instructions and rebuilding the initrd to cope with the fact that it % \\
+will need to run mdadm for you.]$^{R10}$\vspace{0.1cm}
 
-[Cheers,]$^{R9}$\vspace{0.1cm}
+%[Cheers,]$^{R10}$\vspace{0.1cm}
 
-[Bob.]$^{R10}$\vspace{0.1cm}
+[Bob.]$^{R11}$ %\vspace{0.1cm}
 %Jon.
 
-[P.S.]$^{R11}$ [This is a major sticking point for ubuntu and Debian acceptance\\
-on mission critical kit which should be addressed.]$^{R12}$ [It's not too tricky\\
-to boot and initrd off a separate boot partition.]$^{R13}$\vspace{0.1cm}
-%\end{quote}
-\caption{}
-\label{}
+%[P.S.]$^{R11}$ [This is a major sticking point for ubuntu and Debian acceptance\\
+%on mission critical kit which should be addressed.]$^{R12}$ [It's not too tricky\\
+%to boot and initrd off a separate boot partition.]$^{R13}$\vspace{0.1cm}
+
+               % \includegraphics[width=\textwidth]{tiger}
+                \caption{Reply message.}
+                \label{fig:exampleReply}
+        \end{subfigure}
+}}
+%\end{multicols}
+
+%        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+%          %(or a blank line to force the subfigure onto a new line)
+%        \begin{subfigure}[b]{0.4\textwidth}
+
+
+%\begin{tabular}{*{2}{|l}|c|}
+%\toprule
+%\textbf{Source} & \textbf{Reply} & \textbf{Label}\\
+%	\midrule
+%S1  & & \\
+%    & R1 & \\
+%\textit{S2}  & > \textit{R2}& Start\\
+%\textit{S3}  & > \textit{R3}& Inside\\
+%\textit{S4}  & > \textit{R4}& End\\
+%    & R5 & \\
+%    & R6 & \\
+%    & R7 & \\
+%\textit{S5}  & > \textit{R8} & Start \& End\\
+%    & R9 & \\
+%%    & R10 & \\
+%    & [...] & \\
+%S7    &  & \\ \ 
+%[...] \    &  & \\
+%	\bottomrule
+%\end{tabular}
+%               % \includegraphics[width=\textwidth]{mouse}
+%                \caption{A mouse}
+%                \label{fig:mouse}
+%        \end{subfigure}
+        \caption{Example of a source message and its reply. Pseudo-sentences have been marked to make easier the explanations. The original layout has been slightly adapted to fit the document.}\label{fig:exampleSourCeReplyMessage}
+%\end{multicols}
+
 \end{figure}
 
 
-\begin{lstlisting}
-Hi ubuntu-ers,
-
-I'm in need of some directions.  I want to run ubuntu for my desktop,
-but the installer doesn't support root or boot on raid.  
-
-It seems that there must be a way to convert to raid after the fact, as
-I've seen for some other distros.
-
-I've tried a couple of the other distro specific directions, and just
-wind up with a kernel panic.  
-
-Are there some ubuntu specific instructions or advice?  Thanks.
-
---
-Regards,
-Rich
-
-\end{lstlisting}
 
 
+\begin{figure}\small\centering
+\begin{tabular}{*{2}{|l}|c|}
+\toprule
+\textbf{Source} & \textbf{Reply} & \textbf{Label}\\
+	\midrule
+S1  & & \\
+    & R1 & \\
+\textit{S2}  & > \textit{R2}& \texttt{Start}\\
+\textit{S3}  & > \textit{R3}& \texttt{Inside}\\
+\textit{S4}  & > \textit{R4}& \texttt{End}\\
+    & R5 & \\
+    & R6 & \\
+    & R7 & \\
+    & R8 & \\
+\textit{S5}  & > \textit{R9} & \texttt{Start\&End}\\
+    & R10 & \\
+%    & R11 & \\
+    & [...] & \\
+S7    &  & \\ \ 
+[...] \    &  & \\
+	\bottomrule
+\end{tabular}
 
-
-\begin{figure}
-\begin{multicols}{2}
-%\begin{twocolumn}
-%\begin{figure}
-
-\begin{rhetoricaltext} \footnotesize
-\unit[1]{Hi ubuntu-ers,} 
-%\\
-
-\unit[2]{I'm in need of some directions.} 
-\unit[3]{I want to run ubuntu for my desktop, \\
-but the installer doesn't support root or boot on raid.  } \\ %voté de façon dispersée. }
-\unit[5]{En rétorsion à ce résultat, les États-Unis, [\ldots]}  \\ %qui ont voté contre, ont annoncé...} 
-%\unit[6]{Le Canada [\ldots] } %pourrait lui aussi  }
-\unit[7]{De son côté, Israël [\ldots] } \\ %a fait part de...} 
-\unit[8]{Cette adhésion intervient alors que l'État de Palestine tente d'être reconnu membre à part entière de l'ONU, 
-et que le Conseil de sécurité des Nations unies étudie cette demande. } \\
-\unit[9]{Devenir membre de l'UNESCO est %généralement 
-perçu comme un signe positif dans une campagne d'adhésion aux Nations unies. } 
-\source{fr.wikinews.org}%\footnote{\url{http://fr.wikinews.org/wiki/L\%27UNESCO_vote_l\%27adh\%C3\%A9sion_de_la_Palestine}}
-\end{rhetoricaltext}
-%\end{figure}
-\\ Figure 1.1 : texte écrit en français
-\newpage
-%\begin{figure}
-\begin{rhetoricaltext} \footnotesize
-\unit[10]{UNESCO decided in a meeting of its General Council in Paris on Monday to admit Palestine as a full member.}\\
-\unit[11]{107 votes approved entry, 14 opposed, and 52 abstained.}\\
-\unit[12]{The move coincides with the Palestinians' bid for full membership in the United Nations. }\\
-\unit[13]{The United Nations Security Council is currently reviewing the application. }\\
-\unit[14]{Becoming a member of UNESCO is generally perceived as having a positive impact on all of its future bids.}
-\source{en.wikinews.org}%\footnote{\url{http://en.wikinews.org/wiki/UNESCO_votes_in_favor_of_Palestine_membership}}
-\end{rhetoricaltext}
-%\end{figure}
-\\Figure 1.2 :  texte écrit en anglais
-\end{multicols}
-\begin{center}
-%\begin{figure}
-%\begin{figure}
-%{\hspace{30pt}\setlength{\compressionWidth}{160pt}
-\multirel{Joint}{
-	{\dirrel{}{{\rstsegment{\refr{1}}}}
-		{Elaboration}{\rstsegment{\refr{2}}}
-		{\hspace{3cm} Elaboration}{
-			\multirel{Contrast}{
-				{\rstsegment{\refr{3}\hspace{0,5cm}}   }
-				%{\rstsegment{\refr{4}\hspace{0,5cm}}}
-				{\rstsegment{\refr{5}\hspace{0,5cm}}}
-				{\rstsegment{\refr{7}} }
-			}
-		}
-	}
-	{\rstsegment{\refr{8}\hspace{0,5cm}}}
-	{\rstsegment{\refr{9}}}
-}
-\\Figure 1.3 :  structure rhétorique du texte de la figure 1.1
-%}
-%\raisebox{-2em}{}  \hspace{4cm}
-%\caption{default}
-%\label{fig:figure2}
-%\end{figure}
-%\end{figure}
-\end{center}
-%\end{twocolumn}
-%\onecolumn
-\caption{Extraits d'un article écrit en français mis en correspondance avec un article écrit en anglais et structure rhétorique du texte français}
-\label{ExtraitsMisEnCorrespondance}
+\caption{Sentences alignment of the source and the reply messages from the Figure~\ref{fig:exampleSourCeReplyMessage}. Examples of segmentation labels which can be inferred from the text re-use of the source message and associated to the source sentences.}
+\label{fig:exampleSegmentationLabels}
 \end{figure}
+
+
 %------------------------------------------------------------------------------
-\subsection{Generate the annotations}
+\subsection{Building annotated corpora of segmented online discussions at no cost}
 \label{}
 
-The basic idea is to take benefit from the act of inserting new content at some specific position in a message initially uttered by a distinct person.
-Assumptions in terms of relevance or role in the discourse organisation can be expressed on the new content, on the quoted text or even on the text which is not reused in the reply message.
+The basic idea is to interpret the operation performed by a discussion participant on the message he replies as an annotation operation. 
+Assumptions about the kind of annotations depend on the kind of the performed operation.
+Deletion or re-use of the source text material can give hints about the relevance of the content. Discarded material is probably less relevant than re-used one.
+
+We assume that by replying inside a message, the participant performs cognitive operations to identify text segments 
+
+rhetorical segmentation. 
+
+in terms of relevance or role in the discourse organisation can be expressed on the new content, on the quoted text or even on the text which is not reused in the reply message.
 
 In this paper, we choose to assume that the sentences of the quoted text in a reply message can inform
 
@@ -210,11 +221,7 @@ We will assume the greater-than sign to be universal.
 
 We assume there is no deletion of original text between two consecutive quoted part.
 
-TODO 
-\begin{enumerate}
-\item 
-\item FIXME provide an example of generation and resulting annotation and 
-\end{enumerate}
+
 
 FIXME When a message is replied to in e-mail, Internet forums, or Usenet, the original can often be included, or "quoted", in a variety of different posting styles.
 %
@@ -248,37 +255,80 @@ We choose to work on the sentences p
 
 
 %------------------------------------------------------------------------------
-\subsubsection{Generation procedure}
+\subsubsection{Annotation generation procedure}
 \label{}
 
-In the following procedure, the tokens are used to index the quoted lines and the sentences. 
+The generation process aims at "automatically" annotating sentences from the source messages with segmentation information.
+Figure~\ref{fig:procedureTrainingDataGeneration} describes the steps of the generation procedure at the global level. 
+Each message from our corpus are tokenized and the sentences split. The quoted lines in the reply messages are identified based on the presence of a specific prefix at the beginning of the lines. 
+Pair of source and reply messages are made up based on the \texttt{in-reply-to} meta data present in the email headers.
+The word tokens are used to index the quoted lines and the sentences. 
+Section~\ref{secalignmentmodule} describes our method to align the quoted sentences from the reply messages with the sentences from the source messages. 
+Figure~\ref{fig:algoLabellingEachAlignedSentence} gives some precisions about the algorithm for labelling each aligned sentence with a segmentation instruction. 
 
-
-
-
-\begin{enumerate}
-\item List the source and the reply messages
-\item For each pair of source and reply messages
+\begin{figure}[ht!]
+%\begin{enumerate}
+%\item List the source and the reply messages
+%\item 
+\fbox {
+    \parbox{\linewidth}{
+For each pair of source and reply messages
 \begin{enumerate}
 \item Tokenize both messages in words and sentences
 \item Identify % the tokens which are part of 
 the quoted lines in the reply message
 \item Identify the sentences which are part of the quoted text in the reply message
 \item Align the sentences from the source message with the ones from the quoted text in the reply message 
-\item For each identified quoted sentences 
-\begin{enumerate}
-\item Assign a role in terms of segmentation instructions
+%\item For each aligned sentence 
+%\begin{enumerate}
+\item Label each aligned source sentence in terms of its segmentation role (See~Figure~\ref{fig:algoLabellingEachAlignedSentence})
+%\end{enumerate}
+\item Add to the training data the labelled message made up by the sequence of labelled sentences %The sequence of labelled sentences makes up a labelled message which is add to the training data 
 \end{enumerate}
-\end{enumerate}
-\end{enumerate}
+}}
 
-The identification of a reply message is based on the \texttt{in-reply-to} meta data present in the email headers.
+%\end{enumerate}
+\caption{Procedure for generating the training data}
+\label{fig:procedureTrainingDataGeneration}
+\end{figure}
+
+
+\begin{figure}[ht!]
+%\fbox{
+%\begin{enumerate}
+%\item 
+\fbox {
+    \parbox{\linewidth}{
+For each aligned source sentence %identified quoted sentence
+ (sentence from the source message re-used in the reply message)
+\begin{itemize}
+\item if the sentence is surrounded by new content in the reply message, then label it \texttt{Start\&End}
+%both the previous and the next sentences are part of the
+\begin{itemize}
+\item[$\bullet$] else if the sentence is preceded by a new content, then label it  \texttt{Start}
+\begin{itemize}
+\item[$\bullet$] else if the sentence is followed by a new content, then label it  \texttt{End}
+\begin{itemize}
+\item[$\bullet$] else label it  \texttt{Inside}
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\end{itemize}
+    }
+}
+
+%}
+%\end{enumerate}
+\caption{Algorithm for labelling each aligned sentence with a segmentation instruction}
+\label{fig:algoLabellingEachAlignedSentence}
+\end{figure}
+
 
 
 
 %------------------------------------------------------------------------------
 \subsubsection{Alignment module}
-\label{}
+\label{secalignmentmodule}
 
 
 
@@ -287,10 +337,13 @@ For finding alignments between two given text messages, we use
 % NIST align/scoring 
 %algorithm to compare a reference string to a hypothesis string. 
 a \textit{dynamic programming (DP) string alignment algorithm} \cite{sankoff:1983}. 
-In the context of speech recognition, the algorithm is also known as the \textit{NIST align/scoring algorithm}. Indeed, it is widely used to evaluate the output of speech recognition systems by comparing the hypothesized text (HYP) output by the speech recognizer to the correct, or reference (REF) text. 
-In particular, it is used to compute the word error rate (WER) and the sentence error rate (SER).
-
-The ``DP string alignment algorithm performs a global minimization of a Levenshtein distance function which weights the cost of correct words, insertions, deletions and substitutions as 0, 75, 75 and 100 respectively.
+In the context of speech recognition, the algorithm is also known as the \textit{NIST align/scoring algorithm}. Indeed, it is widely used to evaluate the output of speech recognition systems by comparing the hypothesized text %(HYP) 
+output by the speech recognizer to the correct, or reference % (REF) 
+text. 
+%In particular, it is used to compute the word error rate (WER) and the sentence error rate (SER).
+%
+The %``DP string alignment 
+algorithm works by ``performing a global minimization of a Levenshtein distance function which weights the cost of correct words, insertions, deletions and substitutions as 0, 75, 75 and 100 respectively.
 %
 The computational complexity of DP is $0(NN)$.''
 %    final static int MAX_PENALTY = 1000000;
@@ -322,6 +375,18 @@ In comparison to the speech recognition and translation use cases, despite some 
 
 
 
+%------------------------------------------------------------------------------
+\subsubsection{Restrictions}
+\label{}
+
+Focus on the first message of a thread and its reply messages to avoid noisy data due to several levels of quoted lines.
+
+Restrict on short messages as an heuristic to filter out the long code trace message
+
+Due to alignment complexity focus only on the first 25 000 tokens.
+
+In source message, focus on part which is new ; in reply message, focus on part which is new + only the first? quoted level 
+ 
 
 
 % -----------------------------------------------------------------------------
