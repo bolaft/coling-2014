@@ -1,20 +1,15 @@
 
-
 \section{Experimental framework}
 
-\subsection{Corpora}
-
-\subsubsection{Ubuntu technical support email archive}
+\subsection{Corpus}
 
 We use the \textit{ubuntu-users} email archive\footnote{\textit{ubuntu-users} mailing list archive: \url{https://lists.ubuntu.com/archives/ubuntu-users/}} as our primary corpus. It offers a number of advantages. It is free, and distributed under an unrestrictive license. It is up-to-date, with messages as recent as December 2013, and therefore is representative of modern emailing in both content and formatting conventions. Additionally, many alternatives archives are available\footnote{Ubuntu mailing lists archives: \url{https://lists.ubuntu.com/archives/}}, in a number of different languages, including some very resource-poor languages.
 
-\subsubsection{BC3 email corpus}
+The corpus contains a total of 272 380 messages. 33 915 of these messages are posted in the "inline-replying" style that we are interested in.
 
-\todo{fill me}
+\subsection{Evaluation protocol}
 
-\subsection{Evaluation protocols}
-
-We designed two evaluation protocols. The first one attempts to assess the segmenter's performance through 10-fold cross-validation on the Ubuntu corpus. The second uses a segmenter trained on the Ubuntu corpus to label the BC3 email corpus, and compares the resulting segmentation to a gold standard built \todo{finish me} from
+In order to evaluate the efficiency of the segmenter, we perform a 10-fold cross-validation on the Ubuntu corpus, and compare its performance to two different baselines. The results are measured using a panel of metrics used in text segmentation and information retrieval.
 
 \subsubsection{Metrics}
 
@@ -34,8 +29,7 @@ The \textbf{Generalized Hamming Distance (GHD)} is an extension of the Hamming d
 
 \subsubsection{Baselines}
 
-Performance is compared to two simple heuristic baselines. The first one, the ``regular'' baseline, is computed by segmenting the test set into regular segments of the same length as the average training set segment length, rounded up. The second one, the ``irregular'' baseline, is computed by randomly inserting an appropriate number of segment boundaries in the test set (i.e. the boundary frequency stays similar to that of the training set). Results provided for the irregular baseline are calculated by computing the average scores of the first 1000 random segmentations.
-
+Performance is compared to two simple heuristic baselines. The first one, the ``regular'' baseline, is computed by segmenting the test set into regular segments of the same length as the average training set segment length, rounded up. The second one is the Text Tiling algorithm we described earlier.
 
 \subsection{Preprocessing}
 
