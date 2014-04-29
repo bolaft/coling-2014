@@ -520,3 +520,14 @@ Stylistic features include graphic, orthographic and semantic features. \textbf{
 \subsubsection{Thematic features}
 
 The only feature we use to account for thematic shift recognition is the output of the Text Tiling algorithm \cite{hearst1997texttiling}. Text Tiling is one of the most commonly used algorithms for automatic text segmentation. It is a statistical method for thematic segmentation, i.e. a method that attempts to segment texts according to the contrasting themes of its parts: if the algorithm detects a rupture in the thematic continuity of the text, it will place a boundary to indicate a thematic change. This method is based on the notion of lexical cohesion.
+
+\subsubsection{Labels}
+
+Training the classifier to recognize the different labels of the previously defined annotation scheme can be problematic. It has indeed some disadvantages that can undermine the effectiveness of the classifier. In particular, sentences annotated \textit{SE} will, by definition, share important characteristics with sentences bearing the annotation \textit{S} and \textit{E}. For the purposes of segmentation, we chose to transform these annotations into a binary scheme and merely differentiate sentences that starts a new segment (\textit{True}), or "boundary sentences", from those that do not (\textit{False}). The conversion process is trivial, and can easily be reversed:
+
+\begin{itemize}
+    \item \textit{SE} $\longrightarrow$ \textit{True} $\longrightarrow$ \textit{SE} (if the next sentence is also a boundary)
+    \item \textit{S} $\longrightarrow$ \textit{True} $\longrightarrow$ \textit{S} (if the next sentence is not a boundary)
+    \item \textit{I} $\longrightarrow$ \textit{False} $\longrightarrow$ \textit{I} (if the next sentence is not a boundary either)
+    \item \textit{E} $\longrightarrow$ \textit{False} $\longrightarrow$ \textit{E} (if the next sentence is a boundary)
+\end{itemize}
