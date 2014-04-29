@@ -5,7 +5,7 @@
 
 We use the \textit{ubuntu-users} email archive\footnote{\textit{ubuntu-users} mailing list archive: \url{https://lists.ubuntu.com/archives/ubuntu-users/}} as our primary corpus. It offers a number of advantages. It is free, and distributed under an unrestrictive license. It is up-to-date, with messages as recent as December 2013, and therefore is representative of modern emailing in both content and formatting conventions. Additionally, many alternatives archives are available\footnote{Ubuntu mailing lists archives: \url{https://lists.ubuntu.com/archives/}}, in a number of different languages, including some very resource-poor languages.
 
-The corpus contains a total of 272 380 messages. 33 915 of these messages are posted in the "inline-replying" style that we are interested in.
+The corpus contains a total of 272,380 messages. 33,915 of them are posted in the "inline-replying" style that we are interested in. These messages are made of 418 858 sentences, themselves constituted of N unique tokens (5,139,123 total). 87,950 of these lines (21\%) are automatically labelled as the start of a new segment (either \textit{SE} or \textit{S}).
 
 \subsection{Evaluation protocol}
 
@@ -33,3 +33,8 @@ Performance is compared to two simple heuristic baselines. The first one, the ``
 
 \subsection{Preprocessing}
 
+To reduce noise in the corpus we filter out indesirable emails based on several criteria, the first of which is encoding. Messages that are not UTF-8 encoded are removed from the selection. The second criterion is MIME type: we keep single-part, plain text messages only, and remove those with HTML or other media contents.
+
+In addition, we chose to consider only replies to thread starters. This choice is based on the assumption that the alignment module would have more difficulty to properly recognize sentences that were repeatedly transformed in successive replies, and therefore that replies to messages that themselves contain quoted text from other messages are more likely to be poorly labelled through automatic annotation.
+
+The last criterion for message selection is length. The dataset being built from a mailing list that can cover very technical discussions, users sometimes send very lengthy messages containing many lines of copied-and-pasted code, software logs, bash command outputs etc. The number of these messages is marginal, but the number of lines in these messages being disproportionately high, they can have a negative impact on the segmenter's performance. We therefore exclude messages longer than the average message length plus the standard length deviation.
