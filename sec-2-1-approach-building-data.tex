@@ -1,20 +1,4 @@
 
-%------------------------------------------------------------------------------
-\section{Approach}
-\label{}
-
-\textbf{TODO}
-\begin{enumerate}
-\item un exemple de segmentation que l'on souhaite
-\item 
-\end{enumerate}
-
-
-Figure~\ref{fig:exampleSourCeReplyMessage} shows an example of a source message\footnote{In the original message, $S3$ and $S4$ consist in one single sentence with a comma as a separator. We split it into distinct sentences in order to illustrate the \textit{Inside} label.} (Figure~\ref{fig:exampleSource}) and one of its reply (Figure~\ref{fig:exampleReply}).
-Pseudo-sentences have been marked to make easier the explanations. 
-They also correspond to what an automatic process can produce.
-In this example, we can see that the reply message only re-uses four selected sentences from the source message; Namely $S2$, $S3$, $S4$ and $S5$ which respectively correspond to the sentences  $R2$, $R3$, $R4$ and $R9$ in the reply messages.
-The author of the reply message deliberately discarded the remaining of the source message.
 
 \begin{figure}
 %\begin{multicols}{2}[]
@@ -140,46 +124,20 @@ will need to run mdadm for you.]$^{R10}$\vspace{0.1cm}
 
 
 
-\begin{figure}\small\centering
-\begin{tabular}{*{2}{|l}|c|}
-\toprule
-\textbf{Source} & \textbf{Reply} & \textbf{Label}\\
-	\midrule
-S1  & & \\
-    & R1 & \\
-\textit{S2}  & > \textit{R2}& \texttt{Start}\\
-\textit{S3}  & > \textit{R3}& \texttt{Inside}\\
-\textit{S4}  & > \textit{R4}& \texttt{End}\\
-    & R5 & \\
-    & R6 & \\
-    & R7 & \\
-    & R8 & \\
-\textit{S5}  & > \textit{R9} & \texttt{Start\&End}\\
-    & R10 & \\
-%    & R11 & \\
-    & [...] & \\
-S7    &  & \\ \ 
-[...] \    &  & \\
-	\bottomrule
-\end{tabular}
-
-\caption{Sentences alignment of the source and the reply messages from the Figure~\ref{fig:exampleSourCeReplyMessage}. Examples of segmentation labels which can be inferred from the text re-use of the source message and associated to the source sentences.}
-\label{fig:exampleSegmentationLabels}
-\end{figure}
-
-
 %------------------------------------------------------------------------------
-\subsection{Building annotated corpora of segmented online discussions at no cost}
+\section{Building annotated corpora of segmented online discussions at no cost}
 \label{}
 
 The basic idea is to interpret the operation performed by a discussion participant on the message he replies as an annotation operation. 
 Assumptions about the kind of annotations depend on the kind of the performed operation.
 Deletion or re-use of the source text material can give hints about the relevance of the content. Discarded material is probably less relevant than re-used one.
 
-We assume that by replying inside a message and by only including some specific parts, the participant performs some cognitive operations to identify homogeneous self-contained text segments in the original message.
-We assume that the quoted part consists in an homogeneous information unit with respect to the context from which it is extracted. 
+We assume that by replying inside a message and by only including some specific parts, the participant performs some cognitive operations to identify homogeneous self-contained text segments
+% in the original message.
+%We assume that the quoted part consists in an homogeneous information unit 
+with respect to the context from which it is extracted. 
 Consequently, we make assumptions about the role played by the sentences in the structure of the information in the original message.
-For instance, we could assume that the first sentence of a quoted part conveys instructions for opening a new discourse segment while the last sentence carries instructions for ending a segment.
+For instance, we can assume that the first sentence of a quoted part conveys instructions for opening a new discourse segment while the last sentence carries instructions for ending a segment.
 
 %in terms of relevance or role in the discourse organisation can be expressed on the new content, on the quoted text or even on the text which is not reused in the reply message.
 
@@ -199,7 +157,7 @@ Before inferring some labels to some sentences of the original message, the task
 Identification of the quoted lines in a reply message is not sufficient for various reasons. 
 %
 First, the segmenter is intended to work on non noisy data (i.e. the new content in messages). 
-The quoted text suffers from multiple transformations (See section FIXME).  
+The quoted text suffers from multiple transformations (See section~\ref{secQuotedMessageIsAltered}).  
 So, building a model on an altered version of the original message would create a bias in the approach.
 Second, accessing the original message may allow to consider in the model some contextual features (like the visual layout). 
 Third, to go further, the original context of the extracted text in the source message also conveys some segmentation information. For instance, a sentence from the source message, not present in the reply message but following an aligned sentence can be considered as starting a segment.
@@ -211,13 +169,19 @@ In this paper, we did not consider the contextual features from the original mes
 
 
 
+Figure~\ref{fig:exampleSourCeReplyMessage} shows an example of a source message\footnote{In the original message, $S3$ and $S4$ consist in one single sentence with a comma as a separator. We split it into distinct sentences in order to illustrate the \textit{Inside} label.} (Figure~\ref{fig:exampleSource}) and one of its reply (Figure~\ref{fig:exampleReply}).
+Pseudo-sentences have been marked to make easier the explanations. 
+They also correspond to what an automatic process can produce.
+In this example, we can see that the reply message only re-uses four selected sentences from the source message; Namely $S2$, $S3$, $S4$ and $S5$ which respectively correspond to the sentences  $R2$, $R3$, $R4$ and $R9$ in the reply messages.
+The author of the reply message deliberately discarded the remaining of the source message.
+
 %------------------------------------------------------------------------------
-\subsubsection{A quoted message is an altered version of the original one}
-\label{}
+\subsection{A quoted message is an altered version of the original one}
+\label{secQuotedMessageIsAltered}
 
 
 The process of exchanging messages involves distinct software agents to transfer and deliver the messages to an user. % between the hosts. The 
-When received, the email are stored by dedicated servers until they retrieved by the user.
+When received, the emails are stored in dedicated servers until they are retrieved by the user.
 %
 The program used by users for retrieving and managing emails is called a mail user agent (MUA). 
 The MUA reads and formats the message in email format to send it.
@@ -243,7 +207,7 @@ The format of the Internet message bodies has been sub-specified by several reco
 % http://tools.ietf.org/html/rfc2045 November 1996
 % https://tools.ietf.org/html/rfc5335 September 2008
 
-As a matter of facts, messages in a discussion are handled by several distinct email software clients which are not always standards-compliant and totally compatible.
+As a matter of fact, messages in a discussion are handled by several distinct email software clients which are not always standards-compliant and totally compatible.
 So each of them can integrate their own mechanisms 
 for quoting the previous messages when including them as well as 
 for wrapping the too long lines\footnote{Feature for limiting the line length by splitting them into multiple pieces of no more than 80 characters and make the text readable without any horizontal scrolling.}.
@@ -252,7 +216,7 @@ In addition, because of some user preferences or systems configurations, a threa
 
 As a consequences a discussion is a mix of various transformation mechanisms which can be equated to a noisy canal. 
 %
-One of the transformation issue concerns the encoding and the decoding of the quoted parts which can be wrongly recoded at each exchange step.
+One of the transformation issue concerns the encoding and the decoding of the quoted parts which can be wrongly recoded at each exchange step since there is no more dedicated header information about it.
 
 % Previous messages are not included as a verbatim copy of the original one.
 
@@ -271,20 +235,103 @@ One of the transformation issue concerns the encoding and the decoding of the qu
 
 
 %------------------------------------------------------------------------------
-\subsubsection{Annotation scheme}
+\subsection{Annotation scheme}
 \label{}
 
 
 We assume that a message can be split into %subsequent and
  consecutive discourse segments, each of them conveying its own dialogue act.
 We assume the sentence as the elementary unit.
-Consequently, each sentence in a segment can play one of the following roles: 
-\begin{description}
-\item [starting and ending] (\textit{SE}) a segment when there is only one sentence in the segment, 
-\item [starting] (\textit{S}) a segment if there are at least two sentences in the segment and the sentence is the first one, 
-\item [ending] (\textit{E}) a segment if there are at least two sentences in the segment and the sentence is the last one, 
-\item [inside] (\textit{I}) a segment in any other cases.
-\end{description}
+Consequently, each sentence in a segment can play one of the following roles: \\
+\indent $\bullet$ \texttt{\footnotesize starting and ending} (\textit{SE}) a segment when there is only one sentence in the segment, \\
+\indent $\bullet$ \texttt{\footnotesize starting} (\textit{S}) a segment if there are at least two sentences in the segment and it is the first one, \\
+\indent $\bullet$ \texttt{\footnotesize ending} (\textit{E}) a segment if there are at least two sentences in the segment and it is the last one, \\
+\indent $\bullet$ \texttt{\footnotesize inside} (\textit{I}) a segment in any other cases.
+%
+%\begin{description}[itemsep=0mm]
+%\itemsep0em 
+%\item [$\bullet$ starting and ending] (\textit{SE}) a segment when there is only one sentence in the segment, 
+%\item [$\bullet$ starting] (\textit{S}) a segment if there are at least two sentences in the segment and the sentence is the first one, 
+%\item [$\bullet$ ending] (\textit{E}) a segment if there are at least two sentences in the segment and the sentence is the last one, 
+%\item [$\bullet$ inside] (\textit{I}) a segment in any other cases.
+%\end{description}
+
+
+%\begin{figure}
+%\centering
+%\begin{minipage}{.5\textwidth}
+
+%\begin{description}
+%\item [$\bullet$ starting and ending] (\textit{SE}) a segment when there is only one sentence in the segment, 
+%\item [$\bullet$ starting] (\textit{S}) a segment if there are at least two sentences in the segment and the sentence is the first one, 
+%\item [$\bullet$ ending] (\textit{E}) a segment if there are at least two sentences in the segment and the sentence is the last one, 
+%\item [$\bullet$ inside] (\textit{I}) a segment in any other cases.
+%\end{description}
+%  \captionof{figure}{A figure}
+%  \label{fig:test1}
+%\end{minipage}%
+%\begin{minipage}{.5\textwidth}
+
+%%\begin{figure}[h!]
+%\small\centering
+%\begin{tabular}{*{2}{|l}|c|}
+%\toprule
+%\textbf{Source} & \textbf{Reply} & \textbf{Label}\\
+%	\midrule
+%S1  & & \\
+%    & R1 & \\
+%\textit{S2}  & > \textit{R2}& \texttt{Start}\\
+%\textit{S3}  & > \textit{R3}& \texttt{Inside}\\
+%\textit{S4}  & > \textit{R4}& \texttt{End}\\
+%    & R5 & \\
+%    & R6 & \\
+%    & R7 & \\
+%    & R8 & \\
+%\textit{S5}  & > \textit{R9} & \texttt{Start\&End}\\
+%    & R10 & \\
+%%    & R11 & \\
+%    & [...] & \\
+%S7    &  & \\ \ 
+%[...] \    &  & \\
+%	\bottomrule
+%\end{tabular}
+
+%  \captionof{figure}{Sentences alignment of the source and the reply messages from the Figure~\ref{fig:exampleSourCeReplyMessage}. Examples of segmentation labels which can be inferred from the text re-use of the source message and associated to the source sentences.}
+%\label{fig:exampleSegmentationLabels}
+%\end{minipage}
+%\end{figure}
+
+
+
+%\begin{multicols}{2}
+
+\begin{figure}[h!]\small\centering
+\begin{tabular}{*{2}{|l}|c|}
+\toprule
+\textbf{Source} & \textbf{Reply} & \textbf{Label}\\
+	\midrule
+S1  & & \\
+    & R1 & \\
+\textit{S2}  & > \textit{R2}& \texttt{Start}\\
+\textit{S3}  & > \textit{R3}& \texttt{Inside}\\
+\textit{S4}  & > \textit{R4}& \texttt{End}\\
+    & R5 & \\
+    & R6 & \\
+    & R7 & \\
+    & R8 & \\
+\textit{S5}  & > \textit{R9} & \texttt{Start\&End}\\
+    & R10 & \\
+%    & R11 & \\
+    & [...] & \\
+S7    &  & \\ \ 
+[...] \    &  & \\
+	\bottomrule
+\end{tabular}
+
+\caption{Sentences alignment of the source and the reply messages from the Figure~\ref{fig:exampleSourCeReplyMessage}. Examples of segmentation labels which can be inferred from the text re-use of the source message and associated to the source sentences.}
+\label{fig:exampleSegmentationLabels}
+\end{figure}
+%\end{multicols}
 %
 As a matter of fact, this scheme is similar to the \textit{BIO} annotation scheme except it is at the sentence level and not at the token level.
 % [STARTEND] if the sentence of the source message is surrounded by insertions which are part of the reply message;
@@ -297,50 +344,57 @@ As a matter of fact, this scheme is similar to the \textit{BIO} annotation schem
 
 
 %------------------------------------------------------------------------------
-\subsubsection{Annotation generation procedure}
+\subsection{Annotation generation procedure}
 \label{}
 
-The generation process aims at "automatically" annotating sentences from the source messages with segmentation information.
+The generation procedure is intented to "automatically" annotating sentences from the source messages with segmentation information.
 Figure~\ref{fig:procedureTrainingDataGeneration} describes the steps of the generation procedure at the global level. 
-Each message from our corpus are tokenized and the sentences split. 
-The quoted lines in the reply messages are identified based on the presence of a specific prefix at the beginning of the lines. 
-As declared in the RFC~3676\footnote{\url{http://www.ietf.org/rfc/rfc3676.txt}}, we consider the lines of a message to be quoted if the first character is the mark "\texttt{>}" (greater than).
-%
-Pair of source and reply messages are made up based on the \texttt{in-reply-to} field present in the email headers.
-The word tokens are used to index the quoted lines and the sentences. 
-Section~\ref{secalignmentmodule} describes our method to align the quoted sentences from the reply messages with the sentences from the source messages. 
-Figure~\ref{fig:algoLabellingEachAlignedSentence} gives some precisions about the algorithm for labelling each aligned sentence with a segmentation instruction. 
-
-
-FIXME The meaning we give to the term of sentence is more linguistically-based. 
-
-FIXME We assume there is no deletion of original text between two consecutive quoted part.
-
 \begin{figure}[ht!]
 %\begin{enumerate}
 %\item List the source and the reply messages
 %\item 
 \fbox {
     \parbox{\linewidth}{
-For each pair of source and reply messages
+\begin{enumerate}[itemsep=0mm]
+%\itemsep0em 
+\item Identification of the messages with inline replies
+\item For each pair of source and inline reply messages
 \begin{enumerate}
 \item Tokenize both messages in words and sentences
 \item Identify % the tokens which are part of 
 the quoted lines in the reply message
 \item Identify the sentences which are part of the quoted text in the reply message
-\item Align the sentences from the source message with the ones from the quoted text in the reply message 
+\item Align the sentences from the source message with %the ones from 
+the quoted text in the reply message 
 %\item For each aligned sentence 
 %\begin{enumerate}
 \item Label each aligned source sentence in terms of its segmentation role (See~Figure~\ref{fig:algoLabellingEachAlignedSentence})
 %\end{enumerate}
 \item Add to the training data the labelled message made up by the sequence of labelled sentences %The sequence of labelled sentences makes up a labelled message which is add to the training data 
 \end{enumerate}
+\end{enumerate}
 }}
-
 %\end{enumerate}
 \caption{Procedure for generating the training data}
 \label{fig:procedureTrainingDataGeneration}
 \end{figure}
+
+Each message from our corpus are tokenized and the sentences split. 
+%
+Messages with \textit{inline replying} style are recognized thanks to the presence of at least two consecutive quoted lines separated by new content lines. 
+%
+The \textit{quoted lines} in the reply messages are identified based on the presence of a specific prefix at the beginning of the lines. 
+As declared in the RFC~3676\footnote{\url{http://www.ietf.org/rfc/rfc3676.txt}}, we consider the lines of a message to be quoted if the first character is the sign "\texttt{>}" (greater than).
+%
+Lines which are not quoted lines are considered to be \textit{new content} lines.
+%
+\textit{Pairs of source and reply messages} are made up based on the \texttt{\footnotesize in-reply-to} field present in the email headers.
+The word tokens are used to index the quoted lines and the sentences. 
+Section~\ref{secalignmentmodule} describes our method to align the quoted sentences from the reply messages with the sentences from the source messages. 
+Figure~\ref{fig:algoLabellingEachAlignedSentence} gives some precisions about the algorithm for labelling each aligned sentence with a segmentation instruction. 
+We assume there is no deletion of original text between two consecutive quoted part.
+
+
 
 
 \begin{figure}[ht!]
@@ -350,11 +404,14 @@ the quoted lines in the reply message
 \fbox {
     \parbox{\linewidth}{
 For each aligned source sentence %identified quoted sentence
- (sentence from the source message re-used in the reply message)
-\begin{itemize}
+ (sentence from the source message re-used in the reply message) \vspace{-0.1cm}
+\begin{itemize} \itemsep -10pt
+
 \item if the sentence is surrounded by new content in the reply message, then label it \texttt{Start\&End}
+
 %both the previous and the next sentences are part of the
 \begin{itemize}
+
 \item[$\bullet$] else if the sentence is preceded by a new content, then label it  \texttt{Start}
 \begin{itemize}
 \item[$\bullet$] else if the sentence is followed by a new content, then label it  \texttt{End}
@@ -377,7 +434,7 @@ For each aligned source sentence %identified quoted sentence
 
 
 %------------------------------------------------------------------------------
-\subsubsection{Alignment module}
+\subsection{Alignment module}
 \label{secalignmentmodule}
 
 
@@ -425,109 +482,6 @@ In comparison to the speech recognition and translation use cases, despite some 
 
 
 
-%------------------------------------------------------------------------------
-\subsubsection{Restrictions}
-\label{}
-
-Focus on the first message of a thread and its reply messages to avoid noisy data due to several levels of quoted lines.
-
-Restrict on short messages as an heuristic to filter out the long code trace message
-
-Due to alignment complexity focus only on the first 25 000 tokens.
-
-In source message, focus on part which is new ; in reply message, focus on part which is new + only the first? quoted level 
- 
 
 
-% -----------------------------------------------------------------------------
-\subsection{Building the segmenter}
 
-Our email segmenter is built around a linear-chain Conditional Random Field (CRF) classifier, as implemented in the sequence labelling toolkit Wapiti \cite{lavergne2010practical}. Each email is processed as a sequence and each sentence as an element of that sequence.
-
-The classifier uses features that capture syntactic, stylistic and lexical information about the sentence. Several of them are borrowed from related work in speech act classification \cite{qadir2011classifying} and email segmentation \cite{lampert2009segmenting}. All the features are domain-independant. Almost all features are language-independant as well, save for a few that can be easily translated.
-
-For the purposes of analysis and experimentation, the feature set is separated into four groups: syntactic features, lexical features, stylistic features and thematic features.
-
-\subsubsection{Syntactic features}
-
-We focus on the first and last three significant tokens in the sentence, which often serve as connectors to adjoining sentences and therefore hold important structural information.
-
-Token significance is determined by the number of occurrences of the token in the training corpus: terms with a frequency lower than 1/2000 are considered insignificant. If a sentence contains less than six significant tokens, the same token can be found in both triplets. If the sentence contains less than three significant tokens, missing values are replaced by a placeholder.
-
-We define three individual features for each of the three unigrams, the two bigrams and the single trigram found in each of these triplets. The features are the following: the unaltered form of each token (case-sensitive), their lemmatized form (case-insensitive) and their corresponding part-of-speech. This is illustrated in figure ~\ref{fig:exampleSyntacticFeatures}.
-
-We use the Stanford Log-linear Part-Of-Speech Tagger for morpho-syntactic tagging \cite{toutanova2003feature}, and the WordNet lexical database to perform lemmatization \cite{miller1995wordnet}.
-
-\begin{figure}\small\centering
-\begin{tabular}{*{2}{|l}|l|}
-\toprule
-\textbf{Surface form} & \textbf{Lemma} & \textbf{P.O.S.}\\
-	\midrule
-	Many & many & JJ\\
-	thanks & thanks & NNS\\
-	to & to & TO\\
-	your & your & PRP\\
-	suggestions & suggestion & DD\\
-	. & . & .\\
-	Many thanks & many thanks & JJ NNS\\
-	thanks to . & thanks to . & NNS TO . \\
-	your suggestions & your suggestion & PRP DD\\
-	suggestions & suggestion & DD\\
-	Many thanks to & many thanks to & JJ NNS TO\\
-	your suggestions . & your suggestion . & PRP DD .\\
-	\bottomrule
-\end{tabular}
-
-\caption{Syntactic features formed from the sentence "\textit{Many thanks to all of you for the help you have offered, I have learned tremendously from all your suggestions.}" Each cell is a feature.}
-\label{fig:exampleSyntacticFeatures}
-\end{figure}
-
-\subsubsection{Lexical features}
-
-We select the 1000 bigrams and trigrams with the highest document frequency in the training data, and check for their presence in each sentence. Since the probability of having multiple occurrences of the same n-gram in one sentence are extremely low, we do not record the number of occurrences but merely a boolean value. The check is case-insensitive.
-
-\subsubsection{Stylistic features}
-
-Stylistic features include graphic, orthographic and semantic features. \textbf{Graphic features} capture information about the visual structure and composition of the message:
-
-\begin{itemize}
-	\item the position of the sentence in the email
-	\item the average length of a token
-	\item the total number of tokens
-	\item the total number of characters
-	\item the proportion of uppercase, alphabetic and numeric characters
-\end{itemize}
-
-\textbf{Orthographic features} capture information about the use of distinctive characters or character sequences:
-
-\begin{itemize}
-	\item the number of greater-than signs (``>''), also know as ``chevron'' symbols, in the sentence
-	\item whether the sentence ends with a question mark, a colon or a semicolon, or if it at least contains one (three features)
-	\item whether the sentence contains any punctuation within the first three tokens (this is meant to recognize greetings \cite{qadir2011classifying})
-\end{itemize}
-
-\textbf{Semantic features} check for meaningful words and phrases:
-
-\begin{itemize}
-	\item whether the sentence begins with a ``wh*'' question word  (\textit{``who''}, \textit{``when''}, \textit{``where''}, \textit{``what''}, \textit{``which''}, \textit{``what''}, \textit{``how''}) or an n-gram suggesting an incoming interrogation (e.g. \textit{``is it''} or \textit{``are there''}), and whether the sentence merely contains such a word or n-gram
-	\item whether the sentence contains a modal (\textit{``may''}, \textit{``must''}, \textit{``shall''}, \textit{``will''}, \textit{``might''}, \textit{``should''}, \textit{``would''}, \textit{``could''}, and their negative forms)
-	\item whether any plan phrases (e.g. \textit{``i will''} or \textit{``we are going to''}) are present
-	\item whether the sentence contains first person, second person or third persons words (e.g. \textit{``we''}, \textit{``my''} and \textit{``me''} are recognized as first person words)
-	\item the first personal pronoun found in the sentence
-	\item the first verbal form found in the sentence as classified by the Stanford Part-Of-Speech tagger ; that is an element of the Penn Treebank tag set \footnote{Alphabetical list of part-of-speech tags used in the Penn Treebank Project: \url{http://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html}} (e.g. the feature \textit{``VBZ''} indicates a present tense verb in third person singular)
-\end{itemize}
-
-\subsubsection{Thematic features}
-
-The only feature we use to account for thematic shift recognition is the output of the Text Tiling algorithm \cite{hearst1997texttiling}. Text Tiling is one of the most commonly used algorithms for automatic text segmentation. It is a statistical method for thematic segmentation, i.e. a method that attempts to segment texts according to the contrasting themes of its parts: if the algorithm detects a rupture in the thematic continuity of the text, it will place a boundary to indicate a thematic change. This method is based on the notion of lexical cohesion.
-
-\subsubsection{Labels}
-
-Training the classifier to recognize the different labels of the previously defined annotation scheme can be problematic. It has indeed some disadvantages that can undermine the effectiveness of the classifier. In particular, sentences annotated \textit{SE} will, by definition, share important characteristics with sentences bearing the annotation \textit{S} and \textit{E}. For the purposes of segmentation, we chose to transform these annotations into a binary scheme and merely differentiate sentences that start a new segment (\textit{True}), or "boundary sentences", from those that do not (\textit{False}). The conversion process is trivial, and can easily be reversed:
-
-\begin{itemize}
-    \item \textit{SE} $\longrightarrow$ \textit{True} $\longrightarrow$ \textit{SE} (if the next sentence is also a boundary)
-    \item \textit{S} $\longrightarrow$ \textit{True} $\longrightarrow$ \textit{S} (if the next sentence is not a boundary)
-    \item \textit{I} $\longrightarrow$ \textit{False} $\longrightarrow$ \textit{I} (if the next sentence is not a boundary either)
-    \item \textit{E} $\longrightarrow$ \textit{False} $\longrightarrow$ \textit{E} (if the next sentence is a boundary)
-\end{itemize}
