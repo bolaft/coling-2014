@@ -523,7 +523,7 @@ The only feature we use to account for thematic shift recognition is the output 
 
 \subsubsection{Labels}
 
-Training the classifier to recognize the different labels of the previously defined annotation scheme can be problematic. It has indeed some disadvantages that can undermine the effectiveness of the classifier. In particular, sentences annotated \textit{SE} will, by definition, share important characteristics with sentences bearing the annotation \textit{S} and \textit{E}. For the purposes of segmentation, we chose to transform these annotations into a binary scheme and merely differentiate sentences that starts a new segment (\textit{True}), or "boundary sentences", from those that do not (\textit{False}). The conversion process is trivial, and can easily be reversed:
+Training the classifier to recognize the different labels of the previously defined annotation scheme can be problematic. It has indeed some disadvantages that can undermine the effectiveness of the classifier. In particular, sentences annotated \textit{SE} will, by definition, share important characteristics with sentences bearing the annotation \textit{S} and \textit{E}. For the purposes of segmentation, we chose to transform these annotations into a binary scheme and merely differentiate sentences that start a new segment (\textit{True}), or "boundary sentences", from those that do not (\textit{False}). The conversion process is trivial, and can easily be reversed:
 
 \begin{itemize}
     \item \textit{SE} $\longrightarrow$ \textit{True} $\longrightarrow$ \textit{SE} (if the next sentence is also a boundary)

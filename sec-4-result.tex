@@ -1,10 +1,57 @@
+
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
 \section{Experiments}
 
+All displayed results show \textit{WindowDiff}, $P_{k}$ and \textit{GHD} as error rates, therefore a lower percentage is desirable for these metrics. This contrasts with the three information retrieval scores, for which a low percentage denotes poor performance.
 
+\subsection{Baseline performances}
 
+Table \ref{fig:baselinesResults} shows the results obtained by both of our baselines. Unsurprisingly, TextTiling performs much better than the basic regular segmentation algorithm across all metrics.
 
-\subsection{Email segmentation}
+\begin{table}[h]
+	\begin{tabular}{p{2cm}|C{2cm}|C{2cm}|C{2cm}||C{1.5cm}|C{1.5cm}|C{1.5cm}|}
+		\cline{2-7}
+		& \multicolumn{3}{c||}{Segmentation metrics} & \multicolumn{3}{c|}{IR metrics} \\ \cline{2-7}
+		& \textit{WindowDiff} & $P_{k}$ & \textit{GHD} & \textit{Precision} & \textit{Recall} & \textit{$F_1$} \\ \hline
+		\multicolumn{1}{|l|}{Regular} & \% & \% & \% & \% & \% & \% \\ \hline
+		\multicolumn{1}{|l|}{Text Tiling} & \% & \% & \% & \% & \% & \% \\ \hline
+	\end{tabular}
+	\caption{Results for of the regular segmentation baseline and the Text Tiling segmentation baseline}
+	\label{fig:baselinesResults}
+\end{table}
 
-\subsection{Contributions of the segmenter to a speech act classification task}
+\subsection{Performance of individual feature sets}
 
-\subsection{Results and discussion}
+Table \ref{fig:individualFeatureSetsResults} shows the results for four different classifiers, each trained with a distinct subset of the feature set. While all classifiers easily beat the regular baseline, none manage to surpass TextTiling when performance is measured by segmentation metrics. Some results however stand out. In particular, the classifier based on lexical features manage to achieve an outstanding TODO\% precision, although this result is mitigated by a meager TODO\% recall.
+
+\begin{table}[h]
+	\begin{tabular}{p{2cm}|C{2cm}|C{2cm}|C{2cm}||C{1.5cm}|C{1.5cm}|C{1.5cm}|}
+		\cline{2-7}
+		& \multicolumn{3}{c||}{Segmentation metrics} & \multicolumn{3}{c|}{IR metrics} \\ \cline{2-7}
+		& \textit{WindowDiff} & $P_{k}$ & \textit{GHD} & \textit{Precision} & \textit{Recall} & \textit{$F_1$} \\ \hline
+		\multicolumn{1}{|l|}{Syntactic} & \% & \% & \% & \% & \% & \% \\ \hline
+		\multicolumn{1}{|l|}{Stylistic} & \% & \% & \% & \% & \% & \% \\ \hline
+		\multicolumn{1}{|l|}{Lexical} & \% & \% & \% & \% & \% & \% \\ \hline
+		\multicolumn{1}{|l|}{Thematic} & \% & \% & \% & \% & \% & \% \\ \hline
+	\end{tabular}
+	\caption{Results for each individual feature set}
+	\label{fig:individualFeatureSetsResults}
+\end{table}
+
+\subsection{Performance of combined feature sets}
+
+Table \ref{fig:combinedFeatureSetsResults} shows the results of three different segmenters. The first one is simply a classifier that takes all available features into account. The second one segments according to the union of the boundaries detected by a classifier trained on lexical features and those identified by a classifier trained on all other features. The last one considers all boundaries detected by a classifier trained on lexical features, and selects some boundaries identified by a classifier trained on all other features according to their confidence score. The number of "cherry-picked" boundaries depends on the expected number of boundaries in the test set, which is computed from the average segment length in the training set.
+
+\begin{table}[h]
+	\begin{tabular}{p{2.5cm}|C{2cm}|C{2cm}|C{2cm}||C{1.5cm}|C{1.5cm}|C{1.5cm}|}
+		\cline{2-7}
+		& \multicolumn{3}{c||}{Segmentation metrics} & \multicolumn{3}{c|}{IR metrics} \\ \cline{2-7}
+		& \textit{WindowDiff} & $P_{k}$ & \textit{GHD} & \textit{Precision} & \textit{Recall} & \textit{$F_1$} \\ \hline
+		\multicolumn{1}{|l|}{All features} & \% & \% & \% & \% & \% & \% \\ \hline
+		\multicolumn{1}{|l|}{Lexical $\cup$ others} & \% & \% & \% & \% & \% & \% \\ \hline
+		\multicolumn{1}{|l|}{Lexical $\cup$ "cherry-pick"} & \% & \% & \% & \% & \% & \% \\ \hline
+	\end{tabular}
+	\caption{Results for each individual feature set}
+	\label{fig:combinedFeatureSetsResults}
+\end{table}
