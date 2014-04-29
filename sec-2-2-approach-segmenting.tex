@@ -1,7 +1,7 @@
 
 % -----------------------------------------------------------------------------
 \section{Building the segmenter}
-
+\label{sec:buildingTheSegmenter}
 We choose to define the segmentation problem as a sequence labelling task whose principle is to assign the globally best set of labels for the entire sequence of sentences at once. The underlying idea is that
 the choice of the optimal label for a given sentence is dependent on the choices of nearby sentences. If a sentence is labelled \texttt{\footnotesize ending}, the next one should probably be  \texttt{\footnotesize starting}.
 
@@ -9,8 +9,16 @@ the choice of the optimal label for a given sentence is dependent on the choices
 
 Our email segmenter is built around a linear-chain Conditional Random Field (CRF) classifier, as implemented in the sequence labelling toolkit Wapiti \cite{lavergne2010practical}. Each email is processed as a sequence of sentences.
 
-For the purposes of analysis and experimentation, we distinguish four sets of features: information structure based features, $n$-gram features, stylistic features and thematic features.
+For the purposes of analysis and experimentation, we distinguish four sets of features:  $n$-gram features, information structure based features, thematic features and stylistic features.
+The purpose of each one of these features is to describe the current sentence from which it is extracted. 
 Several of them are borrowed from related work in speech act classification \cite{qadir2011classifying} and email segmentation \cite{lampert2009segmenting}. All the features are domain-independant. Almost all features are language-independant as well, save for a few that can be easily translated.
+
+
+
+% -----------------------------------------------------------------------------
+\subsection{$n$-gram features}
+
+We select the 1000 bigrams and trigrams with the highest document frequency in the training data, and check for their presence in each sentence. Since the probability of having multiple occurrences of the same n-gram in one sentence are extremely low, we do not record the number of occurrences but merely a boolean value. The check is case-insensitive.
 
 
 % -----------------------------------------------------------------------------
@@ -55,54 +63,62 @@ We use the Stanford Log-linear Part-Of-Speech Tagger for morpho-syntactic taggin
 %\label{fig:exampleSyntacticFeatures}
 %\end{figure}
 
-% -----------------------------------------------------------------------------
-\subsection{$n$-gram features}
+FIXME features are present in this set.
 
-We select the 1000 bigrams and trigrams with the highest document frequency in the training data, and check for their presence in each sentence. Since the probability of having multiple occurrences of the same n-gram in one sentence are extremely low, we do not record the number of occurrences but merely a boolean value. The check is case-insensitive.
+% -----------------------------------------------------------------------------
+\subsection{Thematic features}
+
+The only feature we use to account for thematic shift recognition is the output of the TextTiling algorithm \cite{hearst1997texttiling}. TextTiling is one of the most commonly used algorithms for automatic text segmentation. It is a statistical method for thematic segmentation, i.e. a method that attempts to segment texts according to the contrasting themes of its parts: if the algorithm detects a rupture in the thematic continuity of the text, it will place a boundary to indicate a thematic change. This method is based on the notion of lexical cohesion.
+
+FIXME features are present in this set.
 
 % -----------------------------------------------------------------------------
 \subsection{Stylistic features}
 
-Stylistic features include graphic, orthographic and semantic features. \textbf{Graphic features} capture information about the visual structure and composition of the message:
+This feature set encompasses more than simply stylistic features. 
+It includes graphic, orthographic and semantic features.
+Somehow it consists in our catch-all category.
 
-\begin{itemize}
-	\item the position of the sentence in the email
-	\item the average length of a token
-	\item the total number of tokens
-	\item the total number of characters
-	\item the proportion of uppercase, alphabetic and numeric characters
-\end{itemize}
+\textit{Graphic features} capture information about the visual structure and composition of the message:
+the position of the sentence in the email, 
+the average length of a token,
+the total number of tokens and characters, 
+the proportion of upper-case, alphabetic and numeric characters.
 
-\textbf{Orthographic features} capture information about the use of distinctive characters or character sequences:
 
-\begin{itemize}
-	\item the number of greater-than signs (``>''), also know as ``chevron'' symbols, in the sentence
-	\item whether the sentence ends with a question mark, a colon or a semicolon, or if it at least contains one (three features)
-	\item whether the sentence contains any punctuation within the first three tokens (this is meant to recognize greetings \cite{qadir2011classifying})
-\end{itemize}
+\textit{Orthographic features} capture information about the use of distinctive characters or character sequences:
+the number of greater-than signs (``>''); %also know as ``chevron'' symbols, in the sentence
+whether the sentence ends with or contains a question mark, a colon or a semicolon; %, or if it at least contains one (three features)
+whether the sentence contains any punctuation within the first three tokens (this is meant to recognize greetings \cite{qadir2011classifying}).
+%\end{itemize}
 
-\textbf{Semantic features} check for meaningful words and phrases:
+\textit{Semantic features} check for meaningful words and phrases:
+%
+%\begin{itemize}
+%	\item 
+whether the sentence begins with or contains a ``wh*'' question word  (\textit{``who''}, \textit{``when''}, \textit{``where''}, \textit{``what''}, \textit{``which''}, \textit{``what''}, \textit{``how''}) or an n-gram suggesting an incoming interrogation (e.g. \textit{``is it''} or \textit{``are there''}); %, and whether the sentence merely contains such a word or n-gram
+%	\item 
+whether the sentence contains a modal (\textit{``can''}, \textit{``may''}, \textit{``must''}, \textit{``shall''}, \textit{``will''}, \textit{``might''}, \textit{``should''}, \textit{``would''}, \textit{``could''}, and their negative forms);
+%	\item 
+whether any plan phrases (e.g. \textit{``i will''} or \textit{``we are going to''}) are present;
+%	\item 
+whether the sentence contains first person (such as \textit{``we''}, \textit{``my''} and \textit{``me''}), second person or third persons words; % (e.g. \textit{``we''}, \textit{``my''} and \textit{``me''} are recognized as first person words)
+%	\item 
+the first personal pronoun found in the sentence;
+%	\item 
+the first verbal form found.% in the sentence as classified by the Stanford Part-Of-Speech tagger ; that is an element of the Penn Treebank tag set \footnote{Alphabetical list of part-of-speech tags used in the Penn Treebank Project: \url{http://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html}} (e.g. the feature \textit{``VBZ''} indicates a present tense verb in third person singular)
 
-\begin{itemize}
-	\item whether the sentence begins with a ``wh*'' question word  (\textit{``who''}, \textit{``when''}, \textit{``where''}, \textit{``what''}, \textit{``which''}, \textit{``what''}, \textit{``how''}) or an n-gram suggesting an incoming interrogation (e.g. \textit{``is it''} or \textit{``are there''}), and whether the sentence merely contains such a word or n-gram
-	\item whether the sentence contains a modal (\textit{``may''}, \textit{``must''}, \textit{``shall''}, \textit{``will''}, \textit{``might''}, \textit{``should''}, \textit{``would''}, \textit{``could''}, and their negative forms)
-	\item whether any plan phrases (e.g. \textit{``i will''} or \textit{``we are going to''}) are present
-	\item whether the sentence contains first person, second person or third persons words (e.g. \textit{``we''}, \textit{``my''} and \textit{``me''} are recognized as first person words)
-	\item the first personal pronoun found in the sentence
-	\item the first verbal form found in the sentence as classified by the Stanford Part-Of-Speech tagger ; that is an element of the Penn Treebank tag set \footnote{Alphabetical list of part-of-speech tags used in the Penn Treebank Project: \url{http://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html}} (e.g. the feature \textit{``VBZ''} indicates a present tense verb in third person singular)
-\end{itemize}
 
-\subsection{Thematic features}
+FIXME features are present in this set.
 
-The only feature we use to account for thematic shift recognition is the output of the Text Tiling algorithm \cite{hearst1997texttiling}. Text Tiling is one of the most commonly used algorithms for automatic text segmentation. It is a statistical method for thematic segmentation, i.e. a method that attempts to segment texts according to the contrasting themes of its parts: if the algorithm detects a rupture in the thematic continuity of the text, it will place a boundary to indicate a thematic change. This method is based on the notion of lexical cohesion.
-
+% -----------------------------------------------------------------------------
 \subsection{Labels}
 
-Training the classifier to recognize the different labels of the previously defined annotation scheme can be problematic. It has indeed some disadvantages that can undermine the effectiveness of the classifier. In particular, sentences annotated \textit{SE} will, by definition, share important characteristics with sentences bearing the annotation \textit{S} and \textit{E}. For the purposes of segmentation, we chose to transform these annotations into a binary scheme and merely differentiate sentences that starts a new segment (\textit{True}), or "boundary sentences", from those that do not (\textit{False}). The conversion process is trivial, and can easily be reversed:
+Training the classifier to recognize the different labels of the previously defined annotation scheme can be problematic. It has indeed some disadvantages that can undermine the effectiveness of the classifier. In particular, sentences annotated \textit{SE} will, by definition, share important characteristics with sentences bearing the annotation \textit{S} and \textit{E}. For the purposes of segmentation, we chose to transform these annotations into a binary scheme and merely differentiate sentences that starts a new segment (\textit{True}), or "boundary sentences", from those that do not (\textit{False}). The conversion process is trivial, and can easily be reversed\footnote{Sentences labelled with \textit{SE} or \textit{S} are turned into \textit{True}, the other ones into \textit{False}. To reverse the process, a \textit{True} is turned into \textit{SE} if the next sentence is also a boundary (i.e. a True) and into \textit{S} otherwise. While a \textit{False} is turned into \textit{E} if the next sentence is a boundary (i.e. a True) and into  \textit{I} otherwise.}.
 
-\begin{itemize}
-    \item \textit{SE} $\longrightarrow$ \textit{True} $\longrightarrow$ \textit{SE} (if the next sentence is also a boundary)
-    \item \textit{S} $\longrightarrow$ \textit{True} $\longrightarrow$ \textit{S} (if the next sentence is not a boundary)
-    \item \textit{I} $\longrightarrow$ \textit{False} $\longrightarrow$ \textit{I} (if the next sentence is not a boundary either)
-    \item \textit{E} $\longrightarrow$ \textit{False} $\longrightarrow$ \textit{E} (if the next sentence is a boundary)
-\end{itemize}
+%\begin{itemize}
+%    \item \textit{SE} $\longrightarrow$ \textit{True} $\longrightarrow$ \textit{SE} (if the next sentence is also a boundary)
+%    \item \textit{S} $\longrightarrow$ \textit{True} $\longrightarrow$ \textit{S} (if the next sentence is not a boundary)
+%    \item \textit{I} $\longrightarrow$ \textit{False} $\longrightarrow$ \textit{I} (if the next sentence is not a boundary either)
+%    \item \textit{E} $\longrightarrow$ \textit{False} $\longrightarrow$ \textit{E} (if the next sentence is a boundary)
+%\end{itemize}

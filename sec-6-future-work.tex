@@ -12,5 +12,9 @@
 \item un exemple de segmentation que l'on souhaite
 \item aligner seulement les quoted lines et non tout le contenu du reply
 \item travailler la tokenization des emails
-
+%\item Focus on the first message of a thread and its reply messages to avoid noisy data due to several levels of quoted lines.
+%\item Restrict on short messages as an heuristic to filter out the long code trace message
+%\item Due to alignment complexity focus only on the first 25 000 tokens.
+\item In source message, focus on part which is new ; in reply message, focus on part which is new + only the first? quoted level 
+ 
 \end{itemize}

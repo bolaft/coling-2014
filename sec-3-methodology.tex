@@ -1,39 +1,44 @@
-
+% -----------------------------------------------------------------------------
 \section{Experimental framework}
 
+In this section, we report the data and the evaluation protocol we use for our experiments.
+% -----------------------------------------------------------------------------
 \subsection{Corpus}
 
-We use the \textit{ubuntu-users} email archive\footnote{\textit{ubuntu-users} mailing list archive: \url{https://lists.ubuntu.com/archives/ubuntu-users/}} as our primary corpus. It offers a number of advantages. It is free, and distributed under an unrestrictive license. It is up-to-date, with messages as recent as December 2013, and therefore is representative of modern emailing in both content and formatting conventions. Additionally, many alternatives archives are available\footnote{Ubuntu mailing lists archives: \url{https://lists.ubuntu.com/archives/}}, in a number of different languages, including some very resource-poor languages.
+We use the \textit{ubuntu-users} email archive\footnote{\textit{ubuntu-users} mailing list archive: \url{https://lists.ubuntu.com/archives/ubuntu-users/}} as our primary corpus. It offers a number of advantages. It is free, and distributed under an unrestrictive license. It increases continuously, and therefore is representative of modern emailing in both content and formatting conventions. Additionally, many alternatives archives are available\footnote{Ubuntu mailing lists archives: \url{https://lists.ubuntu.com/archives/}}, in a number of different languages, including some very resource-poor languages.
 
-The corpus contains a total of 272,380 messages. 33,915 of them are posted in the "inline-replying" style that we are interested in. These messages are made of 418,858 sentences, themselves constituted of 76,326 unique tokens (5,139,123 total). 87,950 of these lines (21\%) are automatically labelled as the start of a new segment (either \textit{SE} or \textit{S}).
-
+For this work, we use a copy of December 2013.
+The corpus contains a total of 272,380 messages. 33,915 of them are posted in the inline replying style that we are interested in. These messages are made of 418,858 sentences, themselves constituted of 76,326 unique tokens (5,139,123 total). 87,950 of these lines (21\%) are automatically labelled as the start of a new segment (either \textit{SE} or \textit{S}).
+% -----------------------------------------------------------------------------
 \subsection{Evaluation protocol}
 
 In order to evaluate the efficiency of the segmenter, we perform a 10-fold cross-validation on the Ubuntu corpus, and compare its performance to two different baselines. The results are measured with a panel of metrics used in text segmentation and information retrieval.
-
+% -----------------------------------------------------------------------------
 \subsubsection{Metrics}
 
-Traditional metrics of precision and recall are provided for all results. Precision is the percentage of boundaries identified by the classifier that are indeed true boundaries, recall is the percentage of true boundaries that are identified by the classifier. We also provide the $F_1$ score which represents the harmonic mean of precision and recall:
+%Traditional
+Information retrieval metrics of Precision and Recall are provided for all results. \textit{Precision} is the percentage of boundaries identified by the classifier that are indeed true boundaries. \textit{Recall} is the percentage of true boundaries that are identified by the classifier. We also provide the $F_1$ score which represents the harmonic mean of precision and recall:
+%\[
+$  F_1 = 2 \cdot \frac{\mathrm{precision} \cdot \mathrm{recall}}{\mathrm{precision} + \mathrm{recall}}$
+%\]
 
-\[
-    F_1 = 2 \cdot \frac{\mathrm{precision} \cdot \mathrm{recall}}{\mathrm{precision} + \mathrm{recall}}
-\]
-
-However, automatic evaluation of speech segmentation through these metrics is problematic as predicted segment boundaries rarely align precisely. Moreover, while a segmenter that places boundaries near actual boundary positions is in almost all cases more suited to the task than one that misses by a much larger margin, precision and recall metrics would penalize both to the same extent. Therefore, in order to evaluate varying degrees of success or failure in a more subtle manner, we also provide an array of metrics relevant to the field of text segmentation : $\bm{P_{k}}$, WindowDiff and the Generalized Hamming Distance (GHD).
-
-The $\bm{P_{k}}$ metric is a probabilistically motivated error metric for the assessment of segmentation algorithms \cite{beeferman1999statistical}.
-
-\textbf{WindowDiff} compares the number of segment boundaries found within a fixed-sized window to the number of boundaries found in the same window of text for the reference segmentation \cite{pevzner2002critique}.
-
-The \textbf{Generalized Hamming Distance (GHD)} is an extension of the Hamming distance\footnote{Wikipedia article on the Hamming distance: \url{http://en.wikipedia.org/wiki/Hamming_distance}} to give partial credit for near misses \cite{bookstein2002generalized}.
-
+However, automatic evaluation of speech segmentation through these metrics is problematic as predicted segment boundaries rarely align precisely. Moreover, while a segmenter that places boundaries near actual boundary positions is in almost all cases more suited to the task than one that misses by a much larger margin, precision and recall metrics would penalize both to the same extent. Therefore, in order to evaluate varying degrees of success or failure in a more subtle manner, we also provide an array of metrics relevant to the field of text segmentation : ${P_{k}}$, WindowDiff and the Generalized Hamming Distance (GHD).
+%$\bm{P_{k}}$,
+%
+The ${P_{k}}$ metric is a probabilistically motivated error metric for the assessment of segmentation algorithms \cite{beeferman1999statistical}.
+%
+\textit{WindowDiff} compares the number of segment boundaries found within a fixed-sized window to the number of boundaries found in the same window of text for the reference segmentation \cite{pevzner2002critique}.
+%
+The \textit{Generalized Hamming Distance (GHD)} is an extension of the Hamming distance\footnote{Wikipedia article on the Hamming distance: \url{http://en.wikipedia.org/wiki/Hamming_distance}} to give partial credit for near misses \cite{bookstein2002generalized}.
+% -----------------------------------------------------------------------------
 \subsubsection{Baselines}
 
-Performance is compared to two simple heuristic baselines. The first one, the ``regular'' baseline, is computed by segmenting the test set into regular segments of the same length as the average training set segment length, rounded up. The second one is the Text Tiling algorithm we described earlier.
-
+Performance is compared to two simple heuristic baselines. The first one, the ``regular'' baseline, is computed by segmenting the test set into regular segments of the same length as the average training set segment length, rounded up. The second one is the TextTiling algorithm we described in section~\ref{sec:buildingTheSegmenter}.
+While it is used as a feature in the proposed approach in the previous section, the direct output of the TextTiling algorithm is used as a mere outcome for the baseline.
+% -----------------------------------------------------------------------------
 \subsection{Preprocessing}
 
-To reduce noise in the corpus we filter out indesirable emails based on several criteria, the first of which is encoding. Messages that are not UTF-8 encoded are removed from the selection. The second criterion is MIME type: we keep single-part plain text messages only, and remove those with HTML or other special contents.
+To reduce noise in the corpus we filter out undesirable emails based on several criteria, the first of which is encoding. Messages that are not UTF-8 encoded are removed from the selection. The second criterion is MIME type: we keep single-part plain text messages only, and remove those with HTML or other special contents.
 
 In addition, we chose to consider only replies to thread starters. This choice is based on the assumption that the alignment module would have more difficulty properly recognizing sentences that were repeatedly transformed in successive replies, and therefore that replies to messages that themselves contain quoted text from other messages are more likely to be poorly labelled through automatic annotation.
 
