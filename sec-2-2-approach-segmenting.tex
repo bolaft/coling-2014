@@ -2,12 +2,13 @@
 % -----------------------------------------------------------------------------
 \section{Building the segmenter}
 \label{sec:buildingTheSegmenter}
-We choose to define the segmentation problem as a sequence labelling task whose principle is to assign the globally best set of labels for the entire sequence of sentences at once. The underlying idea is that
-the choice of the optimal label for a given sentence is dependent on the choices of nearby sentences. If a sentence is labelled \texttt{\footnotesize ending}, the next one should probably be  \texttt{\footnotesize starting}.
+We choose to define the segmentation problem as a sequence labelling task whose aim is to assign the globally best set of labels for the entire sequence of sentences at once. The underlying idea is that the choice of the optimal label for a given sentence is dependent on the choices of nearby sentences. If a sentence is labelled \texttt{\footnotesize ending}, the next one should probably be  \texttt{\footnotesize starting}.
 
 % wikipedia is a type of pattern recognition task that involves the algorithmic assignment of a categorical label to each member of a sequence of observed values. A common example of a sequence labeling task is part of speech tagging, which seeks to assign a part of speech to each word in an input sentence or document. Sequence labeling can be treated as a set of independent classification tasks, one per member of the sequence. However, accuracy is generally improved by making the optimal label for a given element dependent on the choices of nearby elements, using special algorithms to choose the globally best set of labels for the entire sequence at once. 
 
 Our email segmenter is built around a linear-chain Conditional Random Field (CRF) classifier, as implemented in the sequence labelling toolkit Wapiti \cite{lavergne2010practical}. Each email is processed as a sequence of sentences.
+
+Training the classifier to recognize the different labels of the previously defined annotation scheme can be problematic. It has indeed some disadvantages that can undermine the effectiveness of the classifier. In particular, sentences annotated \textit{SE} will, by definition, share important characteristics with sentences bearing the annotation \textit{S} and \textit{E}. For the purposes of segmentation, we chose to transform these annotations into a binary scheme and merely differentiate sentences that starts a new segment (\textit{True}), or "boundary sentences", from those that do not (\textit{False}). The conversion process is trivial, and can easily be reversed\footnote{Sentences labelled with \textit{SE} or \textit{S} are turned into \textit{True}, the other ones into \textit{False}. To reverse the process, a \textit{True} is turned into \textit{SE} if the next sentence is also a boundary (i.e. a True) and into \textit{S} otherwise. While a \textit{False} is turned into \textit{E} if the next sentence is a boundary (i.e. a True) and into  \textit{I} otherwise.}.
 
 For the purposes of analysis and experimentation, we distinguish four sets of features:  $n$-gram features, information structure based features, thematic features and stylistic features.
 The purpose of each one of these features is to describe the current sentence from which it is extracted. 
@@ -18,7 +19,7 @@ Several of them are borrowed from related work in speech act classification \cit
 % -----------------------------------------------------------------------------
 \subsection{$n$-gram features}
 
-We select the 1000 bigrams and trigrams with the highest document frequency in the training data, and check for their presence in each sentence. Since the probability of having multiple occurrences of the same n-gram in one sentence are extremely low, we do not record the number of occurrences but merely a boolean value. The check is case-insensitive.
+We select the 1,000 bigrams and trigrams with the highest document frequency in the training data, and check for their presence in each sentence. Since the probability of having multiple occurrences of the same $n$-gram in one sentence are extremely low, we do not record the number of occurrences but merely a boolean value. The check is case-insensitive.
 
 
 % -----------------------------------------------------------------------------
@@ -31,9 +32,9 @@ For languages such as English or French, the beginning of the sentence is an imp
 %The beginning of a sentence is so often seen as playing an important role in discourse structure 
 
 We focus on the first and last three \textit{significant} tokens in the sentence. %, which often serve as connectors to adjoining sentences and therefore hold important structural information.
-A token was determined as significant if its frequency was higher than  1/2000.
+A token is considered as significant if its frequency is higher than  1/2,000.
 %Token significance is determined by the number of occurrences of the token in the training corpus: terms with a frequency lower than 1/2000 are considered insignificant. If a sentence contains less than six significant tokens, the same token can be found in both triplets. If the sentence contains less than three significant tokens, missing values are replaced by a placeholder.
-As features we use $n$-grams of the form, lemma and part-of-speech tag of each triplet. For instance, from the sentence "\textit{Many thanks to all of you for the help you have offered, I have learned tremendously from all your suggestions.}", we generate the following features~: \texttt{\footnotesize Many/many/JJ/thanks/ thanks/NNS/to/to/TO/.../Many thanks/many thanks/JJ NNS/thanks to ./thanks to ./NNS TO ./\ldots}
+As features we use $n$-grams of the surface form, lemma and part-of-speech tag of each triplet. For example, from the sentence "\textit{Have you tried to update your browser?}", we can generate the following features~: \texttt{\footnotesize "Have", "have", "NNP", "you", "you", "PRP", "tried", "try", "VBD", "Have you", "have you", "you tried", "you try", "NNP PRP", "PRP VBD", "Have you tried", "have you try", "NNP PRP VBD", "your", "your", "PRP"} etc.
 %
 %We define three individual features for each of the three unigrams, the two bigrams and the single trigram found in each of these triplets. The features are the following: the unaltered form of each token (case-sensitive), their lemmatized form (case-insensitive) and their corresponding part-of-speech. This is illustrated in figure ~\ref{fig:exampleSyntacticFeatures}.
 %
@@ -63,21 +64,15 @@ We use the Stanford Log-linear Part-Of-Speech Tagger for morpho-syntactic taggin
 %\label{fig:exampleSyntacticFeatures}
 %\end{figure}
 
-FIXME features are present in this set.
-
 % -----------------------------------------------------------------------------
 \subsection{Thematic features}
 
 The only feature we use to account for thematic shift recognition is the output of the TextTiling algorithm \cite{hearst1997texttiling}. TextTiling is one of the most commonly used algorithms for automatic text segmentation. It is a statistical method for thematic segmentation, i.e. a method that attempts to segment texts according to the contrasting themes of its parts: if the algorithm detects a rupture in the thematic continuity of the text, it will place a boundary to indicate a thematic change. This method is based on the notion of lexical cohesion.
 
-FIXME features are present in this set.
-
 % -----------------------------------------------------------------------------
-\subsection{Stylistic features}
+\subsection{Miscellaneous features}
 
-This feature set encompasses more than simply stylistic features. 
-It includes graphic, orthographic and semantic features.
-Somehow it consists in our catch-all category.
+This feature set includes graphic, orthographic and semantic features. 24 features are in the set:
 
 \textit{Graphic features} capture information about the visual structure and composition of the message:
 the position of the sentence in the email, 
@@ -96,7 +91,7 @@ whether the sentence contains any punctuation within the first three tokens (thi
 %
 %\begin{itemize}
 %	\item 
-whether the sentence begins with or contains a ``wh*'' question word  (\textit{``who''}, \textit{``when''}, \textit{``where''}, \textit{``what''}, \textit{``which''}, \textit{``what''}, \textit{``how''}) or an n-gram suggesting an incoming interrogation (e.g. \textit{``is it''} or \textit{``are there''}); %, and whether the sentence merely contains such a word or n-gram
+whether the sentence begins with or contains a ``wh*'' question word  (\textit{``who''}, \textit{``when''}, \textit{``where''}, \textit{``what''}, \textit{``which''}, \textit{``what''}, \textit{``how''}) or an $n$-gram suggesting an incoming interrogation (e.g. \textit{``is it''} or \textit{``are there''}); %, and whether the sentence merely contains such a word or $n$-gram
 %	\item 
 whether the sentence contains a modal (\textit{``can''}, \textit{``may''}, \textit{``must''}, \textit{``shall''}, \textit{``will''}, \textit{``might''}, \textit{``should''}, \textit{``would''}, \textit{``could''}, and their negative forms);
 %	\item 
@@ -107,14 +102,6 @@ whether the sentence contains first person (such as \textit{``we''}, \textit{``m
 the first personal pronoun found in the sentence;
 %	\item 
 the first verbal form found.% in the sentence as classified by the Stanford Part-Of-Speech tagger ; that is an element of the Penn Treebank tag set \footnote{Alphabetical list of part-of-speech tags used in the Penn Treebank Project: \url{http://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html}} (e.g. the feature \textit{``VBZ''} indicates a present tense verb in third person singular)
-
-
-FIXME features are present in this set.
-
-% -----------------------------------------------------------------------------
-\subsection{Labels}
-
-Training the classifier to recognize the different labels of the previously defined annotation scheme can be problematic. It has indeed some disadvantages that can undermine the effectiveness of the classifier. In particular, sentences annotated \textit{SE} will, by definition, share important characteristics with sentences bearing the annotation \textit{S} and \textit{E}. For the purposes of segmentation, we chose to transform these annotations into a binary scheme and merely differentiate sentences that starts a new segment (\textit{True}), or "boundary sentences", from those that do not (\textit{False}). The conversion process is trivial, and can easily be reversed\footnote{Sentences labelled with \textit{SE} or \textit{S} are turned into \textit{True}, the other ones into \textit{False}. To reverse the process, a \textit{True} is turned into \textit{SE} if the next sentence is also a boundary (i.e. a True) and into \textit{S} otherwise. While a \textit{False} is turned into \textit{E} if the next sentence is a boundary (i.e. a True) and into  \textit{I} otherwise.}.
 
 %\begin{itemize}
 %    \item \textit{SE} $\longrightarrow$ \textit{True} $\longrightarrow$ \textit{SE} (if the next sentence is also a boundary)

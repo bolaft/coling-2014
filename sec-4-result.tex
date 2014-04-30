@@ -4,55 +4,35 @@
 \section{Experiments}
 \label{sec:experiments}
 
-All displayed results show \textit{WindowDiff}, $P_{k}$ and \textit{GHD} as error rates, therefore a lower percentage is desirable for these metrics. This contrasts with the three information retrieval scores, for which a low percentage denotes poor performance.
-
-\subsection{Baseline performances}
-
-Table \ref{fig:baselinesResults} shows the results obtained by both of our baselines. Unsurprisingly, TextTiling performs much better than the basic regular segmentation algorithm across all metrics.
+FIXME Table \ref{fig:results} présente / résume / fusionne tous les résultats ; phrase qui annonce les différentes étapes
 
 \begin{table}[h]
-	\begin{tabular}{p{2cm}|C{2cm}|C{2cm}|C{2cm}||C{1.5cm}|C{1.5cm}|C{1.5cm}|}
+	\begin{tabular}{p{1.5cm}|C{1.5cm}|C{1.5cm}|C{1.5cm}||C{1.5cm}|C{1.5cm}|C{1.5cm}|}
 		\cline{2-7}
 		& \multicolumn{3}{c||}{Segmentation metrics} & \multicolumn{3}{c|}{IR metrics} \\ \cline{2-7}
-		& \textit{WindowDiff} & $P_{k}$ & \textit{GHD} & \textit{Precision} & \textit{Recall} & \textit{$F_1$} \\ \hline
-		\multicolumn{1}{|l|}{Regular} & \% & \% & \% & \% & \% & \% \\ \hline
-		\multicolumn{1}{|l|}{Text Tiling} & \% & \% & \% & \% & \% & \% \\ \hline
+		& \textit{WD} & $P_{k}$ & \textit{GHD} & \textit{Precision} & \textit{Recall} & \textit{$F_1$} \\ \hline
+		\multicolumn{1}{|l|}{regular baseline} 					&  &  &  &  &  &  \\ \hline
+		\multicolumn{1}{|l|}{TextTiling baseline} 				&  &  &  &  &  &  \\ \hline\hline
+		\multicolumn{1}{|l|}{$n$-grams} 						&  &  &  &  &  &  \\ \hline
+		\multicolumn{1}{|l|}{information structure} 			&  &  &  &  &  &  \\ \hline
+		\multicolumn{1}{|l|}{thematic (TextTiling)}				&  &  &  &  &  &  \\ \hline
+		\multicolumn{1}{|l|}{miscellaneous} 					&  &  &  &  &  &  \\ \hline\hline
+		\multicolumn{1}{|l|}{all features} 						&  &  &  &  &  &  \\ \hline
+		\multicolumn{1}{|l|}{$n$-grams $\cup$ non-$n$-grams} 	&  &  &  &  &  &  \\ \hline
+		\multicolumn{1}{|l|}{$n$-grams $\cup$ "cherry-pick"} 	&  &  &  &  &  &  \\ \hline
 	\end{tabular}
-	\caption{Results for of the regular segmentation baseline and the Text Tiling segmentation baseline}
-	\label{fig:baselinesResults}
+	\caption{Comparative results for segmenters and baselines. All displayed results show \textit{WindowDiff} (\textit{WD}), $P_{k}$ and \textit{GHD} as error rates, therefore a lower score is desirable for these metrics. This contrasts with the three information retrieval scores, for which a low percentage denotes poor performance.}
+	\label{fig:results}
 \end{table}
 
-\subsection{Performance of individual feature sets}
+\subsection{Baseline segmenters}
 
-Table \ref{fig:individualFeatureSetsResults} shows the results for four different classifiers, each trained with a distinct subset of the feature set. While all classifiers easily beat the regular baseline, none manage to surpass TextTiling when performance is measured by segmentation metrics. Some results however stand out. In particular, the classifier based on lexical features manage to achieve an outstanding TODO\% precision, although this result is mitigated by a meager TODO\% recall.
+The first section of Table \ref{fig:results} shows the results obtained by both of our baselines. Unsurprisingly, TextTiling performs much better than the basic regular segmentation algorithm across all metrics.
 
-\begin{table}[h]
-	\begin{tabular}{p{2cm}|C{2cm}|C{2cm}|C{2cm}||C{1.5cm}|C{1.5cm}|C{1.5cm}|}
-		\cline{2-7}
-		& \multicolumn{3}{c||}{Segmentation metrics} & \multicolumn{3}{c|}{IR metrics} \\ \cline{2-7}
-		& \textit{WindowDiff} & $P_{k}$ & \textit{GHD} & \textit{Precision} & \textit{Recall} & \textit{$F_1$} \\ \hline
-		\multicolumn{1}{|l|}{Syntactic} & \% & \% & \% & \% & \% & \% \\ \hline
-		\multicolumn{1}{|l|}{Stylistic} & \% & \% & \% & \% & \% & \% \\ \hline
-		\multicolumn{1}{|l|}{Lexical} & \% & \% & \% & \% & \% & \% \\ \hline
-		\multicolumn{1}{|l|}{Thematic} & \% & \% & \% & \% & \% & \% \\ \hline
-	\end{tabular}
-	\caption{Results for each individual feature set}
-	\label{fig:individualFeatureSetsResults}
-\end{table}
+\subsection{Segmenters based on individual feature sets}
 
-\subsection{Performance of combined feature sets}
+The second section of Table \ref{fig:results} shows the results for four different classifiers, each trained with a distinct subset of the feature set. While all classifiers easily beat the regular baseline, none manage to surpass TextTiling when performance is measured by segmentation metrics. Some results however stand out. In particular, the classifier based on lexical features manage to achieve an outstanding TODO\% precision, although this result is mitigated by a meager TODO\% recall.
 
-Table \ref{fig:combinedFeatureSetsResults} shows the results of three different segmenters. The first one is simply a classifier that takes all available features into account. The second one segments according to the union of the boundaries detected by a classifier trained on lexical features and those identified by a classifier trained on all other features. The last one considers all boundaries detected by a classifier trained on lexical features, and selects some boundaries identified by a classifier trained on all other features according to their confidence score. The number of "cherry-picked" boundaries depends on the expected number of boundaries in the test set, which is computed from the average segment length in the training set.
+\subsection{Segmenters based on feature set combination}
 
-\begin{table}[h]
-	\begin{tabular}{p{2.5cm}|C{2cm}|C{2cm}|C{2cm}||C{1.5cm}|C{1.5cm}|C{1.5cm}|}
-		\cline{2-7}
-		& \multicolumn{3}{c||}{Segmentation metrics} & \multicolumn{3}{c|}{IR metrics} \\ \cline{2-7}
-		& \textit{WindowDiff} & $P_{k}$ & \textit{GHD} & \textit{Precision} & \textit{Recall} & \textit{$F_1$} \\ \hline
-		\multicolumn{1}{|l|}{All features} & \% & \% & \% & \% & \% & \% \\ \hline
-		\multicolumn{1}{|l|}{Lexical $\cup$ others} & \% & \% & \% & \% & \% & \% \\ \hline
-		\multicolumn{1}{|l|}{Lexical $\cup$ "cherry-pick"} & \% & \% & \% & \% & \% & \% \\ \hline
-	\end{tabular}
-	\caption{Results for each individual feature set}
-	\label{fig:combinedFeatureSetsResults}
-\end{table}
+The last section of Table \ref{fig:results} shows the results of three different segmenters. The first one is simply a classifier that takes all available features into account. The second one segments according to the union of the boundaries detected by a classifier trained on lexical features and those identified by a classifier trained on all other features. The last one considers all boundaries detected by a classifier trained on lexical features, and selects some boundaries identified by a classifier trained on all other features according to their confidence score. The number of "cherry-picked" boundaries depends on the expected number of boundaries in the test set, which is computed from the average segment length in the training set.
