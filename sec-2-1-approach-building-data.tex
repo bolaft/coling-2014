@@ -123,6 +123,32 @@ will need to run mdadm for you.]$^{R10}$\vspace{0.1cm}
 
 
 
+\begin{figure}[ht!]\small\centering
+\begin{tabular}{*{2}{|l}|c|}
+\toprule
+\textbf{Source} & \textbf{Reply} & \textbf{Label}\\
+	\midrule
+S1  & & \\
+    & R1 & \\
+\textit{S2}  & > \textit{R2}& \texttt{Start}\\
+\textit{S3}  & > \textit{R3}& \texttt{Inside}\\
+\textit{S4}  & > \textit{R4}& \texttt{End}\\
+    & R5 & \\
+    & R6 & \\
+    & R7 & \\
+    & R8 & \\
+\textit{S5}  & > \textit{R9} & \texttt{Start\&End}\\
+    & R10 & \\
+%    & R11 & \\
+    & [...] & \\
+S7    &  & \\ \ 
+[...] \    &  & \\
+	\bottomrule
+\end{tabular}
+
+\caption{Alignment of sentences from the source and reply messages shown in Figure~\ref{fig:exampleSourCeReplyMessage} and labels inferred from the re-use of source message text. Labels are associated to source sentences.}
+\label{fig:exampleSegmentationLabels}
+\end{figure}
 
 %------------------------------------------------------------------------------
 \section{Building annotated corpora of segmented online discussions at no cost}
@@ -156,7 +182,7 @@ Section~\ref{sec:annotationscheme} presents our annotation scheme in detail.
 
 Before predicting the labels of the original message sentences, the task is to identify the sentences which are re-used in a reply message. 
 Identification of the quoted lines in a reply message is not sufficient for various reasons. 
-
+%
 First, a quoted message is an altered version of the original one and the segmenter is intended to work on non-noisy data (i.e. the new content parts in the messages). 
 Indeed the original message and the future quoted text suffer from multiple transformations. 
 % As a matter of fact, messages in a discussion are handled by several distinct email software clients which are not always standards-compliant and totally compatible.
@@ -206,10 +232,10 @@ We assume that a message can be split into %subsequent and
  consecutive discourse segments, each of them conveying its own dialogue act.
 We take the sentence as the elementary unit.
 Consequently, each sentence in a segment can play one of the following roles: \\
-\indent  \texttt{\footnotesize starting and ending} (\textit{SE}) a segment when there is only one sentence in the segment, \\
-\indent  \texttt{\footnotesize starting} (\textit{S}) a segment if there are at least two sentences in the segment and it is the first one, \\
-\indent  \texttt{\footnotesize ending} (\textit{E}) a segment if there are at least two sentences in the segment and it is the last one, \\
-\indent  \texttt{\footnotesize inside} (\textit{I}) a segment in any other cases.
+\indent $\bullet$ \texttt{\footnotesize starting and ending} (\textit{SE}) a segment when there is only one sentence in the segment, \\
+\indent $\bullet$ \texttt{\footnotesize starting} (\textit{S}) a segment if there are at least two sentences in the segment and it is the first one, \\
+\indent $\bullet$ \texttt{\footnotesize ending} (\textit{E}) a segment if there are at least two sentences in the segment and it is the last one, \\
+\indent $\bullet$ \texttt{\footnotesize inside} (\textit{I}) a segment in any other cases.
 %
 %\begin{description}[itemsep=0mm]
 %\itemsep0em 
@@ -268,32 +294,6 @@ Consequently, each sentence in a segment can play one of the following roles: \\
 
 %\begin{multicols}{2}
 
-\begin{figure}[h!]\small\centering
-\begin{tabular}{*{2}{|l}|c|}
-\toprule
-\textbf{Source} & \textbf{Reply} & \textbf{Label}\\
-	\midrule
-S1  & & \\
-    & R1 & \\
-\textit{S2}  & > \textit{R2}& \texttt{Start}\\
-\textit{S3}  & > \textit{R3}& \texttt{Inside}\\
-\textit{S4}  & > \textit{R4}& \texttt{End}\\
-    & R5 & \\
-    & R6 & \\
-    & R7 & \\
-    & R8 & \\
-\textit{S5}  & > \textit{R9} & \texttt{Start\&End}\\
-    & R10 & \\
-%    & R11 & \\
-    & [...] & \\
-S7    &  & \\ \ 
-[...] \    &  & \\
-	\bottomrule
-\end{tabular}
-
-\caption{Alignment of sentences from the source and reply messages shown in Figure~\ref{fig:exampleSourCeReplyMessage} and labels inferred from the re-use of source message text. Labels are associated to source sentences.}
-\label{fig:exampleSegmentationLabels}
-\end{figure}
 %\end{multicols}
 %
 %As a matter of fact, 
@@ -324,9 +324,9 @@ The procedure follows the following steps:
 \begin{enumerate}[itemsep=0mm]
 %\itemsep0em 
 \item Messages posted in the interleaved replying style are identified
-\item For each pair of source and reply messages\footnote{Pairs of source and reply messages are constituted based on the \texttt{\footnotesize in-reply-to} field present in the email headers.}:
+\item For each pair of source and reply messages:
 \begin{enumerate}
-\item Both messages are tokenized at the sentence and at the word level
+\item Both messages are tokenized at the sentence and at the word levels
 \item Quoted lines in the reply message are identified
 \item Sentences which are part of the quoted text in the reply message are identified 
 \item Sentences in the source message are aligned with  quoted text in the reply message \footnote{Section~\ref{secalignmentmodule} how alignment is performed.}
@@ -344,15 +344,13 @@ The procedure follows the following steps:
 
 % Each message from our corpus are tokenized and the sentences split. 
 %
-% Messages with \textit{inline replying} style are recognized thanks to the presence of at least two consecutive quoted lines separated by new content lines. 
-%
-% The \textit{quoted lines} %in the reply messages 
-% are identified based on the presence of a specific prefix at the beginning of the lines. 
-% As declared in the RFC~3676\footnote{\url{http://www.ietf.org/rfc/rfc3676.txt}}, we consider the lines of a message to be quoted if the first character is the "\texttt{>}" (greater than) sign.
-%
-% Lines which are not quoted lines are considered to be \textit{new content} lines.
-%
-% The word tokens are used to index the quoted lines and the sentences. 
+Messages with \textit{inline replying} style are recognized thanks to the presence of at least two consecutive quoted lines separated by new content lines. 
+Pairs of source and reply messages are constituted based on the \texttt{\footnotesize in-reply-to} field present in the email headers.
+The \textit{quoted lines} %in the reply messages 
+ are identified based on the presence of a specific prefix at the beginning of the lines. 
+ As declared in the RFC~3676\footnote{\url{http://www.ietf.org/rfc/rfc3676.txt}}, we consider the lines of a message to be quoted if the first character is the "\texttt{>}" (greater than) sign.
+Lines which are not quoted lines are considered to be \textit{new content} lines.
+The word tokens are used to index the quoted lines and the sentences. 
 
 
 Labelling of aligned sentence (sentence from the source message re-used in the reply message) this simple rule-based algorithm:
@@ -374,9 +372,9 @@ Labelling of aligned sentence (sentence from the source message re-used in the r
 \begin{itemize}
 \item[] For each aligned source sentence: \vspace{-0.2cm}
 \begin{itemize}
-\item[] if the sentence is surrounded by new content in the reply message, the label is \texttt{Start&End}
+\item[] if the sentence is surrounded by new content in the reply message, the label is \texttt{Start\&End}
 \item[] else if the sentence is preceded by a new content, the label is \texttt{Start}
-\item[] else if the sentence is followed by a new content, the label is \texttt{End}
+\item[] \indent else if the sentence is followed by a new content, the label is \texttt{End}
 \item[] else, the label is \texttt{Inside}
 \end{itemize}
 \end{itemize}
