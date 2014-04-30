@@ -130,7 +130,7 @@ will need to run mdadm for you.]$^{R10}$\vspace{0.1cm}
 
 The basic idea is to interpret the operation performed by a discussion participant on the message he replies as an annotation operation. 
 Assumptions about the kind of annotations depend on the kind of the performed operation.
-Deletion or re-use of the source text material can give hints about the relevance of the content. Discarded material is probably less relevant than re-used one.
+Deletion or re-use of the source\footnote{By \textit{source} message, we refer to a message which is replied to. By \textit{original} message, we loosely mean a source message. With this term, we want to point out more precisely the author's contributions.} text material can give hints about the relevance of the content. Discarded material is probably less relevant than re-used one.
 
 We assume that by replying inside a message and by only including some specific parts, the participant performs some cognitive operations to identify homogeneous self-contained text segments
 % in the original message.
@@ -157,7 +157,7 @@ Section~\ref{sec:annotationscheme} presents our annotation scheme in detail.
 Before predicting the labels of the original message sentences, the task is to identify the sentences which are re-used in a reply message. 
 Identification of the quoted lines in a reply message is not sufficient for various reasons. 
 %
-First, a quoted message is an altered version of the original one and the segmenter is intended to work on non-noisy data (i.e. the new content in messages). 
+First, a quoted message is an altered version of the original one and the segmenter is intended to work on non-noisy data (i.e. the new content parts in the messages). 
 Indeed the original message and the future quoted text suffer from multiple transformations. 
 % As a matter of fact, messages in a discussion are handled by several distinct email software clients which are not always standards-compliant and totally compatible.
 %The main problem comes from the ability to handle non ASCII characters.
@@ -179,7 +179,7 @@ Second, accessing the original message may allow to consider in the model some c
 
 Third, to go further, the original context of the extracted text in the source message also conveys some segmentation information. For instance, a sentence from the source message, not present in the reply message but following an aligned sentence can be considered as starting a segment.
 So in addition of identifying the quoted lines, we deploy an alignment procedure to get the original version of the quoted text. 
-In this paper, we did not consider the contextual features from the original message and focus only on original aligned sentences. 
+In this paper, we do not consider the contextual features from the original message and focus only on original aligned sentences. 
 
 %While the form could be acceptable for some basic experiment, we decide to deploy an alignment procedure for various reasons: get the original form of the text which is quoted. 
 
@@ -205,7 +205,7 @@ The author of the reply message deliberately discarded the remaining of the sour
 
 We assume that a message can be split into %subsequent and
  consecutive discourse segments, each of them conveying its own dialogue act.
-We assume the sentence as the elementary unit.
+We take the sentence as the elementary unit.
 Consequently, each sentence in a segment can play one of the following roles: \\
 \indent $\bullet$ \texttt{\footnotesize starting and ending} (\textit{SE}) a segment when there is only one sentence in the segment, \\
 \indent $\bullet$ \texttt{\footnotesize starting} (\textit{S}) a segment if there are at least two sentences in the segment and it is the first one, \\
@@ -297,13 +297,15 @@ S7    &  & \\ \
 \end{figure}
 %\end{multicols}
 %
-As a matter of fact, this scheme is similar to the \textit{BIO} annotation scheme except it is at the sentence level and not at the token level.
+%As a matter of fact, 
+This scheme is similar to the \textit{BIO} %annotation 
+scheme except it is at the sentence level and not at the token level.
 % [STARTEND] if the sentence of the source message is surrounded by insertions which are part of the reply message;
 %[START] else if the sentence of the source message is surrounded by insertions which are part of the reply message;
 %Par exemple, on pourra étiqueter de \texttt{TERMINE} la phrase précédent un segment repris et de \texttt{DEBUTE} la première phrase du segment repris. Ces phrases ainsi annotées dans leur contexte constitueront notre corpus d'entraînement.
 
 
-
+FIXME description of the figure~\ref{fig:exampleSegmentationLabels}
 
 
 
@@ -347,8 +349,9 @@ Each message from our corpus are tokenized and the sentences split.
 %
 Messages with \textit{inline replying} style are recognized thanks to the presence of at least two consecutive quoted lines separated by new content lines. 
 %
-The \textit{quoted lines} in the reply messages are identified based on the presence of a specific prefix at the beginning of the lines. 
-As declared in the RFC~3676\footnote{\url{http://www.ietf.org/rfc/rfc3676.txt}}, we consider the lines of a message to be quoted if the first character is the sign "\texttt{>}" (greater than).
+The \textit{quoted lines} %in the reply messages 
+are identified based on the presence of a specific prefix at the beginning of the lines. 
+As declared in the RFC~3676\footnote{\url{http://www.ietf.org/rfc/rfc3676.txt}}, we consider the lines of a message to be quoted if the first character is the "\texttt{>}" (greater than) sign.
 %
 Lines which are not quoted lines are considered to be \textit{new content} lines.
 %
@@ -397,7 +400,7 @@ For each aligned source sentence %identified quoted sentence
 %\caption{Algorithm for labelling each aligned sentence with a segmentation instruction}
 %\label{fig:algoLabellingEachAlignedSentence}
 %\end{figure}
-We assume there is no deletion of original text between two consecutive quoted part.
+We assume there is no deletion of original text between two consecutive quoted parts.
 
 
 
