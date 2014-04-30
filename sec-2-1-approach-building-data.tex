@@ -135,9 +135,10 @@ Deletion or re-use of the source text material can give hints about the relevanc
 We assume that by replying inside a message and by only including some specific parts, the participant performs some cognitive operations to identify homogeneous self-contained text segments
 % in the original message.
 %We assume that the quoted part consists in an homogeneous information unit 
-with respect to the context from which it is extracted. 
+with respect to the context from which they are extracted. 
 Consequently, we make assumptions about the role played by the sentences in the structure of the information in the original message.
 For instance, we can assume that the first sentence of a quoted part conveys instructions for opening a new discourse segment while the last sentence carries instructions for ending a segment.
+Section~\ref{sec:annotationscheme} presents our annotation scheme in detail.
 
 %in terms of relevance or role in the discourse organisation can be expressed on the new content, on the quoted text or even on the text which is not reused in the reply message.
 
@@ -153,13 +154,29 @@ For instance, we can assume that the first sentence of a quoted part conveys ins
 
 % The objective is so to determine which parts of the reply messages are reused from the source message.
 
-Before inferring some labels to some sentences of the original message, the task is to identify the sentences which are re-used in a reply message. 
+Before predicting the labels of the original message sentences, the task is to identify the sentences which are re-used in a reply message. 
 Identification of the quoted lines in a reply message is not sufficient for various reasons. 
 %
-First, the segmenter is intended to work on non noisy data (i.e. the new content in messages). 
-The quoted text suffers from multiple transformations (See section~\ref{secQuotedMessageIsAltered}).  
+First, a quoted message is an altered version of the original one and the segmenter is intended to work on non-noisy data (i.e. the new content in messages). 
+Indeed the original message and the future quoted text suffer from multiple transformations. 
+% As a matter of fact, messages in a discussion are handled by several distinct email software clients which are not always standards-compliant and totally compatible.
+%The main problem comes from the ability to handle non ASCII characters.
+One of these alterations results from encoding and decoding problems of the message content due to the fact that some email software clients involved in the discussion %handle the messages in a discussion 
+are not always standards-compliant and totally compatible\footnote{The \textit{Request for Comments} (RFC) are guidelines and protocols proposed by various working groups involved in the Internet Standardization \url{https://tools.ietf.org/html}. Some of the RFC are dedicated to email format and encoding specifications (See RFC 2822 and 5335 as starting points). The last 20 years, there were several propositions with updates and consequently obsoleted versions which may explain some of the alteration issues.}. 
+In particular, the quoted parts can be wrongly recoded at each exchange step since there is no more dedicated header information about it.
+%So each of them can 
+In addition, the client programs can
+integrate their own mechanisms 
+for quoting the previous messages when including them as well as 
+for wrapping the too long lines\footnote{Feature for limiting the line length by splitting them into multiple pieces of no more than 80 characters and make the text readable without any horizontal scrolling.}.
+%
+% Futhermore, because of some user preferences or systems configurations, a thread may embed and interleave various posting styles.  
+%
+% 
 So, building a model on an altered version of the original message would create a bias in the approach.
+
 Second, accessing the original message may allow to consider in the model some contextual features (like the visual layout). 
+
 Third, to go further, the original context of the extracted text in the source message also conveys some segmentation information. For instance, a sentence from the source message, not present in the reply message but following an aligned sentence can be considered as starting a segment.
 So in addition of identifying the quoted lines, we deploy an alignment procedure to get the original version of the quoted text. 
 In this paper, we did not consider the contextual features from the original message and focus only on original aligned sentences. 
@@ -175,59 +192,6 @@ They also correspond to what an automatic process can produce.
 In this example, we can see that the reply message only re-uses four selected sentences from the source message; Namely $S2$, $S3$, $S4$ and $S5$ which respectively correspond to the sentences  $R2$, $R3$, $R4$ and $R9$ in the reply messages.
 The author of the reply message deliberately discarded the remaining of the source message.
 
-%------------------------------------------------------------------------------
-\subsection{A quoted message is an altered version of the original one}
-\label{secQuotedMessageIsAltered}
-
-
-The process of exchanging messages involves distinct software agents to transfer and deliver the messages to an user. % between the hosts. The 
-When received, the emails are stored in dedicated servers until they are retrieved by the user.
-%
-The program used by users for retrieving and managing emails is called a mail user agent (MUA). 
-The MUA reads and formats the message in email format to send it.
-
-New content sent by a writer is in general read by the reader in its expected visual rendering. 
-But this cannot be the case of previous message content for various reasons.
-
-
-
-The email %header and body 
-formats and encodings are specified by several RFC\footnote{The \textit{Request for Comments} are guidelines and protocols which result from various working groups involved in the Internet Standardization \url{https://tools.ietf.org/html}.}
-%
-The RFC 822 proposed in August 1982 specifies a Standard for the Format of ARPA Internet Text Messages which is the ancestor of the current message format. This RFC was obsoleted by the RFC 2822  proposed in April 2001 which defines the original Internet Message Format. This RFC was updated in October 2008 by the RFC 5322 and in turn obsoleted in March 2013 by the RFC 6854.
-%
-The format of the Internet message bodies has been sub-specified by several recommendations and updates; See as a main entrance the RFC 2045 from November 1996 or its more recent update, the RFC 5335 from September 2008. These specifications are called the Multipurpose Internet Mail Extensions (MIME).
-
-
-% email header and body
-% https://tools.ietf.org/html/rfc2822  April 2001
-% http://tools.ietf.org/html/rfc5322 October 2008
-% http://tools.ietf.org/html/rfc6854 March 2013
-% Multipurpose Internet Mail Extensions   Format of Internet Message Bodies
-% http://tools.ietf.org/html/rfc2045 November 1996
-% https://tools.ietf.org/html/rfc5335 September 2008
-
-As a matter of fact, messages in a discussion are handled by several distinct email software clients which are not always standards-compliant and totally compatible.
-So each of them can integrate their own mechanisms 
-for quoting the previous messages when including them as well as 
-for wrapping the too long lines\footnote{Feature for limiting the line length by splitting them into multiple pieces of no more than 80 characters and make the text readable without any horizontal scrolling.}.
-%
-In addition, because of some user preferences or systems configurations, a thread may embed and interleave various posting styles.  
-
-As a consequences a discussion is a mix of various transformation mechanisms which can be equated to a noisy canal. 
-%
-One of the transformation issue concerns the encoding and the decoding of the quoted parts which can be wrongly recoded at each exchange step since there is no more dedicated header information about it.
-
-% Previous messages are not included as a verbatim copy of the original one.
-
-% of 65-80 characters, 
-% In text display, line wrap is the feature of continuing on a new line when a line is full, such that each line fits in the viewable window, allowing text to be read from top to bottom without any horizontal scrolling. 
-%http://en.wikipedia.org/wiki/Word_wrap
-
-% Programs used by users for retrieving, reading, and managing email are called mail user agents (MUAs).
-
-% The process of replying to a message by including the original message does not ensure to provide a pure duplicate of the original. 
-
 
 
 
@@ -236,7 +200,7 @@ One of the transformation issue concerns the encoding and the decoding of the qu
 
 %------------------------------------------------------------------------------
 \subsection{Annotation scheme}
-\label{}
+\label{sec:annotationscheme}
 
 
 We assume that a message can be split into %subsequent and
@@ -348,13 +312,14 @@ As a matter of fact, this scheme is similar to the \textit{BIO} annotation schem
 \label{}
 
 The generation procedure is intented to "automatically" annotating sentences from the source messages with segmentation information.
-Figure~\ref{fig:procedureTrainingDataGeneration} describes the steps of the generation procedure at the global level. 
-\begin{figure}[ht!]
-%\begin{enumerate}
-%\item List the source and the reply messages
-%\item 
-\fbox {
-    \parbox{\linewidth}{
+%Figure~\ref{fig:procedureTrainingDataGeneration} describes the steps of the generation procedure at the global level. 
+The procedure follows the following steps:
+%\begin{figure}[ht!]
+%%\begin{enumerate}
+%%\item List the source and the reply messages
+%%\item 
+%\fbox {
+%    \parbox{\linewidth}{
 \begin{enumerate}[itemsep=0mm]
 %\itemsep0em 
 \item Identification of the messages with interleaved replies
@@ -368,16 +333,15 @@ the quoted lines in the reply message
 the quoted text in the reply message 
 %\item For each aligned sentence 
 %\begin{enumerate}
-\item Label each aligned source sentence in terms of its segmentation role (See~Figure~\ref{fig:algoLabellingEachAlignedSentence})
+\item Label each aligned source sentence in terms of its segmentation role %(See~Figure~\ref{fig:algoLabellingEachAlignedSentence})
 %\end{enumerate}
 \item Add to the training data the labelled message made up by the sequence of labelled sentences %The sequence of labelled sentences makes up a labelled message which is add to the training data 
 \end{enumerate}
 \end{enumerate}
-}}
-%\end{enumerate}
-\caption{Procedure for generating the training data}
-\label{fig:procedureTrainingDataGeneration}
-\end{figure}
+%}}
+%\caption{Procedure for generating the training data}
+%\label{fig:procedureTrainingDataGeneration}
+%\end{figure}
 
 Each message from our corpus are tokenized and the sentences split. 
 %
@@ -391,18 +355,22 @@ Lines which are not quoted lines are considered to be \textit{new content} lines
 \textit{Pairs of source and reply messages} are made up based on the \texttt{\footnotesize in-reply-to} field present in the email headers.
 The word tokens are used to index the quoted lines and the sentences. 
 Section~\ref{secalignmentmodule} describes our method to align the quoted sentences from the reply messages with the sentences from the source messages. 
-Figure~\ref{fig:algoLabellingEachAlignedSentence} gives some precisions about the algorithm for labelling each aligned sentence with a segmentation instruction. 
-We assume there is no deletion of original text between two consecutive quoted part.
+For labelling each aligned sentence with a segmentation instruction, we follow the following algorithm:
+%Figure~\ref{fig:algoLabellingEachAlignedSentence} gives some precisions about the algorithm for labelling each aligned sentence with a segmentation instruction. 
+%\begin{lstlisting}
+%For each aligned source sentence (sentence from the source message re-used in the reply message)
+%  if the sentence is surrounded by new content in the reply message, then label it Start&End
+%  else if the sentence is preceded by a new content, then label it Start
+%    else if the sentence is followed by a new content, then label it End
+%      else label it Inside
+%\end{lstlisting}
 
-
-
-
-\begin{figure}[ht!]
-%\fbox{
-%\begin{enumerate}
-%\item 
-\fbox {
-    \parbox{\linewidth}{
+%\begin{figure}[ht!]
+%%\fbox{
+%%\begin{enumerate}
+%%\item 
+%\fbox {
+%    \parbox{\linewidth}{
 For each aligned source sentence %identified quoted sentence
  (sentence from the source message re-used in the reply message) \vspace{-0.1cm}
 \begin{itemize} \itemsep -10pt
@@ -421,15 +389,15 @@ For each aligned source sentence %identified quoted sentence
 \end{itemize}
 \end{itemize}
 \end{itemize}
-    }
-}
-
+%    }
 %}
-%\end{enumerate}
-\caption{Algorithm for labelling each aligned sentence with a segmentation instruction}
-\label{fig:algoLabellingEachAlignedSentence}
-\end{figure}
 
+%%}
+%%\end{enumerate}
+%\caption{Algorithm for labelling each aligned sentence with a segmentation instruction}
+%\label{fig:algoLabellingEachAlignedSentence}
+%\end{figure}
+We assume there is no deletion of original text between two consecutive quoted part.
 
 
 
