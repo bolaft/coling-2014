@@ -1,170 +1,46 @@
 
 
-\begin{figure}
-%\begin{multicols}{2}[]
-
-%\begin{multicols}{1}[]
-    %    \centering
-\fbox {
-    \parbox{\linewidth}{
-        \begin{subfigure}[b]{0.9\textwidth}
-\small
-%\footnotesize
-[Hi ubuntu-ers,]$^{S1}$\vspace{0.1cm}
-
-[I'm in need of some directions.]$^{S2}$ [I want to run ubuntu for my desktop.]$^{S3}$\\ \ 
-[But the installer doesn't support root or boot on raid.]$^{S4}$  \vspace{0.1cm}
-%[I'm in need of some directions.]$^{S2}$ [I want to run ubuntu for my desktop,\\
-%but the installer doesn't support root or boot on raid.]$^{S3}$  \vspace{0.1cm}
-
-[It seems that there must be a way to convert to raid after the fact, as \\
-I've seen for some other distros.]$^{S5}$\vspace{0.1cm}
-
-[I've tried a couple of the other distro specific directions, and just %\
-wind up with a kernel panic.]$^{S6}$  \vspace{0.1cm}
-
-[Are there some ubuntu specific instructions or advice?]$^{S7}$  [Thanks.]$^{S8}$\vspace{0.1cm}
-
-%-- \\ \ 
-%[Regards,]$^{S8}$ \\ \ 
-[John]$^{S9}$
-%Rich
-              %  \includegraphics[width=\textwidth]{gull}
-
-                \caption{Source message.}
-                \label{fig:exampleSource}
-        \end{subfigure}%
-}}
-\vspace{0.2cm}
-\\
-       % ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
-          %(or a blank line to force the subfigure onto a new line)
-\fbox {
-    \parbox{\linewidth}{
-        \begin{subfigure}[b]{0.9\textwidth}
-\small
-%\footnotesize
-%[On Sun, 04 Dec 2005 15:45:13 -0600, John Doe\\
-[On Sun, 04 Dec 2005 15:45:13 -0600, John Doe 
-%On Sun, 05 Dec 2004 16:48:14 -0600, Rich Duzenbury
-%<rduz-ubuntu@theduz.com> wrote:
-<john@doe.com> wrote:]$^{R1}$\vspace{0.1cm}
-
-%> [I'm in need of some directions.]$^{R2}$  [I want to run ubuntu for my desktop,\\
-%> but the installer doesn't support root or boot on raid.]$^{R3}$\vspace{0.1cm}
-> [I'm in need of some directions.]$^{R2}$  [I want to run ubuntu for my desktop.]$^{R3}$\\
-> [But the installer doesn't support root or boot on raid.]$^{R4}$\vspace{0.1cm}
-
-[It claims not to.]$^{R5}$ [It actually does work.]$^{R6}$\vspace{0.1cm}
-
-[Create a separate /boot partition for the kernel and initrd to live in %\\
-and then install to a / filesystem living on a RAID1 or RAID0 device %\\
-that you create during the install.]$^{R7}$ [My ubuntu server in the office %\\
-currently has 4 active disks doing RAID0+1 and running LVM on top with % \\
-another disk about to go in in case 2 happen to fail in quick % \\
-succession :-)]$^{R8}$\vspace{0.1cm}
-
-> [It seems that there must be a way to convert to raid after the fact, as\\
-> I've seen for some other distros.]$^{R9}$\vspace{0.1cm}
-
-[It's also possible to convert after the fact using generic %\\
-instructions and rebuilding the initrd to cope with the fact that it % \\
-will need to run mdadm for you.]$^{R10}$\vspace{0.1cm}
-
-%[Cheers,]$^{R10}$\vspace{0.1cm}
-
-[Bob.]$^{R11}$ %\vspace{0.1cm}
-%Jon.
-
-%[P.S.]$^{R11}$ [This is a major sticking point for ubuntu and Debian acceptance\\
-%on mission critical kit which should be addressed.]$^{R12}$ [It's not too tricky\\
-%to boot and initrd off a separate boot partition.]$^{R13}$\vspace{0.1cm}
-
-               % \includegraphics[width=\textwidth]{tiger}
-                \caption{Reply message.}
-                \label{fig:exampleReply}
-        \end{subfigure}
-}}
-%\end{multicols}
-
-%        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
-%          %(or a blank line to force the subfigure onto a new line)
-%        \begin{subfigure}[b]{0.4\textwidth}
-
-
-%\begin{tabular}{*{2}{|l}|c|}
-%\toprule
-%\textbf{Source} & \textbf{Reply} & \textbf{Label}\\
-%	\midrule
-%S1  & & \\
-%    & R1 & \\
-%\textit{S2}  & > \textit{R2}& Start\\
-%\textit{S3}  & > \textit{R3}& Inside\\
-%\textit{S4}  & > \textit{R4}& End\\
-%    & R5 & \\
-%    & R6 & \\
-%    & R7 & \\
-%\textit{S5}  & > \textit{R8} & Start \& End\\
-%    & R9 & \\
-%%    & R10 & \\
-%    & [...] & \\
-%S7    &  & \\ \ 
-%[...] \    &  & \\
-%	\bottomrule
-%\end{tabular}
-%               % \includegraphics[width=\textwidth]{mouse}
-%                \caption{A mouse}
-%                \label{fig:mouse}
-%        \end{subfigure}
-        \caption{Example of a source message and its reply. Pseudo-sentences have been marked. The original layout has been slightly adapted to fit the document.}\label{fig:exampleSourCeReplyMessage}
-%\end{multicols}
-
-\end{figure}
-
-
-
-\begin{figure}[ht!]\small\centering
-\begin{tabular}{*{2}{|l}|c|}
-\toprule
-\textbf{Source} & \textbf{Reply} & \textbf{Label}\\
-	\midrule
-S1  & & \\
-    & R1 & \\
-\textit{S2}  & > \textit{R2}& \texttt{Start}\\
-\textit{S3}  & > \textit{R3}& \texttt{Inside}\\
-\textit{S4}  & > \textit{R4}& \texttt{End}\\
-    & R5 & \\
-    & R6 & \\
-    & R7 & \\
-    & R8 & \\
-\textit{S5}  & > \textit{R9} & \texttt{Start\&End}\\
-    & R10 & \\
-%    & R11 & \\
-    & [...] & \\
-S7    &  & \\ \ 
-[...] \    &  & \\
-	\bottomrule
-\end{tabular}
-
-\caption{Alignment of sentences from the source and reply messages shown in Figure~\ref{fig:exampleSourCeReplyMessage} and labels inferred from the re-use of source message text. Labels are associated to source sentences.}
-\label{fig:exampleSegmentationLabels}
-\end{figure}
-
 %------------------------------------------------------------------------------
 \section{Building annotated corpora of segmented online discussions at no cost}
 \label{sec:buildingannotatedcorpusofsegmentedonlinemessageatnocost}
 
+We present our assumptions and the detailed steps of our approach.
+
+%------------------------------------------------------------------------------
+\subsection{Annotation scheme}
+\label{sec:annotationscheme}
+
+
 The basic idea is to interpret the operation performed by a discussion participant on the message he replies as an annotation operation. 
 Assumptions about the kind of annotations depend on the performed operation.
-Deletion or re-use of the source\footnote{By \textit{source} message, we refer to a message which is replied to. By \textit{original} message, we loosely mean a source message. With this term, we want to point out more precisely the author's contributions.} text material can give hints about the relevance of the content: discarded material is probably less relevant than re-used one.
+Deletion or re-use of the source text material can give hints about the relevance of the content: discarded material is probably less relevant than re-used one.
 
 We assume that by replying inside a message and by only including some specific parts, the participant performs some cognitive operations to identify homogeneous self-contained text segments
 % in the original message.
 %We assume that the quoted part consists in an homogeneous information unit 
 with respect to the context from which they are extracted. 
-Consequently, we make assumptions about the role played by the sentences in the structure of the information in the original message.
-For instance, we can assume that the first sentence of a quoted part conveys instructions for opening a new discourse segment while the last sentence carries instructions for ending a segment.
-Section~\ref{sec:annotationscheme} presents our annotation scheme in detail.
+Consequently, we make assumptions about the role played by the sentences in the original message information structure.
+%For instance, we can assume that the first sentence of a quoted part conveys instructions for opening a new discourse segment while the last sentence carries instructions for ending a segment.
+%Section~\ref{sec:annotationscheme} presents our annotation scheme in detail.
+%
+%We assume that a message can be split into %subsequent and
+% consecutive discourse segments, each of them conveying its own dialogue act.
+%We take the sentence as the elementary unit.
+%Consequently, each 
+A sentence in a segment plays one of the following roles: \\
+\indent $\bullet$ \texttt{\footnotesize starting and ending} (\textit{SE}) a segment when there is only one sentence in the segment, \\
+\indent $\bullet$ \texttt{\footnotesize starting} (\textit{S}) a segment if there are at least two sentences in the segment and it is the first one, \\
+\indent $\bullet$ \texttt{\footnotesize ending} (\textit{E}) a segment if there are at least two sentences in the segment and it is the last one, \\
+\indent $\bullet$ \texttt{\footnotesize inside} (\textit{I}) a segment in any other cases.
+%
+%\begin{description}[itemsep=0mm]
+%\itemsep0em 
+%\item [ starting and ending] (\textit{SE}) a segment when there is only one sentence in the segment, 
+%\item [ starting] (\textit{S}) a segment if there are at least two sentences in the segment and the sentence is the first one, 
+%\item [ ending] (\textit{E}) a segment if there are at least two sentences in the segment and the sentence is the last one, 
+%\item [ inside] (\textit{I}) a segment in any other cases.
+%\end{description}
+
 
 %in terms of relevance or role in the discourse organisation can be expressed on the new content, on the quoted text or even on the text which is not reused in the reply message.
 
@@ -180,16 +56,41 @@ Section~\ref{sec:annotationscheme} presents our annotation scheme in detail.
 
 % The objective is so to determine which parts of the reply messages are reused from the source message.
 
+
+
+%\begin{multicols}{2}
+
+%\end{multicols}
+%
+%As a matter of fact, 
+This scheme is similar to the \textit{BIO} %annotation 
+scheme except it is at the sentence level and not at the token level.
+% [STARTEND] if the sentence of the source message is surrounded by insertions which are part of the reply message;
+%[START] else if the sentence of the source message is surrounded by insertions which are part of the reply message;
+%Par exemple, on pourra étiqueter de \texttt{TERMINE} la phrase précédent un segment repris et de \texttt{DEBUTE} la première phrase du segment repris. Ces phrases ainsi annotées dans leur contexte constitueront notre corpus d'entraînement.
+
+
+FIXME description of the figure~\ref{fig:exampleSegmentationLabels}
+
+
+
+
+%------------------------------------------------------------------------------
+\subsection{Annotation generation procedure}
+\label{}
+
+
 Before predicting the labels of the original message sentences, the task is to identify the sentences which are re-used in a reply message. 
 Identification of the quoted lines in a reply message is not sufficient for various reasons. 
 %
-First, a quoted message is an altered version of the original one and the segmenter is intended to work on non-noisy data (i.e. the new content parts in the messages). 
-Indeed the original message and the future quoted text suffer from multiple transformations. 
+First, the segmenter is intended to work on non-noisy data (i.e. the new content parts in the messages) while a quoted message is an altered version of the original one. 
+%Indeed the original message and the future quoted text suffer from multiple transformations. 
 % As a matter of fact, messages in a discussion are handled by several distinct email software clients which are not always standards-compliant and totally compatible.
 %The main problem comes from the ability to handle non ASCII characters.
-One of these alterations results from encoding and decoding problems of the message content due to the fact that some email software clients involved in the discussion %handle the messages in a discussion 
-are not always standards-compliant and totally compatible\footnote{The \textit{Request for Comments} (RFC) are guidelines and protocols proposed by various working groups involved in the Internet Standardization \url{https://tools.ietf.org/html}. Some of the RFC are dedicated to email format and encoding specifications (See RFC 2822 and 5335 as starting points). The last 20 years, there were several propositions with updates and consequently obsoleted versions which may explain some alteration issues.}. 
-In particular, the quoted parts can be wrongly re-encoded at each exchange step since there is no more dedicated header information about it.
+%One of these alterations results from encoding and decoding problems of the message content due to the fact that 
+Indeed, because of some email software clients involved in the discussion %handle the messages in a discussion 
+are not always standards-compliant and totally compatible\footnote{The \textit{Request for Comments} (RFC) are guidelines and protocols proposed by various working groups involved in the Internet Standardization \url{https://tools.ietf.org/html}, the message contents suffer from encoding and decoding problems. Some of the RFC are dedicated to email format and encoding specifications (See RFC 2822 and 5335 as starting points). The last 20 years, there were several propositions with updates and consequently obsoleted versions which may explain some alteration issues.}. 
+In particular, the quoted parts can be wrongly re-encoded at each exchange step since there is no dedicated header information about it.
 %So each of them can 
 In addition, the client programs can
 integrate their own mechanisms 
@@ -199,11 +100,12 @@ for wrapping too long lines\footnote{Feature for limiting the line length by spl
 % Futhermore, because of some user preferences or systems configurations, a thread may embed and interleave various posting styles.  
 %
 % 
-So, building a model on an altered version of the original message would create a bias in the approach.
-
+%So, building a model on an altered version of the original message would create a bias in the approach.
+%
 Second, accessing the original message may allow taking some contextual features into consideration (like the visual layout for example). 
-
+%
 Third, to go further, the original context of the extracted text in the source message also conveys some segmentation information. For instance, a sentence from the source message, not present in the reply message, but following an aligned sentence, can be considered as starting a segment.
+
 So in addition of identifying the quoted lines, we deploy an alignment procedure to get the original version of the quoted text. 
 In this paper, we do not consider the contextual features from the original message and focus only on original aligned sentences. 
 
@@ -212,38 +114,11 @@ In this paper, we do not consider the contextual features from the original mess
 
 
 
-Figure~\ref{fig:exampleSourCeReplyMessage} shows an example of a source message\footnote{In the original message, $S3$ and $S4$ consist in one single sentence with a comma as a separator. We split it into distinct sentences in order to illustrate the \textit{Inside} label.} (Figure~\ref{fig:exampleSource}) and one of its reply (Figure~\ref{fig:exampleReply}).
-Marked pseudo-sentences correspond to what an automatic process can produce. 
-In this example, we can see that the reply message only re-uses four selected sentences from the source message; namely $S2$, $S3$, $S4$ and $S5$ which respectively correspond to the sentences  $R2$, $R3$, $R4$ and $R9$ in the reply message.
-The author of the reply message deliberately discarded the remaining of the source message.
 
 
 
 
 
-
-
-%------------------------------------------------------------------------------
-\subsection{Annotation scheme}
-\label{sec:annotationscheme}
-
-
-We assume that a message can be split into %subsequent and
- consecutive discourse segments, each of them conveying its own dialogue act.
-We take the sentence as the elementary unit.
-Consequently, each sentence in a segment can play one of the following roles: \\
-\indent $\bullet$ \texttt{\footnotesize starting and ending} (\textit{SE}) a segment when there is only one sentence in the segment, \\
-\indent $\bullet$ \texttt{\footnotesize starting} (\textit{S}) a segment if there are at least two sentences in the segment and it is the first one, \\
-\indent $\bullet$ \texttt{\footnotesize ending} (\textit{E}) a segment if there are at least two sentences in the segment and it is the last one, \\
-\indent $\bullet$ \texttt{\footnotesize inside} (\textit{I}) a segment in any other cases.
-%
-%\begin{description}[itemsep=0mm]
-%\itemsep0em 
-%\item [ starting and ending] (\textit{SE}) a segment when there is only one sentence in the segment, 
-%\item [ starting] (\textit{S}) a segment if there are at least two sentences in the segment and the sentence is the first one, 
-%\item [ ending] (\textit{E}) a segment if there are at least two sentences in the segment and the sentence is the last one, 
-%\item [ inside] (\textit{I}) a segment in any other cases.
-%\end{description}
 
 
 %\begin{figure}
@@ -292,26 +167,6 @@ Consequently, each sentence in a segment can play one of the following roles: \\
 
 
 
-%\begin{multicols}{2}
-
-%\end{multicols}
-%
-%As a matter of fact, 
-This scheme is similar to the \textit{BIO} %annotation 
-scheme except it is at the sentence level and not at the token level.
-% [STARTEND] if the sentence of the source message is surrounded by insertions which are part of the reply message;
-%[START] else if the sentence of the source message is surrounded by insertions which are part of the reply message;
-%Par exemple, on pourra étiqueter de \texttt{TERMINE} la phrase précédent un segment repris et de \texttt{DEBUTE} la première phrase du segment repris. Ces phrases ainsi annotées dans leur contexte constitueront notre corpus d'entraînement.
-
-
-FIXME description of the figure~\ref{fig:exampleSegmentationLabels}
-
-
-
-%------------------------------------------------------------------------------
-\subsection{Annotation generation procedure}
-\label{}
-
 The generation procedure is intended to "automatically" annotate sentences from the source messages with segmentation information.
 %Figure~\ref{fig:procedureTrainingDataGeneration} describes the steps of the generation procedure at the global level. 
 The procedure follows the following steps:
@@ -346,9 +201,10 @@ The procedure follows the following steps:
 %
 Messages with \textit{inline replying} style are recognized thanks to the presence of at least two consecutive quoted lines separated by new content lines. 
 Pairs of source and reply messages are constituted based on the \texttt{\footnotesize in-reply-to} field present in the email headers.
-The \textit{quoted lines} %in the reply messages 
- are identified based on the presence of a specific prefix at the beginning of the lines. 
- As declared in the RFC~3676\footnote{\url{http://www.ietf.org/rfc/rfc3676.txt}}, we consider the lines of a message to be quoted if the first character is the "\texttt{>}" (greater than) sign.
+%The \textit{quoted lines} %in the reply messages 
+% are identified based on the presence of a specific prefix at the beginning of the lines. 
+ As declared in the RFC~3676\footnote{\url{http://www.ietf.org/rfc/rfc3676.txt}}, we consider as \textit{quoted lines}, the lines of a message beginning with %to be quoted if the first character is 
+ the "\texttt{>}" (greater than) sign.
 Lines which are not quoted lines are considered to be \textit{new content} lines.
 The word tokens are used to index the quoted lines and the sentences. 
 
@@ -386,7 +242,7 @@ Labelling of aligned sentence (sentence from the source message re-used in the r
 %\caption{Algorithm for labelling each aligned sentence with a segmentation instruction}
 %\label{fig:algoLabellingEachAlignedSentence}
 %\end{figure}
-We assume there is no deletion of original text between two consecutive quoted parts. 
+% We assume there is no deletion of original text between two consecutive quoted parts. 
 
 
 
@@ -435,7 +291,6 @@ We use an adaptation of it which allows working on lists of strings\footnote{\ur
 
 %and other statistics available from an alignment of a hypothesis string and a reference string.
 
-In comparison to the speech recognition and translation use cases, despite some noise, the compared text should include identical parts of the source one.
 
 
 

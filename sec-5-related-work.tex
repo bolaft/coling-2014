@@ -2,6 +2,15 @@
 \section{Related work}
 \label{sec:relatedWork}
 
+Three research areas are directly related to our study:
+a) text segmentation models, b) probabilistic topic
+models, and c) extracting and representing the con-
+versation structure of emails.
+
+Again, our problem of
+topic segmentation for emails is not sequential in na-
+ture.
+
 We can set our approach in the trend of the collaborative approaches for acquiring
 annotated corpora such as the Game With A Purpose (GWAP) \cite{ahn:2006:computer} or the paid-for crowdsourcing \cite{fort:2011:cl}.
 In the \cite{wang:2013:lre}'s taxonomy, it could be more related to the \textit{Wisdom of the Crowds} (WotC) genre where motivators are altruism or prestige to collaborate for the building of a public resource.
@@ -15,7 +24,7 @@ We argue that even if it is not always obvious to tag topically or rhetorically 
 %
 We think that our approach can also be used for determining the relevance of the segments. But it has some limits, we do not know how it may help us to label the segments with dialogue acts.
 
-Detecting the structure of a thread is a hot topic. Our work may complement the works of \cite{li:2011:threadlinking;kim:2010:taggingandlinking} who proposes solutions for detecting links between messages. 
+Detecting the structure of a thread is a hot topic. Our work may complement the works of \cite{li:2011:threadlinking,kim:2010:taggingandlinking} who proposes solutions for detecting links between messages. 
 % \texttt{in-reply-to} link
 By detecting sub-units of information within the message, we may extend these approaches by considering the possibility of pointing to multiple message targets.
 
@@ -35,4 +44,6 @@ Some methods are based on sentence length comparison \cite{gale:1991}, some meth
 
 
 \item  techniques de segmentation
+\item In comparison to the speech recognition and translation use cases, despite some noise, the compared text should include identical parts of the source one.
+
 \end{itemize}

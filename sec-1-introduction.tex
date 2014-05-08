@@ -63,7 +63,151 @@ Despite the drawbacks mentioned above, a supervised approach remains generally t
 % 
 Our objective is to train a system to detect the segment boundaries; In other words to classify if a given sentence starts, ends or continues a segment.
 
-FIXME give an example of expected segmentation by referring to the Figure 
+
+\begin{figure}
+\begin{minipage}{.63\textwidth}
+
+%\begin{multicols}{2}[]
+
+%\begin{multicols}{1}[]
+    %    \centering
+\fbox {
+    \parbox{\linewidth}{
+        \begin{subfigure}[b]{0.9\textwidth}
+\small
+%\footnotesize
+  [Hi!]$^{S1}$\vspace{0.1cm}
+
+[I got my ubuntu cds today and i'm really impressed.]$^{S2}$ [My\\ \ 
+friends like them and my teachers too (i'm a student).]$^{S3}$ \\ \ 
+[It's really funny to see, how people like ubuntu and start feeling geek\\ \ 
+and blaming microsoft when they use it.]$^{S4}$\vspace{0.1cm}
+
+[Unfortunately everyone wants an ubuntu cd, so can i download the cd\\ \ 
+covers anywhere or an 'official document' which i can attach to\\ \ 
+self-burned cds?]$^{S5}$\vspace{0.1cm}
+
+[I searched the entire web site but found nothing.]$^{S6}$ [Thanks in advance.]$^{S7}$\vspace{0.1cm}
+
+[John]$^{S8}$
+                \caption{Source message.}
+                \label{fig:exampleSource}
+        \end{subfigure}%
+}}
+\vspace{0.2cm}
+\\
+       % ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+\fbox {
+    \parbox{\linewidth}{
+        \begin{subfigure}[b]{0.9\textwidth}
+\small
+%\footnotesize
+%[On Sun, 04 Dec 2005 15:45:13 -0600, John Doe\\
+[On Sun, 04 Dec 2005, John Doe 
+%On Sun, 05 Dec 2004 16:48:14 -0600, Rich Duzenbury
+%<rduz-ubuntu@theduz.com> wrote:
+<john@doe.com> wrote:]$^{R1}$\vspace{0.1cm}
+
+> [I got my ubuntu cds today and i'm really impressed.]$^{R2}$ [My\\ \ 
+> friends like them and my teachers too (i'm a student).]$^{R3}$\\ \ 
+> [It's really funny to see, how people like ubuntu and start feeling geek\\ \ 
+> and blaming microsoft when they use it.]$^{R4}$\vspace{0.1cm}
+
+[Rock!]$^{R5}$\vspace{0.1cm}
+
+> [Unfortunately everyone wants an ubuntu cd, so can i download the cd\\ \ 
+> covers anywhere or an 'official document' which i can attach to\\ \ 
+> self-burned cds?]$^{R6}$\vspace{0.1cm}
+
+[We don't have any for the warty release, but we will have them for hoary, %\\ \ 
+because quite a few people have asked. :-)]$^{R7}$\vspace{0.1cm}
+
+[Bob.]$^{R8}$ %\vspace{0.1cm}
+%Jon.
+
+%[P.S.]$^{R11}$ [This is a major sticking point for ubuntu and Debian acceptance\\
+%on mission critical kit which should be addressed.]$^{R12}$ [It's not too tricky\\
+%to boot and initrd off a separate boot partition.]$^{R13}$\vspace{0.1cm}
+
+               % \includegraphics[width=\textwidth]{tiger}
+                \caption{Reply message.}
+                \label{fig:exampleReply}
+        \end{subfigure}
+}}
+%\end{multicols}
+
+%        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+%          %(or a blank line to force the subfigure onto a new line)
+%        \begin{subfigure}[b]{0.4\textwidth}
+
+
+%\begin{tabular}{*{2}{|l}|c|}
+%\toprule
+%\textbf{Source} & \textbf{Reply} & \textbf{Label}\\
+%	\midrule
+%S1  & & \\
+%    & R1 & \\
+%\textit{S2}  & > \textit{R2}& Start\\
+%\textit{S3}  & > \textit{R3}& Inside\\
+%\textit{S4}  & > \textit{R4}& End\\
+%    & R5 & \\
+%    & R6 & \\
+%    & R7 & \\
+%\textit{S5}  & > \textit{R8} & Start \& End\\
+%    & R9 & \\
+%%    & R10 & \\
+%    & [...] & \\
+%S7    &  & \\ \ 
+%[...] \    &  & \\
+%	\bottomrule
+%\end{tabular}
+%               % \includegraphics[width=\textwidth]{mouse}
+%                \caption{A mouse}
+%                \label{fig:mouse}
+%        \end{subfigure}
+        \caption{Example of a source message and its reply. Pseudo-sentences have been marked. %The original layout has been slightly adapted to fit the document.
+        }\label{fig:exampleSourCeReplyMessage}
+%\end{multicols}
+\end{minipage}
+\hfill
+\begin{minipage}{.3\textwidth}
+\small\centering
+\begin{tabular}{*{2}{|l}|c|}
+\toprule
+\textbf{Source} & \textbf{Reply} & \textbf{Label}\\
+	\midrule
+S1  & & \\
+    & R1 & \\
+\textit{S2}  & > \textit{R2}& \texttt{Start}\\
+\textit{S3}  & > \textit{R3}& \texttt{Inside}\\
+\textit{S4}  & > \textit{R4}& \texttt{End}\\
+    & R5 & \\
+\textit{S5}  & > \textit{R6} & \texttt{Start\&End}\\
+    & R7 & \\
+%    & R11 & \\
+    & [...] & \\
+S6    &  & \\ \ 
+[...] \    &  & \\
+	\bottomrule
+\end{tabular}
+
+\caption{Alignment of sentences from the source and reply messages shown in Figure~\ref{fig:exampleSourCeReplyMessage} and labels inferred from the re-use of source message text. Labels are associated to source sentences.}
+\label{fig:exampleSegmentationLabels}
+\end{minipage}
+
+\end{figure}
+
+
+
+
+Figure~\ref{fig:exampleSourCeReplyMessage} shows an example of a \textit{source}\footnote{By \textit{source} message, we refer to a message which is replied to. By \textit{original} message, we loosely mean a source message. With this term, we want to point out more precisely the author's contributions.} message (Figure~\ref{fig:exampleSource}) and one of its \textit{reply} (Figure~\ref{fig:exampleReply}).
+Sentences have been marked to facilitate the explanations.
+In this example, we can see that the reply message only re-uses four selected sentences from the source message; namely $S2$, $S3$, $S4$ and $S5$ which respectively correspond to the sentences  $R2$, $R3$, $R4$ and $R6$ in the reply message.
+The author of the reply message deliberately discarded the remaining of the source message.
+%
+Sentences $S2$, $S3$, $S4$,  and respectively $S5$, can be distinctively associated with two acts: the former segment to a comment the latter to a question.
+
 
 The originality of the proposed approach is not to manually annotate the training data but to exploit the human computational efforts dedicated for a similar task in a different context of production~\cite{ahn:2006:computer}. 
 % 
@@ -94,6 +238,8 @@ The so built segmentation model be usable for any posting styles by applying it 
 %The main options are {\em interleaved posting} (also called {\em inline replying}, in which the different parts of the reply follow the relevant parts of the original post), \textit{bottom-posting} (in which the reply follows the quote) or \textit{top-posting} (in which the reply precedes the quoted original message). 
 
 We use then a supervised approach to build models of the segmentation. 
+We choose to define the segmentation problem as a sequence labelling task whose aim is to assign the globally best set of labels for the entire sequence of sentences at once.
+
 
 In Section~\ref{sec:buildingannotatedcorpusofsegmentedonlinemessageatnocost}, we explain our approach for building an annotated corpus of segmented online messages at no cost. 
 In Section~\ref{sec:buildingTheSegmenter}, we describe the segmentation system we use as well as the features we extract to model the segmentation. 
