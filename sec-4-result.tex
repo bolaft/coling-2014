@@ -7,21 +7,21 @@
 FIXME Table \ref{fig:results} présente / résume / fusionne tous les résultats ; phrase qui annonce les différentes étapes
 
 \begin{table}[h]
-	\begin{tabular}{p{1.5cm}|C{1.5cm}|C{1.5cm}|C{1.5cm}||C{1.5cm}|C{1.5cm}|C{1.5cm}|}
+	\begin{tabular}{p{2.5cm}|C{1.5cm}|C{1.5cm}|C{1.5cm}||C{1.5cm}|C{1.5cm}|C{1.5cm}|}
 		\cline{2-7}
 		& \multicolumn{3}{c||}{Segmentation metrics} & \multicolumn{3}{c|}{IR metrics} \\ \cline{2-7}
 		& \textit{WD} & $P_{k}$ & \textit{GHD} & \textit{Precision} & \textit{Recall} & \textit{$F_1$} \\ \hline
-		\multicolumn{1}{|l|}{regular baseline} 					&  &  &  &  &  &  \\ \hline
-		\multicolumn{1}{|l|}{TextTiling baseline} 				&  &  &  &  &  &  \\ \hline\hline
-		\multicolumn{1}{|l|}{$n$-grams} 						&  &  &  &  &  &  \\ \hline
-		\multicolumn{1}{|l|}{information structure} 			&  &  &  &  &  &  \\ \hline
-		\multicolumn{1}{|l|}{thematic (TextTiling)}				&  &  &  &  &  &  \\ \hline
-		\multicolumn{1}{|l|}{miscellaneous} 					&  &  &  &  &  &  \\ \hline\hline
-		\multicolumn{1}{|l|}{all features} 						&  &  &  &  &  &  \\ \hline
-		\multicolumn{1}{|l|}{$n$-grams $\cup$ non-$n$-grams} 	&  &  &  &  &  &  \\ \hline
-		\multicolumn{1}{|l|}{$n$-grams $\cup$ "cherry-pick"} 	&  &  &  &  &  &  \\ \hline
+		\multicolumn{1}{|l|}{regular baseline} 					& .59 & .25 & .60 & .31 & .49 & .38  \\ \hline
+		\multicolumn{1}{|l|}{TextTiling baseline} 				& .41 & .07 & .38 & .75 & .44 & .56 \\ \hline\hline
+		\multicolumn{1}{|l|}{$n$-grams} 						& .38 & .05 & .39 & 1 & .39 & .56 \\ \hline
+		\multicolumn{1}{|l|}{information structure} 			& .43 & .11 & .38 & .60 & .68 & .64 \\ \hline
+		\multicolumn{1}{|l|}{thematic (TextTiling)}				& .39 & .05 & .38 & .94 & .40 & .56 \\ \hline
+		\multicolumn{1}{|l|}{miscellaneous} 					& .41 & .09 & .38 & .69 & .49 & .57 \\ \hline\hline
+		\multicolumn{1}{|l|}{all features} 						& .38 & .05 & .39 & 1 & .39 & .56\\ \hline
+		\multicolumn{1}{|l|}{$n$-grams $\cup$ non-$n$-grams} 	& .45 & .12 & .40 & .58 & .69 & .63 \\ \hline
+		\multicolumn{1}{|l|}{$n$-grams $\cup$ "cherry-pick"} 	& .36 & .06 & .34 & .80 & .53 & .64 \\ \hline
 	\end{tabular}
-	\caption{Comparative results for segmenters and baselines. All displayed results show \textit{WindowDiff} (\textit{WD}), $P_{k}$ and \textit{GHD} as error rates, therefore a lower score is desirable for these metrics. This contrasts with the three information retrieval scores, for which a low percentage denotes poor performance.}
+	\caption{Comparative results for segmenters and baselines. All displayed results show \textit{WindowDiff} (\textit{WD}), $P_{k}$ and \textit{GHD} as error rates, therefore a lower score is desirable for these metrics. This contrasts with the three information retrieval scores, for which a low value denotes poor performance.}
 	\label{fig:results}
 \end{table}
 
@@ -35,4 +35,4 @@ The second section of Table \ref{fig:results} shows the results for four differe
 
 \subsection{Segmenters based on feature set combination}
 
-The last section of Table \ref{fig:results} shows the results of three different segmenters. The first one is simply a classifier that takes all available features into account. The second one segments according to the union of the boundaries detected by a classifier trained on lexical features and those identified by a classifier trained on all other features. The last one considers all boundaries detected by a classifier trained on lexical features, and selects some boundaries identified by a classifier trained on all other features according to their confidence score. The number of "cherry-picked" boundaries depends on the expected number of boundaries in the test set, which is computed from the average segment length in the training set.
+The last section of Table \ref{fig:results} shows the results of three different segmenters. The first one is simply a classifier that takes all available features into account. The second one segments according to the union of the boundaries detected by a classifier trained on lexical features and those identified by a classifier trained on all other features. The last one, "$n$-grams $\cup$ cherry-pick"  considers all boundaries detected by a classifier trained on lexical features as correct, and selects only the boundaries identified by a classifier trained on all other features with confidence score of 99\% or more.
