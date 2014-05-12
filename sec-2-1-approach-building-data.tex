@@ -70,7 +70,7 @@ scheme except it is at the sentence level and not at the token level.
 %Par exemple, on pourra étiqueter de \texttt{TERMINE} la phrase précédent un segment repris et de \texttt{DEBUTE} la première phrase du segment repris. Ces phrases ainsi annotées dans leur contexte constitueront notre corpus d'entraînement.
 
 
-FIXME description of the figure~\ref{fig:exampleSegmentationLabels}
+Figure~\ref{fig:exampleSegmentationLabels} illustrates the scheme by showing how sentences from Figure~\ref{fig:exampleSourCeReplyMessage} can be aligned and the labels inferred from it. 
 
 
 
@@ -80,7 +80,7 @@ FIXME description of the figure~\ref{fig:exampleSegmentationLabels}
 \label{}
 
 
-Before predicting the labels of the original message sentences, the task is to identify the sentences which are re-used in a reply message. 
+Before being able to predict labels of the original message sentences, it is necessary to identify those that are re-used in a reply message. 
 Identification of the quoted lines in a reply message is not sufficient for various reasons. 
 %
 First, the segmenter is intended to work on non-noisy data (i.e. the new content parts in the messages) while a quoted message is an altered version of the original one. 
@@ -88,14 +88,11 @@ First, the segmenter is intended to work on non-noisy data (i.e. the new content
 % As a matter of fact, messages in a discussion are handled by several distinct email software clients which are not always standards-compliant and totally compatible.
 %The main problem comes from the ability to handle non ASCII characters.
 %One of these alterations results from encoding and decoding problems of the message content due to the fact that 
-Indeed, because of some email software clients involved in the discussion %handle the messages in a discussion 
+Indeed, some email software clients involved in the discussion %handle the messages in a discussion 
 are not always standards-compliant and totally compatible\footnote{The \textit{Request for Comments} (RFC) are guidelines and protocols proposed by various working groups involved in the Internet Standardization \url{https://tools.ietf.org/html}, the message contents suffer from encoding and decoding problems. Some of the RFC are dedicated to email format and encoding specifications (See RFC 2822 and 5335 as starting points). The last 20 years, there were several propositions with updates and consequently obsoleted versions which may explain some alteration issues.}. 
-In particular, the quoted parts can be wrongly re-encoded at each exchange step since there is no dedicated header information about it.
+In particular, the quoted parts can be wrongly re-encoded at each exchange step due to the absence of dedicated header information about it.
 %So each of them can 
-In addition, the client programs can
-integrate their own mechanisms 
-for quoting the previous messages when including them as well as 
-for wrapping too long lines\footnote{Feature for limiting the line length by splitting them into multiple pieces of no more than 80 characters and make the text readable without any horizontal scrolling.}.
+In addition, the client programs can integrate their own mechanisms for quoting the previous messages when including them as well as for wrapping too long lines\footnote{Feature for limiting the line length by splitting them into multiple pieces of no more than 80 characters and make the text readable without any horizontal scrolling.}.
 %
 % Futhermore, because of some user preferences or systems configurations, a thread may embed and interleave various posting styles.  
 %
@@ -181,10 +178,10 @@ The procedure follows the following steps:
 \item Messages posted in the interleaved replying style are identified
 \item For each pair of source and reply messages:
 \begin{enumerate}
-\item Both messages are tokenized at the sentence and at the word levels
+\item Both messages are tokenized at sentence and at word levels
 \item Quoted lines in the reply message are identified
 \item Sentences which are part of the quoted text in the reply message are identified 
-\item Sentences in the source message are aligned with  quoted text in the reply message \footnote{Section~\ref{secalignmentmodule} how alignment is performed.}
+\item Sentences in the source message are aligned with  quoted text in the reply message \footnote{Section~\ref{secalignmentmodule} details how alignment is performed.}
 %\item For each aligned sentence 
 %\begin{enumerate}
 \item Aligned source sentences are labelled in terms of position in segment %(See~Figure~\ref{fig:algoLabellingEachAlignedSentence})
@@ -199,7 +196,7 @@ The procedure follows the following steps:
 
 % Each message from our corpus are tokenized and the sentences split. 
 %
-Messages with \textit{inline replying} style are recognized thanks to the presence of at least two consecutive quoted lines separated by new content lines. 
+Messages with \textit{inline replying} are recognized thanks to the presence of at least two consecutive quoted lines separated by new content lines. 
 Pairs of source and reply messages are constituted based on the \texttt{\footnotesize in-reply-to} field present in the email headers.
 %The \textit{quoted lines} %in the reply messages 
 % are identified based on the presence of a specific prefix at the beginning of the lines. 
@@ -265,7 +262,7 @@ text.
 The %``DP string alignment 
 algorithm works by ``performing a global minimization of a Levenshtein distance function which weights the cost of correct words, insertions, deletions and substitutions as 0, 75, 75 and 100 respectively.
 %
-The computational complexity of DP is $0(NN)$.''
+The computational complexity of DP is $O(NN)$.''
 %    final static int MAX_PENALTY = 1000000;
 %    final static int SUBSTITUTION_PENALTY = 100;
 %    final static int INSERTION_PENALTY = 75;
