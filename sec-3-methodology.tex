@@ -8,12 +8,12 @@ We report the data, the preprocessing and the evaluation protocol we use for our
 \subsection{Corpus}
 
 The current work takes place in a project concerned by processing multilingual and multimodal online discussions mainly on interrogative technical domains. 
-For this reason we did not consider the Enron Corpus (30,000 threads) \cite{klimt:2004:enron} (which is also from a corporate environment). 
+For these reasons we did not consider the Enron Corpus (30,000 threads) \cite{klimt:2004:enron} (which is from a corporate environment), 
 %30,000 threads
-neither the W3C Corpus (despite its technical consistence) or its subset the British Columbia Conversation Corpus (BC3) \cite{ulrich:2008:bc3}.
+neither the W3C Corpus (despite its technical consistence) or its subset, the British Columbia Conversation Corpus (BC3) \cite{ulrich:2008:bc3}.
 %50,000 threads
 
-We use the \textit{ubuntu-users} email archive\footnote{Ubuntu mailing lists archives (See \textit{ubuntu-users}): \url{https://lists.ubuntu.com/archives/}} as our primary corpus. It offers a number of advantages. It is free, and distributed under an unrestrictive license. It increases continuously, and therefore is representative of modern emailing in both content and formatting conventions. Additionally, many alternatives archives are available, in a number of different languages, including some very resource-poor languages. Ubuntu also offers a forum and a FAQ. 
+We use the \textit{ubuntu-users} email archive\footnote{Ubuntu mailing lists archives (See \textit{ubuntu-users}): \url{https://lists.ubuntu.com/archives/}} as our primary corpus. It offers a number of advantages. It is free, and distributed under an unrestrictive license. It increases continuously, and therefore is representative of modern emailing in both content and formatting conventions. Additionally, many alternatives archives are available, in a number of different languages, including some very resource-poor languages. Ubuntu also offers a forum and a FAQ which are interesting in the context of multimodal studies. 
 
 %For this work, 
 We use a copy of December 2013.
@@ -61,8 +61,8 @@ To reduce noise in the corpus we filter out undesirable emails based on several 
 In addition, we chose to consider only replies to thread starters. This choice is based on the assumption that the alignment module would have more difficulty properly recognizing sentences that were repeatedly transformed in successive replies, and therefore that replies to messages that themselves contain quoted text from other messages are more likely to be poorly labelled through automatic annotation.
 %
 The last criterion for message selection is length. The dataset being built from a mailing list that can cover very technical discussions, users sometimes send very lengthy messages containing many lines of copied-and-pasted code, software logs, bash command outputs, etc. The number of these messages is marginal, but the amount of lines they contain being disproportionately high, they can have a negative impact on the segmenter's performance. We therefore exclude messages longer than the average message length plus the standard length deviation.
-
+%
 After filtering all undesirable messages, the dataset is left with 6,821 out of 33,915 messages (20\%).
 
-We use the Stanford Log-linear Part-Of-Speech Tagger for morpho-syntactic tagging \cite{toutanova2003feature}, and the WordNet lexical database for performing the lemmatization \cite{miller1995wordnet}.
+For building the segmenter features, we use the Stanford Log-linear Part-Of-Speech Tagger for morpho-syntactic tagging \cite{toutanova2003feature}, and the WordNet lexical database for performing the lemmatization \cite{miller1995wordnet}.
 

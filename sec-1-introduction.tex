@@ -28,10 +28,18 @@ is a highly important issue for the industrial and the scientific communities wh
 %2010_lampert_naacl_Detecting Emails Containing Requests for Action
 
 
+%Ce sujet propose de travailler sur la tâche de segmentation des courriels en français dans des discussions portant sur des demandes d'information. Ce travail vise à soutenir une analyse automatique des messages en DA.
+
+
 %Les travaux existants se fondent généralement sur une pré-annotation des messages en actes du dialogue (\textit{DA}). Les \textit{DA} décrivent les fonctions communicatives portées dans chaque message (e.g. question, réponse, remerciement...) Austin FIXME. Kim FIXME proposent une liste d'actes spécifiques à la description des messages au sein de forums.
 %Jusqu'à présent la majorité des travaux ont modélisé les discussions au niveau de leurs messages en les décrivant su
 
 In most works, conversation interactions between the participants are modelled in terms of dialogue acts (DA) \cite{austin:1970}. The DAs describe the communicative function conveyed by each text utterance  (e.g.~question, answer, greeting,\ldots).
+%
+In this paper, we address the problem of rhetorically segmenting the new content parts of messages in online discussions. 
+The process aims at supporting the analysis of messages in terms of DA.
+We pay special attention to the processing of electronic mails.
+
 %La majorité des travaux modélisent les interactions entre intervenants en termes d'\textit{actes de dialogue} (DA) \cite{austin:1970}. Les DAs correspondent aux fonctions communicatives portées par chaque énoncé d'un texte (e.g. question, réponse, remerciement...). 
 % La théorie des actes du dialogue \cite{austin:1970} propose de décrire les énoncés en termes des fonctions communicatives portées par chacun d'eux (e.g. question, réponse, remerciement...). 
 %
@@ -50,15 +58,15 @@ Indeed, apart from the closing formula, a message may for example be made of sev
 % En effet, outre des formules de politesse, un message peut compter par exemple plusieurs expressions de besoin, décrire une procédure infructueuse et citer des portions de messages tiers. 
 % faire référence à plusieurs contenus exprimés par différentes contributions tierces
 
-So far, few works address the problem of email segmentation.
+So far, few works address the problem of message segmentation.
 \cite{lampert:2009:emnlp} propose to segment emails in prototypical zones such as the author's contribution, the quotes of original messages, the signature, the opening and the closing formulas. 
 In comparison, in this work we focus on the segmentation of the author's contribution (what we call the new content part in the message).
-\cite{joty:2013:jair} identifies topical segments. In our approach we are more interested by rhetorically motivated segments.
+\cite{joty:2013:jair} identifies topical segments of sentences which consist in clusters of topically related sentences through the multiple messages of a thread (making no difference between mail and forum messages). Apart from the topical aspect, our problem differs from the fact that we are only interested on the cohesion between sentences in nearby fragments and % but
+ not on distant sentences.
+% . In our approach we are more interested by rhetorically motivated segments.
 %De par sa robustesse, cette dernière approche peut servir de base de comparaison.
 %Or, peu de travaux se sont penchés sur la tâche de segmentation des courriels en tant que telle. Les rares travaux ne concernent pas le découpage en DA. \cite{lampert:2009:emnlp} s'intéressent à découper les courriels en des zones prototypiques telles que la contribution de l'auteur, les reprises de messages tiers, la signature et les formules d'appel et de clôture... \cite{joty:2013:jair} identifient des segments thématiques. De par sa robustesse, cette dernière approche peut servir de base de comparaison.
 
-This paper addresses the problem of rhetorically segmenting the new content parts of messages in online discussions. The process aims at supporting the analysis of messages in terms of dialogue acts.
-%Ce sujet propose de travailler sur la tâche de segmentation des courriels en français dans des discussions portant sur des demandes d'information. Ce travail vise à soutenir une analyse automatique des messages en DA.
 
 Despite the drawbacks mentioned above, a supervised approach remains generally the most efficient and reliable method to solve classification problems in Natural Language Processing. 
 % 
@@ -167,7 +175,8 @@ because quite a few people have asked. :-)]$^{R7}$\vspace{0.1cm}
 %                \caption{A mouse}
 %                \label{fig:mouse}
 %        \end{subfigure}
-        \caption{Example of a source message and its reply. Pseudo-sentences have been marked. %The original layout has been slightly adapted to fit the document.
+        \caption{A source message and its reply (\textit{ubuntu-users} email archive). Sentences have been marked to facilitate the discussion. %The original layout has been slightly adapted to fit the document.
+%Examples of a source message and its reply based on the \textit{ubuntu-users} email archive. Pseudo-sentences have been marked to facilitate the discussion.
         }\label{fig:exampleSourCeReplyMessage}
 %\end{multicols}
 \end{minipage}
@@ -238,7 +247,7 @@ The so built segmentation model should be usable for any posting styles by apply
 %
 %The main options are {\em interleaved posting} (also called {\em inline replying}, in which the different parts of the reply follow the relevant parts of the original post), \textit{bottom-posting} (in which the reply follows the quote) or \textit{top-posting} (in which the reply precedes the quoted original message). 
 
-We use then a supervised approach to build models of the segmentation.
+%We use then a supervised approach to build models of the segmentation.
 
 
 In Section~\ref{sec:buildingannotatedcorpusofsegmentedonlinemessageatnocost}, we explain our approach for building an annotated corpus of segmented online messages at no cost. 

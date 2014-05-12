@@ -14,7 +14,7 @@ Training the classifier to recognize the different labels of the previously defi
 %For the purposes of segmentation, 
 So we chose to transform these annotations into a binary scheme and merely differentiate sentences that starts a new segment (\textit{True}), or "boundary sentences", from those that do not (\textit{False}). The conversion process is trivial, and can easily be reversed\footnote{Sentences labelled with \textit{SE} or \textit{S} are turned into \textit{True}, the other ones into \textit{False}. To reverse the process, a \textit{True} is turned into \textit{SE} if the next sentence is also a boundary (i.e. a True) and into \textit{S} otherwise. While a \textit{False} is turned into \textit{E} if the next sentence is a boundary (i.e. a True) and into  \textit{I} otherwise.}.
 
-We distinguish four sets of features:  $n$-gram features, information structure based features, thematic features and stylistic features.
+We distinguish four sets of features:  $n$-gram features, information structure based features, thematic features and miscellaneous features.
 The purpose of each one of these features is to describe the current sentence from which it is extracted. 
 Several of them are borrowed from related work in speech act classification \cite{qadir2011classifying} and email segmentation \cite{lampert2009segmenting}. All the features are domain-independant. Almost all features are language-independant as well, save for a few that can be easily translated.
 
@@ -75,14 +75,16 @@ As features we use $n$-grams of the surface form, lemma and part-of-speech tag o
 The only feature we use to account for thematic shift recognition is the output of the TextTiling algorithm \cite{hearst1997texttiling}. TextTiling is one of the most commonly used algorithms for automatic text segmentation. 
 %It is a statistical method for thematic segmentation, i.e. a method that attempts to segment texts according to the contrasting themes of its parts: 
 If the algorithm detects a rupture in the lexical cohesion %thematic continuity 
-of the text, it will place a boundary to indicate a thematic change. %This method is based on the notion of lexical cohesion.
+of the text (between two consecutive blocks), it will place a boundary to indicate a thematic change. %This method is based on the notion of lexical cohesion.
+%
+Due to the short size of the messages, we define a block size to equate the sum of three times the sentence average size in our corpus. We set the step-size (overlap size of the rolling window) to the average size of a sentence.
 
 % -----------------------------------------------------------------------------
 \paragraph{Miscellaneous features}
 %
 This feature set includes stylistic %graphic, orthographic 
 and semantic features. 24 features are in the set:
-
+%
 \textit{Stylistic features} capture information about the visual structure and composition of the message:
 the position of the sentence in the email, 
 the average length of a token,

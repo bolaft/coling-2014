@@ -3,13 +3,9 @@
 \label{sec:relatedWork}
 
 Three research areas are directly related to our study:
-a) text segmentation models, b) probabilistic topic
-models, and c) extracting and representing the con-
-versation structure of emails.
+a) collaborative approaches for acquiring
+annotated corpora, b) detection of email structure, and c) sentence alignment.
 
-Again, our problem of
-topic segmentation for emails is not sequential in na-
-ture.
 
 We can set our approach in the trend of the collaborative approaches for acquiring
 annotated corpora such as the Game With A Purpose (GWAP) \cite{ahn:2006:computer} or the paid-for crowdsourcing \cite{fort:2011:cl}.
@@ -24,26 +20,36 @@ We argue that even if it is not always obvious to tag topically or rhetorically 
 %
 We think that our approach can also be used for determining the relevance of the segments. But it has some limits, we do not know how it may help us to label the segments with dialogue acts.
 
-Detecting the structure of a thread is a hot topic. Our work may complement the works of \cite{li:2011:threadlinking,kim:2010:taggingandlinking} who proposes solutions for detecting links between messages. 
+Detecting the structure of a thread is a hot topic. 
+%
+As mentioned in Section~\ref{sec:intro}, very little works have been done on email segmentation. 
+We are aware of recent works in linear text segmentation such as \cite{kazantseva:2011} who address the problem by modelling the text as a graph of sentences and by performing clustering and/or cut methods. 
+%
+Due to the size of the messages (and consequently the available lexical material), it is not always possible to exploit this kind of methods. Our results tend to indicate that we should explore more deeply this direction.
+%
+By detecting sub-units of information within the message, our work may complement the works of \cite{li:2011:threadlinking,kim:2010:taggingandlinking} who proposes solutions for detecting links between messages. 
 % \texttt{in-reply-to} link
-By detecting sub-units of information within the message, we may extend these approaches by considering the possibility of pointing to multiple message targets.
+We may extend these approaches by considering the possibility of pointing to multiple message targets or determining more precisely the pointed area.
 
-Concerning the alignment process, sentence alignment has been a very active field of research of statistical machine translation. 
+Concerning the alignment process, our task can be compared to the detection of monolingual text derivation (otherwise called plagiarism, near–duplication, revision). \cite{poulard:2011:detecting} compare, for instance, the use of n–grams overlap with the use of text specificities. 
+In comparison, in our work we already know that a text (the reply message) derives from another (the source message). Sentence alignment has also been a very active field of research 
+%both in monolingual (e.g. plagiarism detection) and multilingual  (e.g. 
+in statistical machine translation for building parallel corpora. %) domains. 
+%
+%In MT, 
 Some methods are based on sentence length comparison \cite{gale:1991}, some methods rely on the overlap of rare words (cognates and named entities) \cite{enright-kondrak:2007:ShortPapers}.
-
-
+%For detection of derivation links, \cite{poulard:2011:detecting} compare the use of n–grams overlap with the use of text specificities. % exploitation of the specificity and invariance of textual elements. 
+% between texts (otherwise called plagiarism, near–duplication, revision, etc.) at the document level. 
+%We evaluate the use of textual elements implementing the ideas of specificity and invariance as well as their combination to characterize derivatives. We built a French press corpus based on Wikinews 
+% revisions to run this evaluation. We obtain performances similar to the state of the art method 
+% (n–grams overlap) while reducing the signature size and so, the processing costs. In order ...
+In comparison, %to the speech recognition and translation use cases, 
+%our work is more an alignment task than a detection of derivation. In addition 
+in our task, despite some noise, the compared text includes large parts of identical material from the source one. 
+The kinds of edit operation in presence (no inversion\footnote{When computing the Levenshtein distance, the inversion edit operation is the most costly operation.} only deletion, insertion and substitution) leads us to consider the Levenshtein distance as a serious option.  
 
 % \url{http://www.statmt.org/survey/Topic/SentenceAlignment}
 % An influential early method is based on sentence length, measured in words (Brown et al., 1991; Gale and Church, 1991; Gale and Church, 1993) or characters
 % training models with parallel texts
 %Enright and Kondrak (2007) use a simple and fast method for document alignment that relies of overlap of rare but identically spelled words, which are mostly cognates, names, and numbers.
 
-\begin{itemize}
-\item discussion en ligne (annotation en DA, reconnaissance de la structure)
-\item  techniques d'alignement : monolingual text alignment, détection de plagiat, leviestein intéressante car dans notre cas pas de cas d'inversion ce qui est une des opérations couteuses à appréhender avec leviestein lorsqu'elle est considérée.
-
-
-\item  techniques de segmentation
-\item In comparison to the speech recognition and translation use cases, despite some noise, the compared text should include identical parts of the source one.
-
-\end{itemize}
