@@ -23,7 +23,7 @@ Several of them are borrowed from related work in speech act classification \cit
 % -----------------------------------------------------------------------------
 \paragraph{$n$-gram features}
 %
-We select the bigrams and trigrams with the highest document frequency in the training data (empirically we select FIXME\% i.e. about 1,000 $n$-grams), and check for their presence in each sentence. Since the probability of having multiple occurrences of the same $n$-gram in one sentence are extremely low, we do not record the number of occurrences but merely a boolean value. The check is case-insensitive.
+We select the bigrams and trigrams with the highest document frequency in the training data (empirically we select the top 1,000 $n$-grams), and check for their presence in each sentence. Since the probability of having multiple occurrences of the same $n$-gram in one sentence are extremely low, we do not record the number of occurrences but merely a boolean value. The check is case-insensitive.
 
 
 % -----------------------------------------------------------------------------
@@ -82,7 +82,7 @@ of the text, it will place a boundary to indicate a thematic change. %This metho
 %
 This feature set includes stylistic %graphic, orthographic 
 and semantic features. 24 features are in the set:
-%
+
 \textit{Stylistic features} capture information about the visual structure and composition of the message:
 the position of the sentence in the email, 
 the average length of a token,
