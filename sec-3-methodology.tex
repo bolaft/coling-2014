@@ -24,7 +24,7 @@ The corpus contains a total of 272,380 messages (47,044 threads). 33,915 of them
 In order to evaluate the efficiency of the segmenter, we perform a 10-fold cross-validation on the Ubuntu corpus, and compare its performance to two different baselines. 
 %
 Performance is compared to two simple heuristic baselines. The first one, the ``regular'' baseline, is computed by segmenting the test set into regular segments of the same length as the average training set segment length, rounded up. The second one is the TextTiling algorithm we described in section~\ref{sec:buildingTheSegmenter}.
-While it is used as a feature in the proposed approach in the previous section, the direct output of the TextTiling algorithm is used as a mere outcome for the baseline.
+While it is used as a feature in the proposed approach in the previous section, the direct output of the TextTiling algorithm is used for the baseline.
 
 
 The results are measured with a panel of metrics used in text segmentation and information retrieval.
