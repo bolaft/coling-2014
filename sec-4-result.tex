@@ -29,11 +29,11 @@ Table \ref{fig:results} shows the summary of all obtained results. On the left s
 
 \subsection{Baseline segmenters}
 
-The first section of Table \ref{fig:results} shows the results obtained by both of our baselines. Unsurprisingly, TextTiling performs much better than the basic regular segmentation algorithm across all metrics.
+The first section of Table \ref{fig:results} shows the results obtained by both of our baselines. Unsurprisingly, TextTiling performs much better than the basic regular segmentation algorithm across all metrics save recall.
 
 \subsection{Segmenters based on individual feature sets}
 
-The second section of Table \ref{fig:results} shows the results for four different classifiers, each trained with a distinct subset of the feature set. While all classifiers easily beat the regular baseline, and the TextTiling baseline when it comes to information retrieval metrics, only the thematic and the $n$-grams segmenters manage to surpass TextTiling when performance is measured by segmentation metrics. In terms of IR scores, the $n$-grams classifier in particular stands out as it manage to achieve an outstanding 100\% precision, although this result is mitigated by a meager 39\% recall. It is also interesting to see that the thematic classifier, based only on contextual information about TextTiling output, performs better than the TextTiling baseline.
+The second section of Table \ref{fig:results} shows the results for four different classifiers, each trained with a distinct subset of the feature set. While all classifiers easily beat the regular baseline, and match the TextTiling baseline when it comes to information retrieval metrics, only the thematic and the $n$-grams segmenters manage to surpass TextTiling when performance is measured by segmentation metrics. In terms of IR scores, the $n$-grams classifier in particular stands out as it manage to achieve an outstanding 100\% precision, although this result is mitigated by a meager 39\% recall. It is also interesting to see that the thematic classifier, based only on contextual information about TextTiling output, performs better than the TextTiling baseline.
 
 \subsection{Segmenters based on feature sets combinations}
 
