@@ -12,21 +12,22 @@ Table~\ref{fig:results} shows the summary of all obtained results. On the left s
 
 
 \begin{table}[h]
-	\begin{tabular}{p{2.5cm}|C{1.5cm}|C{1.5cm}|C{1.5cm}||C{1.5cm}|C{1.5cm}|C{1.5cm}|}
+	\begin{tabular}{p{2.5cm}|C{1.25cm}|C{1.25cm}|C{1.25cm}||C{1.25cm}|C{1.25cm}|C{1.25cm}|}
 		\cline{2-7}
 		& \multicolumn{3}{c||}{Segmentation metrics} & \multicolumn{3}{c|}{IR metrics} \\ \cline{2-7}
-		& \textit{WD} & $P_{k}$ & \textit{GHD} & \textit{Precision} & \textit{Recall} & \textit{$F_1$} \\ \hline
+		& $WD$ & $P_{k}$ & $GHD$ & $P$ & $R$ & $F_1$ \\ \hline
 		\multicolumn{1}{|l|}{regular baseline} 					& .59 & .25 & .60 & .31 & .49 & .38  \\ \hline
 		\multicolumn{1}{|l|}{TextTiling baseline} 				& .41 & .07 & .38 & .75 & .44 & .56 \\ \hline\hline
-		\multicolumn{1}{|l|}{$n$-grams} 						& .38 & \textbf{.05} & .39 & \textbf{1} & .39 & .56 \\ \hline
-		\multicolumn{1}{|l|}{information structure} 			& .43 & .11 & .38 & .60 & .68 & \textbf{.64} \\ \hline
-		\multicolumn{1}{|l|}{thematic (TextTiling)}				& .39 & .05 & .38 & .94 & .40 & .56 \\ \hline
-		\multicolumn{1}{|l|}{miscellaneous} 					& .41 & .09 & .38 & .69 & .49 & .57 \\ \hline\hline
-		\multicolumn{1}{|l|}{all features} 						& .38 & \textbf{.05} & .39 & \textbf{1} & .39 & .56\\ \hline
-		\multicolumn{1}{|l|}{$n$-grams $\cup$ non-$n$-grams} 	& .45 & .12 & .40 & .58 & \textbf{.69} & .63 \\ \hline
-		\multicolumn{1}{|l|}{$n$-grams $\cup$ "cherry-pick"} 	& \textbf{.36} & .06 & \textbf{.34} & .80 & .53 & \textbf{.64} \\ \hline
+		\multicolumn{1}{|l|}{$\phi(A)$ with $A$ = $n$-grams} 						& .38 & \textbf{.05} & .39 & \textbf{1} & .39 & .56 \\ \hline
+		\multicolumn{1}{|l|}{$\phi(B)$ with $B$ = info. structure} 			& .43 & .11 & .38 & .60 & .68 & \textbf{.64} \\ \hline
+		\multicolumn{1}{|l|}{$\phi(C)$ with $C$ = TextTiling}				& .39 & .05 & .38 & .94 & .40 & .56 \\ \hline
+		\multicolumn{1}{|l|}{$\phi(D)$ with $D$ = misc. features} 					& .41 & .09 & .38 & .69 & .49 & .57 \\ \hline\hline
+		\multicolumn{1}{|l|}{$\phi(A + B + C + D)$} 						& .38 & \textbf{.05} & .39 & \textbf{1} & .39 & .56\\ \hline
+		\multicolumn{1}{|l|}{$\phi(\phi(A) + \phi(B) + \phi(C) + \phi(D))$} 	&  &  &  &  &  & \\ \hline
+		\multicolumn{1}{|l|}{$\phi(A) \cup \phi(B + C + D)$} 	& .45 & .12 & .40 & .58 & \textbf{.69} & .63 \\ \hline
+		\multicolumn{1}{|l|}{$\phi(A) \cup \delta(\phi(B + C + D))$} 	& \textbf{.36} & .06 & \textbf{.34} & .80 & .53 & \textbf{.64} \\ \hline
 	\end{tabular}
-	\caption{Comparative results for segmenters and baselines. All displayed results show \textit{WindowDiff} (\textit{WD}), $P_{k}$ and \textit{GHD} as error rates, therefore a lower score is desirable for these metrics. This contrasts with the three information retrieval scores, for which a low value denotes poor performance.}
+	\caption{Comparative results for segmenters and baselines. All displayed results show \textit{WindowDiff} (\textit{WD}), $P_{k}$ and \textit{GHD} as error rates, therefore a lower score is desirable for these metrics. This contrasts with the three information retrieval scores, for which a low value denotes poor performance. The $\phi$ function is the classification function, its parameters are features, and its output a prediction. The $\delta$ function is the "cherry picking" function, which filters out boundaries predicted without sufficient confidence. Best scores are shown bolded.}
 	\label{fig:results}
 \end{table}
 
@@ -42,4 +43,4 @@ The second section of Table \ref{fig:results} shows the results for four differe
 
 \subsection{Segmenters based on feature sets combinations}
 
-The last section of Table \ref{fig:results} shows the results of three different segmenters. The first one is simply a classifier that takes all available features into account. Its results are exactly identical to that of the $n$-grams classifiers, most certainly due to the fact that other features are filtered out due to the sheer number of lexical features. The second one segments according to the union of the boundaries detected by a classifier trained on lexical features and those identified by a classifier trained on all other features. Doing this allows the segmenter to obtain the best possible recall, but at the expense of precision. The last one, "$n$-grams $\cup$ cherry-pick"  considers all boundaries detected by a classifier trained on lexical features as correct, and selects only the boundaries identified by a classifier trained on all other features with a confidence score of 99\% or more. This system outperforms all others both in terms of segmentation scores and $F_1$, however it is still relatively conservative and the segmentation ratio (the number of true boundaries divided by the number of guessed boundaries) remains significantly lower than expected, at~0.67.
+The last section of Table \ref{fig:results} shows the results of three different segmenters. The first one, $\phi(A + B + C + D)$, is simply a classifier that takes all available features into account. Its results are exactly identical to that of the $n$-grams classifier, most certainly due to the fact that other features are filtered out due to the sheer number of lexical features. The second one, $\phi(\phi(A) + \phi(B) + \phi(C) + \phi(D))$, uses as features the outputs of the four classifiers trained on each individual feature set. The third one, $\phi(A) \cup \phi(B + C + D)$, segments according to the union of the boundaries detected by a classifier trained on $n$-grams features and those identified by a classifier trained on all other features. This idea is motivated by the fact that we know all boundaries found by the $n$-grams classifier to be accurate ($P=1$). Doing this allows the segmenter to obtain the best possible recall ($R=.69)$, but at the expense of precision ($P=.58$). The last one, $\phi(A) \cup \delta(\phi(B + C + D))$, attempts to increase the $n$-grams classifier's recall without sacrificing too much precision by being more selective about boundaries. Only those identified by the $n$-grams classifier and those classified as boundaries with a confidence score of at least .99 by a classifier trained on the other feature sets are considered. This system outperforms all others both in terms of segmentation scores and $F_1$, however it is still relatively conservative and the segmentation ratio (the number of true boundaries divided by the number of guessed boundaries) remains significantly lower than expected, at~0.67. Tuning the minimum confidence score ($c$) allows to adjust $P$ from .58 ($c$ = 0) to 1 ($c$ = 1) and $R$ from .39 ($c$ = 1) to .69 ($c$ = 0).
