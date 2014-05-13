@@ -89,7 +89,7 @@ First, the segmenter is intended to work on non-noisy data (i.e. the new content
 %One of these alterations results from encoding and decoding problems of the message content due to the fact that 
 Indeed, some email software clients involved in the discussion %handle the messages in a discussion 
 are not always standards-compliant and totally compatible\footnote{The \textit{Request for Comments} (RFC) are guidelines and protocols proposed by various working groups involved in the Internet Standardization \url{https://tools.ietf.org/html}, the message contents suffer from encoding and decoding problems. Some of the RFC are dedicated to email format and encoding specifications (See RFC 2822 and 5335 as starting points). The last 20 years, there were several propositions with updates and consequently obsoleted versions which may explain some alteration issues.}. 
-In particular, the quoted parts can be wrongly re-encoded at each exchange step due to the absence of dedicated header information about it.
+In particular, the quoted parts can be wrongly re-encoded at each exchange step due to the absence of dedicated header information. % about it.
 %So each of them can 
 In addition, the client programs can integrate their own mechanisms for quoting the previous messages when including them as well as for wrapping too long lines\footnote{Feature for limiting the line length by splitting them into multiple pieces of no more than 80 characters and make the text readable without any horizontal scrolling.}.
 %
@@ -100,10 +100,10 @@ In addition, the client programs can integrate their own mechanisms for quoting 
 %
 Second, accessing the original message may allow taking some contextual features into consideration (like the visual layout for example). 
 %
-Third, to go further, the original context of the extracted text in the source message also conveys some segmentation information. For instance, a sentence from the source message, not present in the reply message, but following an aligned sentence, can be considered as starting a segment.
+Third, to go further, the original context of the extracted text in the source message also conveys some segmentation information. For instance, a sentence from the source message, not present in the reply, but following an aligned sentence, can be considered as starting a segment.
 
 So in addition of identifying the quoted lines, we deploy an alignment procedure to get the original version of the quoted text. 
-In this paper, we do not consider the contextual features from the original message and focus only on original aligned sentences. 
+In this paper, we do not consider the contextual features from the original message and focus only on the original aligned sentences. 
 
 %While the form could be acceptable for some basic experiment, we decide to deploy an alignment procedure for various reasons: get the original form of the text which is quoted. 
 
@@ -199,13 +199,14 @@ Messages with \textit{inline replying} are recognized thanks to the presence of 
 Pairs of source and reply messages are constituted based on the \texttt{\footnotesize in-reply-to} field present in the email headers.
 %The \textit{quoted lines} %in the reply messages 
 % are identified based on the presence of a specific prefix at the beginning of the lines. 
- As declared in the RFC~3676\footnote{\url{http://www.ietf.org/rfc/rfc3676.txt}}, we consider as \textit{quoted lines}, the lines of a message beginning with %to be quoted if the first character is 
+ As declared in the RFC~3676\footnote{\url{http://www.ietf.org/rfc/rfc3676.txt}}, we consider as \textit{quoted lines}, the lines %of a message
+ beginning with %to be quoted if the first character is 
  the "\texttt{>}" (greater than) sign.
 Lines which are not quoted lines are considered to be \textit{new content} lines.
 The word tokens are used to index the quoted lines and the sentences. 
 
 
-Labelling of aligned sentence (sentence from the source message re-used in the reply message) this simple rule-based algorithm:
+Labelling of aligned sentence (sentence from the source message re-used in the reply message) uses this simple rule-based algorithm:
 %Figure~\ref{fig:algoLabellingEachAlignedSentence} gives some precisions about the algorithm for labelling each aligned sentence with a segmentation instruction. 
 %\begin{lstlisting}
 %For each aligned source sentence (sentence from the source message re-used in the reply message)
@@ -224,10 +225,10 @@ Labelling of aligned sentence (sentence from the source message re-used in the r
 \begin{itemize}
 \item[] For each aligned source sentence: \vspace{-0.2cm}
 \begin{itemize}
-\item[] if the sentence is surrounded by new content in the reply message, the label is \texttt{Start\&End}
-\item[] else if the sentence is preceded by a new content, the label is \texttt{Start}
-\item[] \indent else if the sentence is followed by a new content, the label is \texttt{End}
-\item[] else, the label is \texttt{Inside}
+\item[] if the sentence is surrounded by new content in the reply message, the label is \texttt{\footnotesize Start\&End}
+\item[] else if the sentence is preceded by a new content, the label is \texttt{\footnotesize Start}
+\item[] \indent else if the sentence is followed by a new content, the label is \texttt{\footnotesize End}
+\item[] else, the label is \texttt{\footnotesize Inside}
 \end{itemize}
 \end{itemize}
 %    }
