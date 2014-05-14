@@ -31,7 +31,7 @@ is a highly important issue for the industrial and the scientific communities wh
 
 In most works, conversation interactions between the participants are modeled in terms of dialogue acts (DA) \cite{austin:1970}. The DAs describe the communicative function conveyed by each text utterance  (e.g.~question, answer, greeting,\ldots).
 %
-In this paper, we address the problem of rhetorically segmenting the new content parts of messages in online discussions. 
+In this paper, we address the problem of rhetorically segmenting the new content parts of messages in online asynchronous discussions. 
 The process aims at supporting the analysis of messages in terms of DA.
 We pay special attention to the processing of electronic mails.
 
@@ -43,7 +43,7 @@ The main trend in automatic DA recognition consists in using supervised learning
 %
 The hypothesized message segmentation results from the global analysis of these individual predictions over each sentence.
 %Le découpage des messages découle alors des résultats d'analyse.
-
+%
 A first remark on this paradigm is that it is not realistic to use in the context of multi-domain and multimodal processing because it requires the building of training data which is a very substantial and time-consuming task.
 %Une première critique de ce paradigme est que sa mise en oeuvre est laborieuse et coûteuse en temps d'annotation pour construire des données d'entraînement, ce qui n'est pas réaliste en contexte de traitement multi-domaine voire multi-modal.
 %
@@ -57,8 +57,9 @@ Indeed, apart from the closing formula, a message may for example be made of sev
 
 So far, few works address the problem of message segmentation.
 \cite{lampert:2009:emnlp} propose to segment emails in prototypical zones such as the author's contribution, quotes of original messages, the signature, the opening and the closing formulas. 
-In comparison, in this work we focus on the segmentation of the author's contribution (what we call the new content part in the message).
-\cite{joty:2013:jair} identifies topical segments of sentences which consist in clusters of topically related sentences through the multiple messages of a thread, without distinguishing email and forum messages. Apart from the topical aspect, our problem differs because we are only interested in the cohesion between sentences in nearby fragments and % but
+In comparison, we focus on the segmentation of the author's contribution (what we call the new content part).
+\cite{joty:2013:jair} identifies %topical segments of sentences which consist in 
+clusters of topically related sentences through the multiple messages of a thread, without distinguishing email and forum messages. Apart from the topical aspect, our problem differs because we are only interested in the cohesion between sentences in nearby fragments and % but
  not on distant sentences.
 % . In our approach we are more interested by rhetorically motivated segments.
 %De par sa robustesse, cette dernière approche peut servir de base de comparaison.
@@ -71,12 +72,9 @@ the most efficient and reliable method to solve classification problems in Natur
 Our aim is to train a system to detect the segment boundaries, %; in other words 
 i.e. to classify if a given sentence starts, ends or continues a segment.
 
-
 \begin{figure}
 \begin{minipage}{.63\textwidth}
-
 %\begin{multicols}{2}[]
-
 %\begin{multicols}{1}[]
     %    \centering
 \fbox {
@@ -133,23 +131,18 @@ because quite a few people have asked. :-)]$^{R7}$\vspace{0.1cm}
 
 [Bob.]$^{R8}$ %\vspace{0.1cm}
 %Jon.
-
 %[P.S.]$^{R11}$ [This is a major sticking point for ubuntu and Debian acceptance\\
 %on mission critical kit which should be addressed.]$^{R12}$ [It's not too tricky\\
 %to boot and initrd off a separate boot partition.]$^{R13}$\vspace{0.1cm}
-
                % \includegraphics[width=\textwidth]{tiger}
                 \caption{Reply message.}
                 \label{fig:exampleReply}
         \end{subfigure}
 }}
 %\end{multicols}
-
 %        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
 %          %(or a blank line to force the subfigure onto a new line)
 %        \begin{subfigure}[b]{0.4\textwidth}
-
-
 %\begin{tabular}{*{2}{|l}|c|}
 %\toprule
 %\textbf{Source} & \textbf{Reply} & \textbf{Label}\\
@@ -200,26 +193,15 @@ S6    &  & \\ \
 [...] \    &  & \\
 	\bottomrule
 \end{tabular}
-
 \caption{Alignment of sentences from the source and reply messages shown in Figure~\ref{fig:exampleSourCeReplyMessage} and labels inferred from the re-use of source message text. Labels are associated to source sentences.}
 \label{fig:exampleSegmentationLabels}
 \end{minipage}
-
 \end{figure}
-
-
-
-%~\ref{fig:exampleSourCeReplyMessage} 
-Figure~\ref{fig:exampleSource} shows an example of a \textit{source}\footnote{By \textit{source} message, we refer to a message which is replied to. By \textit{original} message, we loosely mean a source message. With this term, we want to point out more precisely the author's contributions.} message and, Figure~\ref{fig:exampleReply}, one of its \textit{reply}.
-We can see that the reply message only re-uses four selected sentences from the source message; namely $S2$, $S3$, $S4$ and $S5$ which respectively correspond to the sentences  $R2$, $R3$, $R4$ and $R6$ in the reply message.
-The author of the reply message deliberately discarded the remaining of the source message.
 %
-Sentences $S2$, $S3$, $S4$,  and respectively $S5$, can be distinctively associated with two acts: the former segment to a comment, and the latter to a question.
-
-
-The originality of the proposed approach is to avoid manually annotating the training data and instead exploit the human computational efforts dedicated for a similar task in a different context of production~\cite{ahn:2006:computer}. 
+The originality of the proposed approach is to avoid manually annotating the training data and instead exploit the human computational efforts dedicated to a similar task in a different context of production~\cite{ahn:2006:computer}. 
 % 
-As recommended by the \textit{Netiquette}\footnote{Set of guidelines for Network Etiquette (\textit{Netiquette}) when using network communication or information services \url{http://tools.ietf.org/html/rfc1855}.}, when replying to a message (email or forum post), the writer should 
+As recommended by the \textit{Netiquette}\footnote{Set of guidelines for Network Etiquette (\textit{Netiquette}) when using network communication or information services RFC1855. %\url{http://tools.ietf.org/html/rfc1855}.
+}, when replying to a message (email or forum post), the writer should 
  ``summarize the original message at the top of its reply, %the message, 
 or include (or "quote") just enough text of the original to give a context, in order to make sure readers understand when they start to read the response\footnote{It is true that some email software clients do not conform to the recommendations of Netiquette and that some online participants are less sensitive to arguments about posting style (many writers reply above  the original message).
 %In top-posting style, the original message is included verbatim, with the reply above it. 
@@ -234,6 +216,15 @@ This posting style is called \textit{interleaved} or \textit{inline replying}.
 %
 %
 The so built segmentation model should be usable for any posting styles by applying it only on new content parts.
+%
+%
+%~\ref{fig:exampleSourCeReplyMessage} 
+Figure~\ref{fig:exampleSource} shows an example of a \textit{source}\footnote{By \textit{source} message, we refer to a message which is replied to. By \textit{original} message, we loosely mean a source message. With this term, we want to point out more precisely the author's contributions.} message and, Figure~\ref{fig:exampleReply}, one of its \textit{reply}.
+We can see that the reply message only re-uses four selected sentences from the source message; namely $S2$, $S3$, $S4$ and $S5$ which respectively correspond to the sentences  $R2$, $R3$, $R4$ and $R6$ in the reply message.
+The author of the reply message deliberately discarded the remaining of the source message.
+%
+Sentences $S2$, $S3$, $S4$,  and respectively $S5$, can be distinctively associated with two acts: the former segment to a comment, and the latter to a question.
+
 
 % Some mail clients, in particular some configurations of Microsoft Outlook, 
 %some email software clients are not standards-compliant and 
@@ -249,8 +240,8 @@ The so built segmentation model should be usable for any posting styles by apply
 
 
 In Section~\ref{sec:buildingannotatedcorpusofsegmentedonlinemessageatnocost}, we explain our approach for building an annotated corpus of segmented online messages at no cost. 
-In Section~\ref{sec:buildingTheSegmenter}, we describe the segmentation system we use as well as the features we extract to model the segmentation. 
-After presenting our experimental framework in Section~\ref{sec:experimentalframework}, we report some experiments and evaluations of the segmentation system in Section~\ref{sec:experiments}. 
+In Section~\ref{sec:buildingTheSegmenter}, we describe the  system and the features we use to model the segmentation. 
+After presenting our experimental framework in Section~\ref{sec:experimentalframework}, we report some evaluations for the segmentation task in Section~\ref{sec:experiments}. 
 Eventually, we discuss our approach in comparison to other works in Section~\ref{sec:relatedWork}.
 
 
