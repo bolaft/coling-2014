@@ -15,15 +15,16 @@ Training the classifier to recognize the different labels of the previously defi
 So we chose to transform these annotations into a binary scheme and merely differentiate sentences that starts a new segment (\textit{True}), or "boundary sentences", from those that do not (\textit{False}). The conversion process is trivial, and can easily be reversed\footnote{Sentences labelled with \textit{SE} or \textit{S} are turned into \textit{True}, the other ones into \textit{False}. To reverse the process, a \textit{True} is turned into \textit{SE} if the next sentence is also a boundary (i.e. a True) and into \textit{S} otherwise. While a \textit{False} is turned into \textit{E} if the next sentence is a boundary (i.e. a True) and into  \textit{I} otherwise.}.
 
 We distinguish four sets of features:  $n$-gram features, information structure based features, thematic features and miscellaneous features.
-The purpose of each one of these features is to describe the current sentence from which it is extracted. 
+%The purpose of each one of these features is to describe the current sentence from which it is extracted. 
 Several of them are borrowed from related work in speech act classification \cite{qadir2011classifying} and email segmentation \cite{lampert2009segmenting}. All the features are domain-independant. Almost all features are language-independant as well, save for a few that can be easily translated.
+For our experiments, the CRF window size is set at 5, i.e. the classification algorithm takes into account features of the next and previous two sentences as well as the current one.
 
 
 
 % -----------------------------------------------------------------------------
 \paragraph{$n$-gram features}
 %
-We select the bigrams and trigrams with the highest document frequency in the training data (empirically we select the top 1,000 $n$-grams), and check for their presence in each sentence. Since the probability of having multiple occurrences of the same $n$-gram in one sentence are extremely low, we do not record the number of occurrences but merely a boolean value. The check is case-insensitive.
+We select the case-insensitive bigrams and trigrams with the highest document frequency in the training data (empirically we select the top 1,000 $n$-grams), and check for their presence in each sentence. Since the probability of having multiple occurrences of the same $n$-gram in one sentence are extremely low, we do not record the number of occurrences but merely a boolean value. %The check is case-insensitive.
 
 
 % -----------------------------------------------------------------------------
