@@ -21,9 +21,7 @@ The corpus contains a total of 272,380 messages (47,044 threads). 33,915 of them
 % -----------------------------------------------------------------------------
 \subsection{Evaluation protocol}
 
-In order to evaluate the efficiency of the segmenter, we perform a 10-fold cross-validation on the Ubuntu corpus, and compare its performance to two different baselines. 
-%
-Performance is compared to two simple heuristic baselines. The first one, the ``regular'' baseline, is computed by segmenting the test set into regular segments of the same length as the average training set segment length, rounded up. The second one is the TextTiling algorithm we described in section~\ref{sec:buildingTheSegmenter}.
+In order to evaluate the efficiency of the segmenter, we perform a 10-fold cross-validation on the Ubuntu corpus, and compare its performance to two different baselines. The first one, the ``regular'' baseline, is computed by segmenting the test set into regular segments of the same length as the average training set segment length, rounded up. The second one is the TextTiling algorithm we described in section~\ref{sec:buildingTheSegmenter}.
 While it is used as a feature in the proposed approach in the previous section, the direct output of the TextTiling algorithm is used for the baseline.
 
 
@@ -33,9 +31,9 @@ The results are measured with a panel of metrics used in text segmentation and I
 %
 %Traditional
 %Information retrieval metrics of 
-Precision and Recall are provided for all results. \textit{Precision} is the percentage of boundaries identified by the classifier that are indeed true boundaries. \textit{Recall} is the percentage of true boundaries that are identified by the classifier. We also provide the $F_1$ score which represents the harmonic mean of precision and recall:
+Precision ($P$) and Recall ($R$) are provided for all results. $P$ is the percentage of boundaries identified by the classifier that are indeed true boundaries. $R$ is the percentage of true boundaries that are identified by the classifier. We also provide the $F_1$ score which represents the harmonic mean of precision and recall:
 %\[
-$  F_1 = 2 \cdot \frac{\mathrm{precision} \cdot \mathrm{recall}}{\mathrm{precision} + \mathrm{recall}}$
+$  F_1 = 2 \cdot \frac{P \cdot R}{P + R}$
 %\]
 
 However, automatic evaluation of speech segmentation through these metrics is problematic as predicted segment boundaries rarely align precisely. 
@@ -64,5 +62,5 @@ The last criterion for message selection is length. The dataset being built from
 %
 After filtering all undesirable messages, the dataset is left with 6,821 out of 33,915 messages (20\%).
 
-For building the segmenter features, we use the Stanford Log-linear Part-Of-Speech Tagger for morpho-syntactic tagging \cite{toutanova2003feature}, and the WordNet lexical database for performing the lemmatization \cite{miller1995wordnet}.
+For building the segmenter features, we use the Stanford Log-linear Part-Of-Speech Tagger for morpho-syntactic tagging \cite{toutanova2003feature}, and the WordNet lexical database for lemmatization \cite{miller1995wordnet}.
 
