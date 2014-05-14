@@ -15,10 +15,10 @@ The basic idea is to interpret the operation performed by a discussion participa
 Assumptions about the kind of annotations depend on the performed operation.
 Deletion or re-use of the source text material can give hints about the relevance of the content: discarded material is probably less relevant than re-used one.
 
-We assume that by replying inside a message and by only including some specific parts, the participant performs some cognitive operations to identify homogeneous self-contained text segments
+We assume that by replying inside a message and by only including some specific parts, the participant performs some cognitive operations to identify homogeneous self-contained text segments.
 % in the original message.
 %We assume that the quoted part consists in an homogeneous information unit 
-with respect to the context from which they are extracted. 
+%with respect to the context from which they are extracted. 
 Consequently, we make assumptions about the role played by the sentences in the original message information structure.
 %For instance, we can assume that the first sentence of a quoted part conveys instructions for opening a new discourse segment while the last sentence carries instructions for ending a segment.
 %Section~\ref{sec:annotationscheme} presents our annotation scheme in detail.
@@ -63,14 +63,15 @@ A sentence in a segment plays one of the following roles: \\
 %\end{multicols}
 %
 %As a matter of fact, 
-This scheme is similar to the \textit{BIO} %annotation 
-scheme except it is at the sentence level and not at the token level.
 % [STARTEND] if the sentence of the source message is surrounded by insertions which are part of the reply message;
 %[START] else if the sentence of the source message is surrounded by insertions which are part of the reply message;
 %Par exemple, on pourra étiqueter de \texttt{TERMINE} la phrase précédent un segment repris et de \texttt{DEBUTE} la première phrase du segment repris. Ces phrases ainsi annotées dans leur contexte constitueront notre corpus d'entraînement.
 %
 Figure~\ref{fig:exampleSegmentationLabels} illustrates the scheme by showing how sentences from Figure~\ref{fig:exampleSourCeReplyMessage} can be aligned and the labels inferred from it. 
-
+%
+%This scheme 
+It is similar to the \textit{BIO} %annotation 
+scheme except it is not at the token level but at the sentence level. % and not at the token level.
 
 
 
@@ -88,10 +89,13 @@ First, the segmenter is intended to work on non-noisy data (i.e. the new content
 %The main problem comes from the ability to handle non ASCII characters.
 %One of these alterations results from encoding and decoding problems of the message content due to the fact that 
 Indeed, some email software clients involved in the discussion %handle the messages in a discussion 
-are not always standards-compliant and totally compatible\footnote{The \textit{Request for Comments} (RFC) are guidelines and protocols proposed by various working groups involved in the Internet Standardization \url{https://tools.ietf.org/html}, the message contents suffer from encoding and decoding problems. Some of the RFC are dedicated to email format and encoding specifications (See RFC 2822 and 5335 as starting points). The last 20 years, there were several propositions with updates and consequently obsoleted versions which may explain some alteration issues.}. 
+are not always standards-compliant and totally compatible\footnote{The \textit{Request for Comments} (RFC) are guidelines and protocols proposed by working groups involved in the Internet Standardization \url{https://tools.ietf.org/html}, the message contents suffer from encoding and decoding problems. Some of the RFC are dedicated to email format and encoding specifications (See RFC 2822 and 5335 as starting points). %The last 20 years, t
+There have been several propositions with updates and consequently obsoleted versions which may explain some alteration issues.}. 
 In particular, the quoted parts can be wrongly re-encoded at each exchange step due to the absence of dedicated header information. % about it.
 %So each of them can 
-In addition, the client programs can integrate their own mechanisms for quoting the previous messages when including them as well as for wrapping too long lines\footnote{Feature for limiting the line length by splitting them into multiple pieces of no more than 80 characters and make the text readable without any horizontal scrolling.}.
+In addition, the client programs can integrate their own mechanisms for quoting the previous messages when including them as well as for wrapping too long lines\footnote{
+%Feature for limiting the line length by splitting them into multiple pieces of no more than 80 characters and make the text readable without any horizontal scrolling.
+Feature for making the text readable without any horizontal scrolling by splitting lines into pieces of about 80 characters.}.
 %
 % Futhermore, because of some user preferences or systems configurations, a thread may embed and interleave various posting styles.  
 %

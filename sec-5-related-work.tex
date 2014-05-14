@@ -5,11 +5,9 @@
 Three research areas are directly related to our study:
 a) collaborative approaches for acquiring
 annotated corpora, b) detection of email structure, and c) sentence alignment.
-
-
-We can set our approach in the trend of the collaborative approaches for acquiring
-annotated corpora such as the Game With A Purpose (GWAP) \cite{ahn:2006:computer} or the paid-for crowdsourcing \cite{fort:2011:cl}.
-In the \cite{wang:2013:lre}'s taxonomy, it could be more related to the \textit{Wisdom of the Crowds} (WotC) genre where motivators are altruism or prestige to collaborate for the building of a public resource.
+%
+%We can set our approach in the trend of the collaborative approaches for acquiring annotated corpora such as the Game With A Purpose (GWAP) \cite{ahn:2006:computer} or the paid-for crowdsourcing \cite{fort:2011:cl}.
+In the \cite{wang:2013:lre}'s taxonomy of the collaborative approaches for acquiring annotated corpora, our approach could be related to the \textit{Wisdom of the Crowds} (WotC) genre where motivators are altruism or prestige to collaborate for the building of a public resource.
 As a major difference, we did not initiate the annotation process and consequently we did not define annotation guidelines, design tasks or develop tools for annotating which are always problematic questions.
 We have just rerouted \textit{a posteriori} the result of an existing task which was performed in a distinct context.
 In our case the burning issue is to determine the adequacy of our segmentation task.
@@ -18,7 +16,7 @@ We argue that even if it is not always obvious to tag topically or rhetorically 
 %
 % is another major genre for crowdsourcing. WotC deployments allow members of the general public to collaborate to build a public resource, to predict event outcomes or to estimate difficulty to guess quantities. Wikipedia, the most well-known WotC instance, has different motivators that have changed over time. Initially, altruism and indirect benefit were factors: people contributed articles to Wikipedia not only to help others but also to build a resource that would ultimately help themselves. As Wikipedia matured, the prestige of being a regular contributor or editor became a motivator (Suh et al. 2009).
 %
-We think that our approach can also be used for determining the relevance of the segments, however it has some limits, and we do not know how labeling segments with dialogue acts may help us do so.
+We think that our approach can also be used for determining the relevance of the segments, however it has some limits, and we do not know how labelling segments with dialogue acts may help us do so.
 
 Detecting the structure of a thread is a hot topic. 
 %
@@ -27,12 +25,12 @@ We are aware of recent works in linear text segmentation such as \cite{kazantsev
 %
 Due to the size of the messages (and consequently the available lexical material), it is not always possible to exploit this kind of method. However, our results tend to indicate that we should investigate in this direction nonetheless.
 %
-By detecting sub-units of information within the message, our work may complement the works of \cite{li:2011:threadlinking,kim:2010:taggingandlinking} who proposes solutions for detecting links between messages. 
+By detecting sub-units of information within the message, our work may complement the works of \cite{li:2011:threadlinking,kim:2010:taggingandlinking} who propose solutions for detecting links between messages. 
 % \texttt{in-reply-to} link
-We may extend these approaches by considering the possibility of pointing to multiple message targets or determining more precisely the pointed area.
+We may extend these approaches by considering the possibility of pointing from/to multiple message sources/targets. % or determining more precisely the pointed area.
 
-Concerning the alignment process, our task can be compared to the detection of monolingual text derivation (otherwise called plagiarism, near–duplication, revision). \cite{poulard:2011:detecting} compare, for instance, the use of $n$–grams overlap with the use of text specificities. 
-In comparison, in our work we already know that a text (the reply message) derives from another (the source message). Sentence alignment has also been a very active field of research 
+Concerning the alignment process, our task can be compared to the detection of monolingual text derivation (otherwise called plagiarism, near–duplication, revision). \cite{poulard:2011:detecting} compare, for instance, the use of $n$–grams overlap with the use of text hapax. 
+In constrast, we already know that a text (the reply message) derives from another (the source message). Sentence alignment has also been a very active field of research 
 %both in monolingual (e.g. plagiarism detection) and multilingual  (e.g. 
 in statistical machine translation for building parallel corpora. %) domains. 
 %

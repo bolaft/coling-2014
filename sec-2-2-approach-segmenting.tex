@@ -38,7 +38,7 @@ describes the information imparted by the sentence in terms of the way it is rel
 %The beginning of a sentence is so often seen as playing an important role in discourse structure 
 
 We focus on the first and last three \textit{significant} tokens in the sentence. %, which often serve as connectors to adjoining sentences and therefore hold important structural information.
-A token is considered as significant if its frequency is higher than  1/2,000.
+A token is considered as significant if its frequency is higher than  1/2,000\footnote{This value was set up empirically on our data. More experimentation needs to be done to generalize it.}.
 %Token significance is determined by the number of occurrences of the token in the training corpus: terms with a frequency lower than 1/2000 are considered insignificant. If a sentence contains less than six significant tokens, the same token can be found in both triplets. If the sentence contains less than three significant tokens, missing values are replaced by a placeholder.
 As features we use $n$-grams of the surface form, lemma and part-of-speech tag of each triplet (36 features).
 %For example, from the sentence "\textit{Have you tried to update your browser?}", we can generate the following features~: \texttt{\footnotesize "Have", "have", "NNP", "you", "you", "PRP", "tried", "try", "VBD", "Have you", "have you", "you tried", "you try", "NNP PRP", "PRP VBD", "Have you tried", "have you try", "NNP PRP VBD", "your", "your", "PRP"} etc.
