@@ -49,16 +49,16 @@ A first remark on this paradigm is that it is not realistic to use in the contex
 %
 A second remark is that the model does not have a fine-grained representation of the message structure or the relations between messages. Considering such characteristics could drastically improve the systems % for example
 %(e.g.~
-to allow focus on specific text parts or to filter out the less relevant ones. %). 
+to allow focus on specific text parts or to filter out less relevant ones. %). 
 % Une seconde critique est que dans ce contexte, la connaissance de la structure des messages permettrait aux applications susvisées de se focaliser sur des parties spécifiques et filtrer les passages moins pertinents. 
 Indeed, apart from the closing formula, a message may for example be made of several distinct information requests, the description of unsuccessful procedure, the quote of third-party messages\ldots
 % En effet, outre des formules de politesse, un message peut compter par exemple plusieurs expressions de besoin, décrire une procédure infructueuse et citer des portions de messages tiers. 
 % faire référence à plusieurs contenus exprimés par différentes contributions tierces
 
 So far, few works address the problem of message segmentation.
-\cite{lampert:2009:emnlp} propose to segment emails in prototypical zones such as the author's contribution, the quotes of original messages, the signature, the opening and the closing formulas. 
+\cite{lampert:2009:emnlp} propose to segment emails in prototypical zones such as the author's contribution, quotes of original messages, the signature, the opening and the closing formulas. 
 In comparison, in this work we focus on the segmentation of the author's contribution (what we call the new content part in the message).
-\cite{joty:2013:jair} identifies topical segments of sentences which consist in clusters of topically related sentences through the multiple messages of a thread (making no difference between mail and forum messages). Apart from the topical aspect, our problem differs from the fact that we are only interested in the cohesion between sentences in nearby fragments and % but
+\cite{joty:2013:jair} identifies topical segments of sentences which consist in clusters of topically related sentences through the multiple messages of a thread, without distinguishing email and forum messages. Apart from the topical aspect, our problem differs because we are only interested in the cohesion between sentences in nearby fragments and % but
  not on distant sentences.
 % . In our approach we are more interested by rhetorically motivated segments.
 %De par sa robustesse, cette dernière approche peut servir de base de comparaison.
@@ -69,7 +69,7 @@ Despite the drawbacks mentioned above, a supervised approach remains %generally
 the most efficient and reliable method to solve classification problems in Natural Language Processing. 
 % 
 Our aim is to train a system to detect the segment boundaries, %; in other words 
-to classify if a given sentence starts, ends or continues a segment.
+i.e. to classify if a given sentence starts, ends or continues a segment.
 
 
 \begin{figure}
@@ -211,7 +211,6 @@ S6    &  & \\ \
 
 %~\ref{fig:exampleSourCeReplyMessage} 
 Figure~\ref{fig:exampleSource} shows an example of a \textit{source}\footnote{By \textit{source} message, we refer to a message which is replied to. By \textit{original} message, we loosely mean a source message. With this term, we want to point out more precisely the author's contributions.} message and, Figure~\ref{fig:exampleReply}, one of its \textit{reply}.
-Sentences have been marked to facilitate the explanations.
 We can see that the reply message only re-uses four selected sentences from the source message; namely $S2$, $S3$, $S4$ and $S5$ which respectively correspond to the sentences  $R2$, $R3$, $R4$ and $R6$ in the reply message.
 The author of the reply message deliberately discarded the remaining of the source message.
 %
