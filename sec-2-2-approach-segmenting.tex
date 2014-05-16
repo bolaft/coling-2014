@@ -16,7 +16,7 @@ So we chose to transform these annotations into a binary scheme and merely diffe
 
 We distinguish four sets of features:  $n$-gram features, information structure based features, thematic features and miscellaneous features.
 %The purpose of each one of these features is to describe the current sentence from which it is extracted. 
-Several of them are borrowed from related work in speech act classification \cite{qadir2011classifying} and email segmentation \cite{lampert2009segmenting}. All the features are domain-independant. Almost all features are language-independant as well, save for a few that can be easily translated.
+All the features are domain-independant. Almost all features are language-independant as well, save for a few that can be easily translated.
 For our experiments, the CRF window size is set at 5, i.e. the classification algorithm takes into account features of the next and previous two sentences as well as the current one.
 
 
@@ -84,7 +84,7 @@ Due to the short size of the messages, we define a block size to equate the sum 
 \paragraph{Miscellaneous features}
 %
 This feature set includes stylistic %graphic, orthographic 
-and semantic features. 24 features are in the set:
+and semantic features. 24 features, several of them borrowed from related work in speech act classification \cite{qadir2011classifying} and email segmentation \cite{lampert2009segmenting}, are in the set:
 %
 \textit{Stylistic features} capture information about the visual structure and composition of the message:
 the position of the sentence in the email, 
