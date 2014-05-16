@@ -3,7 +3,7 @@
 \section{Building the segmenter}
 \label{sec:buildingTheSegmenter}
 Each email is processed as a sequence of sentences.
-We choose to define the segmentation problem as a sequence labelling task whose aim is to assign the globally best set of labels for the entire sequence of sentences at once. The underlying idea is that the choice of the optimal label for a given sentence is dependent on the choices of nearby sentences.
+We choose to define the segmentation problem as a sequence labelling task whose aim is to assign the globally best set of labels for the entire sequence at once. The underlying idea is that the choice of the optimal label for a given sentence is dependent on the choices of nearby sentences.
 % If a sentence is labelled \texttt{\footnotesize ending}, the next one is likely to be a \texttt{\footnotesize starting}.
 %
 % wikipedia is a type of pattern recognition task that involves the algorithmic assignment of a categorical label to each member of a sequence of observed values. A common example of a sequence labeling task is part of speech tagging, which seeks to assign a part of speech to each word in an input sentence or document. Sequence labeling can be treated as a set of independent classification tasks, one per member of the sequence. However, accuracy is generally improved by making the optimal label for a given element dependent on the choices of nearby elements, using special algorithms to choose the globally best set of labels for the entire sequence at once.
