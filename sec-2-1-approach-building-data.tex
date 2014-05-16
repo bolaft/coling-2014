@@ -4,7 +4,7 @@
 \section{Building annotated corpora of segmented online discussions at no cost}
 \label{sec:buildingannotatedcorpusofsegmentedonlinemessageatnocost}
 
-We present our assumptions and the detailed steps of our approach.
+We present the assumptions and the detailed steps of our approach.
 
 %------------------------------------------------------------------------------
 \subsection{Annotation scheme}
@@ -12,14 +12,14 @@ We present our assumptions and the detailed steps of our approach.
 
 
 The basic idea is to interpret the operation performed by a discussion participant on the message he replies as an annotation operation. 
-Assumptions about the kind of annotations depend on the performed operation.
+Assumptions about the kind of annotations depend on the operation that has been performed.
 Deletion or re-use of the source text material can give hints about the relevance of the content: discarded material is probably less relevant than re-used one.
 
 We assume that by replying inside a message and by only including some specific parts, the participant performs some cognitive operations to identify homogeneous self-contained text segments.
 % in the original message.
 %We assume that the quoted part consists in an homogeneous information unit 
 %with respect to the context from which they are extracted. 
-Consequently, we make assumptions about the role played by the sentences in the original message information structure.
+Consequently, we make some assumptions about the role played by the sentences in the original message information structure.
 %For instance, we can assume that the first sentence of a quoted part conveys instructions for opening a new discourse segment while the last sentence carries instructions for ending a segment.
 %Section~\ref{sec:annotationscheme} presents our annotation scheme in detail.
 %
@@ -106,8 +106,8 @@ Second, accessing the original message may allow taking some contextual features
 %
 Third, to go further, the original context of the extracted text in the source message also conveys some segmentation information. For instance, a sentence from the source message, not present in the reply, but following an aligned sentence, can be considered as starting a segment.
 
-So in addition of identifying the quoted lines, we deploy an alignment procedure to get the original version of the quoted text. 
-In this paper, we do not consider the contextual features from the original message and focus only on the original aligned sentences. 
+So in addition to identifying the quoted lines, we deploy an alignment procedure to get the original version of the quoted text. 
+In this paper, we do not consider the contextual features from the original message and focus only on sentences that have been aligned. 
 
 %While the form could be acceptable for some basic experiment, we decide to deploy an alignment procedure for various reasons: get the original form of the text which is quoted. 
 
