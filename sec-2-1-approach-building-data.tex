@@ -27,11 +27,15 @@ Consequently, we make some assumptions about the role played by the sentences in
 % consecutive discourse segments, each of them conveying its own dialogue act.
 %We take the sentence as the elementary unit.
 %Consequently, each 
-A sentence in a segment plays one of the following roles: \\
-\indent $\bullet$ \texttt{\footnotesize starting and ending} (\textit{SE}) a segment when there is only one sentence in the segment, \\
-\indent $\bullet$ \texttt{\footnotesize starting} (\textit{S}) a segment if there are at least two sentences in the segment and it is the first one, \\
-\indent $\bullet$ \texttt{\footnotesize ending} (\textit{E}) a segment if there are at least two sentences in the segment and it is the last one, \\
-\indent $\bullet$ \texttt{\footnotesize inside} (\textit{I}) a segment in any other cases.
+A sentence in a segment plays one of the following roles: %\\
+%\indent $\bullet$ 
+\texttt{\footnotesize starting and ending} (\textit{SE}) a segment when there is only one sentence in the segment, %\\
+%\indent $\bullet$ 
+\texttt{\footnotesize starting} (\textit{S}) a segment if there are at least two sentences in the segment and it is the first one, %\\
+%\indent $\bullet$
+ \texttt{\footnotesize ending} (\textit{E}) a segment if there are at least two sentences in the segment and it is the last one, %\\
+%\indent $\bullet$ 
+\texttt{\footnotesize inside} (\textit{I}) a segment in any other cases.
 %
 %\begin{description}[itemsep=0mm]
 %\itemsep0em 
@@ -71,7 +75,7 @@ Figure~\ref{fig:exampleSegmentationLabels} illustrates the scheme by showing how
 %
 %This scheme 
 It is similar to the \textit{BIO} %annotation 
-scheme except it is not at the token level but at the sentence level. % and not at the token level.
+scheme except it is not at the token level but at the sentence level \cite{ratinov:2009:conll}. % and not at the token level.
 
 
 
@@ -266,7 +270,7 @@ text.
 The %``DP string alignment 
 algorithm works by ``performing a global minimization of a Levenshtein distance function which weights the cost of correct words, insertions, deletions and substitutions as 0, 75, 75 and 100 respectively.
 %
-The computational complexity of DP is $O(NN)$.''
+The computational complexity of DP is $O(MN)$.''
 %    final static int MAX_PENALTY = 1000000;
 %    final static int SUBSTITUTION_PENALTY = 100;
 %    final static int INSERTION_PENALTY = 75;
