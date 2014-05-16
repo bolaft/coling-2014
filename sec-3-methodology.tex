@@ -60,9 +60,11 @@ To reduce noise in the corpus we filter out undesirable emails based on several 
 %
 In addition, we choose to consider only replies to thread starters. This choice is based on the assumption that the alignment module would have more difficulty in recognizing properly sentences that were repeatedly transformed in successive replies. Indeed, these replies - that would contain quoted text from other messages - would be more likely to be poorly labelled through automatic annotation.
 %
-The last criterion for message selection is length. The dataset being built from a mailing list that can cover very technical discussions, users sometimes send very lengthy messages containing many lines of copied-and-pasted code, software logs, bash command outputs, etc. The number of these messages is marginal, but their lengths being disproportionately high, they can have a negative impact on the segmenter's performance. We therefore exclude messages longer than the average message length plus the standard length deviation.
+The last criterion % for message selection
+ is length. The dataset being built from a mailing list that can cover very technical discussions, users sometimes send very lengthy messages containing many lines of copied-and-pasted code, software logs, bash command outputs, etc. The number of these messages is marginal, but their lengths being disproportionately high, they can have a negative impact on the segmenter's performance. We therefore exclude messages longer than the average message length plus the standard length deviation.
 %
 After filtering, the dataset is left with 6,821 messages out of 33,915 (20\%).
 
-For building the segmenter features, we use the Stanford Log-linear Part-Of-Speech Tagger for morpho-syntactic tagging \cite{toutanova2003feature}, and the WordNet lexical database for lemmatization \cite{miller1995wordnet}.
+For building the segmenter features, we use the Stanford %Log-linear
+ Part-Of-Speech Tagger for morpho-syntactic tagging \cite{toutanova2003feature}, and the WordNet lexical database for lemmatization \cite{miller1995wordnet}.
 

@@ -13,7 +13,7 @@ We present the assumptions and the detailed steps of our approach.
 
 The basic idea is to interpret the operation performed by a discussion participant on the message he replies as an annotation operation. 
 Assumptions about the kind of annotations depend on the operation that has been performed.
-Deletion or re-use of the source text material can give hints about the relevance of the content: discarded material is probably less relevant than re-used one.
+Deletion or re-use of the original text material can give hints about the relevance of the content: discarded material is probably less relevant than re-used one.
 
 We assume that by replying inside a message and by only including some specific parts, the participant performs some cognitive operations to identify homogeneous self-contained text segments.
 % in the original message.
@@ -108,7 +108,8 @@ Feature for making the text readable without any horizontal scrolling by splitti
 %
 Second, accessing the original message may allow taking some contextual features into consideration (like the visual layout for example). 
 %
-Third, to go further, the original context of the extracted text in the source message also conveys some segmentation information. For instance, a sentence from the source message, not present in the reply, but following an aligned sentence, can be considered as starting a segment.
+Third, to go further, the original context of the extracted text %in the original message
+ also conveys some segmentation information. For instance, a sentence from the original message, not present in the reply, but following an aligned sentence, can be considered as starting a segment.
 
 So in addition to identifying the quoted lines, we deploy an alignment procedure to get the original version of the quoted text. 
 In this paper, we do not consider the contextual features from the original message and focus only on sentences that have been aligned. 
@@ -171,7 +172,7 @@ In this paper, we do not consider the contextual features from the original mess
 
 
 
-The generation procedure is intended to "automatically" annotate sentences from the source messages with segmentation information.
+The generation procedure is intended to "automatically" annotate sentences from the original messages with segmentation information.
 %Figure~\ref{fig:procedureTrainingDataGeneration} describes the steps of the generation procedure at the global level. 
 The procedure follows the following steps:
 %\begin{figure}[ht!]
@@ -183,15 +184,15 @@ The procedure follows the following steps:
 \begin{enumerate}[itemsep=0mm]
 %\itemsep0em 
 \item Messages posted in the interleaved replying style are identified
-\item For each pair of source and reply messages:
+\item For each pair of original and reply messages:
 \begin{enumerate}
 \item Both messages are tokenized at sentence and at word levels
 \item Quoted lines in the reply message are identified
 \item Sentences which are part of the quoted text in the reply message are identified 
-\item Sentences in the source message are aligned with  quoted text in the reply message \footnote{Section~\ref{secalignmentmodule} details how alignment is performed.}
+\item Sentences in the original message are aligned with  quoted text in the reply message \footnote{Section~\ref{secalignmentmodule} details how alignment is performed.}
 %\item For each aligned sentence 
 %\begin{enumerate}
-\item Aligned source sentences are labelled in terms of position in segment %(See~Figure~\ref{fig:algoLabellingEachAlignedSentence})
+\item Aligned original sentences are labelled in terms of position in segment %(See~Figure~\ref{fig:algoLabellingEachAlignedSentence})
 %\end{enumerate}
 \item The sequence of labelled sentences is added to the training data %The sequence of labelled sentences makes up a labelled message which is add to the training data 
 \end{enumerate}
@@ -204,7 +205,7 @@ The procedure follows the following steps:
 % Each message from our corpus are tokenized and the sentences split. 
 %
 Messages with \textit{inline replying} are recognized thanks to the presence of at least two consecutive quoted lines separated by new content lines. 
-Pairs of source and reply messages are constituted based on the \texttt{\footnotesize in-reply-to} field present in the email headers.
+Pairs of original and reply messages are constituted based on the \texttt{\footnotesize in-reply-to} field present in the email headers.
 %The \textit{quoted lines} %in the reply messages 
 % are identified based on the presence of a specific prefix at the beginning of the lines. 
  As declared in the RFC~3676\footnote{\url{http://www.ietf.org/rfc/rfc3676.txt}}, we consider as \textit{quoted lines}, the lines %of a message
@@ -214,7 +215,7 @@ Lines which are not quoted lines are considered to be \textit{new content} lines
 The word tokens are used to index the quoted lines and the sentences. 
 
 
-Labelling of aligned sentence (sentence from the source message re-used in the reply message) uses this simple rule-based algorithm:
+Labelling of aligned sentence (sentence from the original message re-used in the reply message) uses this simple rule-based algorithm:
 %Figure~\ref{fig:algoLabellingEachAlignedSentence} gives some precisions about the algorithm for labelling each aligned sentence with a segmentation instruction. 
 %\begin{lstlisting}
 %For each aligned source sentence (sentence from the source message re-used in the reply message)
@@ -231,7 +232,7 @@ Labelling of aligned sentence (sentence from the source message re-used in the r
 %\fbox {
 %    \parbox{\linewidth}{
 \begin{itemize}
-\item[] For each aligned source sentence: \vspace{-0.2cm}
+\item[] For each aligned original sentence: \vspace{-0.2cm}
 \begin{itemize}
 \item[] if the sentence is surrounded by new content in the reply message, the label is \texttt{\footnotesize Start\&End}
 \item[] else if the sentence is preceded by a new content, the label is \texttt{\footnotesize Start}

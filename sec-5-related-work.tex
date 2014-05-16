@@ -30,7 +30,7 @@ By detecting sub-units of information within the message, our work may complemen
 We may extend these approaches by considering the possibility of pointing from/to multiple message sources/targets. % or determining more precisely the pointed area.
 
 Concerning the alignment process, our task can be compared to the detection of monolingual text derivation (otherwise called plagiarism, near–duplication, revision). \cite{poulard:2011:detecting} compare, for instance, the use of $n$–grams overlap with the use of text hapax. 
-In constrast, we already know that a text (the reply message) derives from another (the source message). Sentence alignment has also been a very active field of research 
+In constrast, we already know that a text (the reply message) derives from another (the original message). Sentence alignment has also been a very active field of research 
 %both in monolingual (e.g. plagiarism detection) and multilingual  (e.g. 
 in statistical machine translation for building parallel corpora. %) domains. 
 %
@@ -43,7 +43,7 @@ Some methods are based on sentence length comparison \cite{gale:1991}, some meth
 % (n–grams overlap) while reducing the signature size and so, the processing costs. In order ...
 In comparison, %to the speech recognition and translation use cases, 
 %our work is more an alignment task than a detection of derivation. In addition 
-in our task, despite some noise, the compared text includes large parts of material identical to the source text. 
+in our task, despite some noise, the compared text includes large parts of material identical to the original text. 
 The kinds of edit operation in presence (no inversion\footnote{When computing the Levenshtein distance, the inversion edit operation is the most costly operation.} only deletion, insertion and substitution) lead us to consider the Levenshtein distance as a serious option.  
 
 % \url{http://www.statmt.org/survey/Topic/SentenceAlignment}
