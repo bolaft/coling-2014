@@ -1,0 +1,120 @@
+%
+% File acl2014.tex
+%
+% Contact: koller@ling.uni-potsdam.de, yusuke@nii.ac.jp
+%%
+%% Based on the style files for ACL-2013, which were, in turn,
+%% Based on the style files for ACL-2012, which were, in turn,
+%% based on the style files for ACL-2011, which were, in turn, 
+%% based on the style files for ACL-2010, which were, in turn, 
+%% based on the style files for ACL-IJCNLP-2009, which were, in turn,
+%% based on the style files for EACL-2009 and IJCNLP-2008...
+
+%% Based on the style files for EACL 2006 by 
+%%e.agirre@ehu.es or Sergi.Balari@uab.es
+%% and that of ACL 08 by Joakim Nivre and Noah Smith
+
+\documentclass[11pt]{article}
+\usepackage{acl2014}
+\usepackage{times}
+\usepackage{url}
+\usepackage{latexsym}
+
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc} 
+\usepackage{upgreek}
+\usepackage{bm}
+\usepackage{todonotes}
+\usepackage{csquotes}
+\usepackage{float}
+\usepackage{array}
+
+
+% subfigure
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+
+% Package pour les tableaux 
+\usepackage{booktabs}
+
+% plusieurs colonnes et modification de leur taille dans les tables
+%\usepackage{multirow}
+
+%\usepackage{setspace}
+\usepackage{listings}
+\lstset{ %
+  basicstyle=\footnotesize
+}
+
+
+%\usepackage{rst}
+\usepackage{multicol}
+
+\usepackage{enumitem}
+
+\hypersetup{
+    colorlinks=false,
+    pdfborder={0 0 0},
+}
+
+%\setlength\titlebox{5cm}
+
+% You can expand the titlebox if you need extra space
+% to show all the authors. Please do not make the titlebox
+% smaller than 5cm (the original size); we will check this
+% in the camera-ready version and ask you to change it back.
+
+
+\title{Exploiting the human computational effort dedicated to message reply formatting for training discursive email segmenters} %Act of speech boundary detection in email corpora
+
+\author{}
+
+\date{}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+In the context of multi-domain and multimodal online asynchronous discussion analysis, we propose an innovative strategy for manual annotation of dialog act (DA) segments. The process aims at supporting the analysis of messages in terms of DA.
+Our objective is to train a sequence labelling system to detect the segment boundaries. %; i.e. to classify if a given sentence starts, ends or continues a segment.
+The originality of the proposed approach is to avoid manually annotating the training data and instead exploit the human computational efforts dedicated to message reply formatting %; in particular 
+when the writer replies to a message by inserting his response just after the quoted text appropriate to his intervention.
+%
+We describe the approach, propose a new electronic mail corpus %to the community 
+and report the evaluation of segmentation models we built.
+\end{abstract}
+
+
+% -----------------------------------------------------------------------------
+% INTRODUCTION
+\input{sec-1-introduction-alt.tex}
+
+% -----------------------------------------------------------------------------
+% APPROACH
+\input{sec-2-1-approach-building-data.tex}
+
+\input{sec-2-2-approach-segmenting.tex}
+
+% -----------------------------------------------------------------------------
+% METHODOLOGY
+\input{sec-3-methodology.tex}
+
+% -----------------------------------------------------------------------------
+% RESULT
+\input{sec-4-result-alt.tex}
+
+% -----------------------------------------------------------------------------
+% RELATED WORK
+\input{sec-5-related-work.tex}
+
+% -----------------------------------------------------------------------------
+% FUTURE WORK
+\input{sec-6-future-work.tex}
+
+
+% include your own bib file like this:
+\bibliographystyle{acl}
+\bibliography{refs}
+
+\end{document}
